@@ -12,6 +12,7 @@ package GDM.Mutation.objects
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.filters.DropShadowFilter;
+	import flash.text.TextField;
 	import flash.ui.Mouse;
 
 	//	Class: TestTube extends Sprite
@@ -27,6 +28,11 @@ package GDM.Mutation.objects
 		private var tubeShape:Sprite;
 		private var tubeInner:Shape;
 		private var tubeShadow:Shape;
+		
+		private var bacteria:Bacteria;
+		private var outFood:TextField;
+		private var outProd:TextField;
+		private var outName:TextField;
 		
 		//	Constructor: default
 		public function TestTube() 
@@ -46,10 +52,17 @@ package GDM.Mutation.objects
 			tubeShape = new Sprite();
 			tubeInner = new Shape();
 			tubeShadow = new Shape();
+			bacteria = new Bacteria();
+			outFood = new TextField();
+			outProd = new TextField();
+			outName = new TextField();
 			
 			addChild(tubeShape);
 			tubeShape.addChild(tubeInner);
 			addChild(tubeShadow);
+			addChild(outFood);
+			addChild(outName);
+			addChild(outProd);
 			
 			//	The outer Grey Tube
 			//		Draw the main rectangle body
@@ -93,6 +106,14 @@ package GDM.Mutation.objects
 			tubeShadow.graphics.endFill();
 			tubeShadow.y = 155;
 			
+			outName.text = bacteria.name;
+			outFood.text = bacteria.food.toString();
+			outProd.text = (bacteria.production / bacteria.productionNeeded).toString() + "%";
+
+			outName.y = -100;
+			outFood.y = -75;
+			outProd.y = -50;
+			
 			animCount = 0;
 			isAnim = false;
 			originaly = tubeShape.y;
@@ -100,6 +121,7 @@ package GDM.Mutation.objects
 			
 			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
+			addEventListener(MouseEvent.CLICK, onClick);
 			addEventListener(Event.ENTER_FRAME, onTick);
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
@@ -129,12 +151,24 @@ package GDM.Mutation.objects
 			
 		}
 		
+		private function onClick(e:MouseEvent):void
+		{
+			bacteria.food += 100;
+		}
+		
 		
 		//	Listener: onTick
 		//	Every frame, process the actions of this TestTube
 		private function onTick(e:Event):void
 		{
 			tickCount++;
+
+			
+			//	Update outputs
+			outName.text = bacteria.name;
+			outFood.text = bacteria.food.toString();
+			outProd.text = (bacteria.production / bacteria.productionNeeded).toFixed(0).toString() + "%";
+			bacteria.update();
 			
 			//	Animate the floating tube if it's to be animated
 			if (isAnim) {
