@@ -20,19 +20,18 @@ package GDM.Mutation.objects
 	public class TestTube extends Sprite
 	{
 		
-		private var animCount:int;
+		private var animCount:int;		//	Animation variables
 		private var isAnim:Boolean;
 		private var originaly:int;
 		private var tickCount:int;
 		
-		private var tubeShape:Sprite;
+		private var tubeShape:Sprite;	//	Graphics objects
 		private var tubeInner:Shape;
 		private var tubeShadow:Shape;
 		
-		private var bacteria:Bacteria;
+		private var bacteria:Bacteria;	//	Output objects
 		private var outFood:TextField;
 		private var outProd:TextField;
-		private var outName:TextField;
 		
 		//	Constructor: default
 		public function TestTube() 
@@ -49,22 +48,102 @@ package GDM.Mutation.objects
 		//	Initialisation once the stage has been created
 		private function onInit(e:Event = null):void
 		{
+			//	Memory Allocations
 			tubeShape = new Sprite();
 			tubeInner = new Shape();
 			tubeShadow = new Shape();
 			bacteria = new Bacteria();
 			outFood = new TextField();
 			outProd = new TextField();
-			outName = new TextField();
 			
+			//	Setup the graphics
+			initGraphics();
+			
+			//	Variable Initialisation
+			outFood.text = bacteria.food.toString();
+			outProd.text = bacteria.production.toString();
+
+			outFood.y = -75;
+			outProd.y = -50;
+			
+			animCount = 0;
+			isAnim = false;
+			originaly = tubeShape.y;
+			tickCount = 0;
+			
+			//	Add childres
 			addChild(tubeShape);
 			tubeShape.addChild(tubeInner);
 			addChild(tubeShadow);
 			addChild(outFood);
-			addChild(outName);
 			addChild(outProd);
 			
-			//	The outer Grey Tube
+			//	Event Listeners
+			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
+			addEventListener(MouseEvent.CLICK, onClick);
+			addEventListener(Event.ENTER_FRAME, onTick);
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+		}
+		
+		//	Listner: onRollOver
+		//	Zooms in and shows closeup view when hovering over this
+		private function onRollOver(e:MouseEvent):void
+		{
+			this.scaleX = 1.25;
+			this.scaleY = 1.25;
+			if (!isAnim) {
+				originaly = tubeShape.y;
+				isAnim = true;
+			}
+			
+		}
+		
+		//	Listener: onRollOut
+		//	Unzoom and stop animation when not hovering anymore
+		private function onRollOut(e:MouseEvent):void
+		{
+			this.scaleX = 1;
+			this.scaleY = 1;
+			if (isAnim) {
+				tubeShape.y = originaly;
+				tubeShadow.scaleX =1;
+				tubeShadow.scaleY =1;
+				animCount = 0;
+			}
+			isAnim = false;
+			
+		}
+		
+		//	Listener: onClick
+		//	Adds food when it's clicked on
+		private function onClick(e:MouseEvent):void
+		{
+			bacteria.food += 100;
+		}
+		
+		
+		//	Listener: onTick
+		//	Every frame, process the actions of this TestTube
+		private function onTick(e:Event):void
+		{
+			tickCount++;
+
+			//	Update outputs
+			outFood.text = bacteria.food.toString();
+			outProd.text = bacteria.production.toString();
+			bacteria.update();
+			
+			//	Animate the floating tube if it's to be animated
+			if (!isAnim) updateAnimation();
+		}
+		
+		
+		//	Function: initGraphics
+		//	Initialises the graphics for this testtube
+		private function initGraphics():void
+		{
+						//	The outer Grey Tube
 			//		Draw the main rectangle body
 			tubeShape.graphics.beginFill(0xCCCCCC);
 			tubeShape.graphics.drawRect( -30, -135, 60, 250);
@@ -105,93 +184,31 @@ package GDM.Mutation.objects
 			tubeShadow.graphics.drawEllipse( -30, -7.5, 60, 15);
 			tubeShadow.graphics.endFill();
 			tubeShadow.y = 155;
-			
-			outName.text = bacteria.name;
-			outFood.text = bacteria.food.toString();
-			outProd.text = (bacteria.production / bacteria.productionNeeded).toString() + "%";
-
-			outName.y = -100;
-			outFood.y = -75;
-			outProd.y = -50;
-			
-			animCount = 0;
-			isAnim = false;
-			originaly = tubeShape.y;
-			tickCount = 0;
-			
-			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
-			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
-			addEventListener(MouseEvent.CLICK, onClick);
-			addEventListener(Event.ENTER_FRAME, onTick);
-			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
-		private function onRollOver(e:MouseEvent):void
-		{
-			this.scaleX = 1.25;
-			this.scaleY = 1.25;
-			if (!isAnim) {
-				originaly = tubeShape.y;
-				isAnim = true;
-			}
-			
-		}
 		
-		private function onRollOut(e:MouseEvent):void
+		//	Function: updateAnimation
+		//	Runs the floating animation
+		private function updateAnimation():void
 		{
-			this.scaleX = 1;
-			this.scaleY = 1;
-			if (isAnim) {
+			if ((tickCount%3) == 0)animCount++;
+			if (animCount < 30) {
+				tubeShape.y -= 0.1;
+				tubeShadow.scaleX -= 0.001;
+				tubeShadow.scaleY -= 0.001;
+			}else if (animCount < 45) {
+				
+			}else if (animCount < 75) {
+				tubeShape.y += 0.1;
+				tubeShadow.scaleX += 0.001;
+				tubeShadow.scaleY += 0.001;
+			}else if (animCount < 90) {
+				
+			}else {
+				animCount = 0;
 				tubeShape.y = originaly;
 				tubeShadow.scaleX =1;
 				tubeShadow.scaleY =1;
-				animCount = 0;
-			}
-			isAnim = false;
-			
-		}
-		
-		private function onClick(e:MouseEvent):void
-		{
-			bacteria.food += 100;
-		}
-		
-		
-		//	Listener: onTick
-		//	Every frame, process the actions of this TestTube
-		private function onTick(e:Event):void
-		{
-			tickCount++;
-
-			
-			//	Update outputs
-			outName.text = bacteria.name;
-			outFood.text = bacteria.food.toString();
-			outProd.text = (bacteria.production / bacteria.productionNeeded).toFixed(0).toString() + "%";
-			bacteria.update();
-			
-			//	Animate the floating tube if it's to be animated
-			if (isAnim) {
-				if ((tickCount%3) == 0)animCount++;
-				if (animCount < 30) {
-					tubeShape.y -= 0.1;
-					tubeShadow.scaleX -= 0.001;
-					tubeShadow.scaleY -= 0.001;
-				}else if (animCount < 45) {
-					
-				}else if (animCount < 75) {
-					tubeShape.y += 0.1;
-					tubeShadow.scaleX += 0.001;
-					tubeShadow.scaleY += 0.001;
-				}else if (animCount < 90) {
-					
-				}else {
-					animCount = 0;
-					tubeShape.y = originaly;
-					tubeShadow.scaleX =1;
-					tubeShadow.scaleY =1;
-				}
-			
 			}
 		}
 		

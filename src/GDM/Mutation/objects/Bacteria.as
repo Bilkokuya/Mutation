@@ -3,44 +3,48 @@
 //	
 //	Bacteria
 //		A bacteria contained in a test tube, holding various genetic informations
+//		Represents a single bacteria, which can be held in a test-tube
 
 package GDM.Mutation.objects 
 {
 	
+	//	Class: bacteria
 	public class Bacteria 
-	{
-		public var name:String;
-		
+	{		
 		public var food:int;		//	Currently food level for this colony
 		public var production:int;	//	Percent towards next production
 		public var productionNeeded:int;
-		public var population:int;	//	Population of bacteria in this colony
-		public var hunger:Number;		//	How hungry each member of population is
-		public var prodrate:Number;
 		
 		//	Constructor: default
 		public function Bacteria() 
 		{
-			name = "Bacteria";
-			food = 15;
+			food = 100;
 			production = 0;
-			population = 10;
-			hunger = 0.5;
 			productionNeeded = 20000;
-			prodrate = 0.3;
 		}
 		
 		//	Function: update
 		//	Updates the logic of this each frame, needs to be called by it's container
 		public function update():void
 		{
-			food -= population * hunger;
-			if (food<0){
-				food -= population * prodrate;
-				production += population * prodrate;
+			if (food > 75) {
+				production += 2;
+				food--;
+			}else if ( food > 50) {
+				production++;
+				food--;
+			}else if (food < 0) {
+				kill();
+			}else {
+				food--;
 			}
+		}
+		
+		//	Function: kill
+		//	Kills this bacteria, dispatching it's death event
+		public function kill():void
+		{
 			
-			population += food;
 		}
 	}
 
