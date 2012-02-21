@@ -42,6 +42,8 @@ package GDM.Mutation.container
 			moneyOut.autoSize = TextFieldAutoSize.LEFT;
 			moneyOut.x = stage.stageWidth - 170;
 			moneyOut.y = stage.stageHeight - 70;
+			
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
 	}

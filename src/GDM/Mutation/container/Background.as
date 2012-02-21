@@ -37,6 +37,8 @@ package GDM.Mutation.container
 			graphics.drawRect(-stage.stageWidth, -stage.stageHeight, 2*stage.stageWidth, 2*stage.stageHeight);
 			graphics.endFill();
 			
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
 		}
 		
 	}

@@ -7,25 +7,44 @@
 
 package GDM.Mutation.objects 
 {
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import GDM.Mutation.events.ButtonEvent;
+	import GDM.Mutation.events.MutationEvent;
 	
 	//	Class: bacteria
-	public class Bacteria 
+	public class Bacteria extends Sprite
 	{		
 		public var food:int;		//	Currently food level for this colony
 		public var production:int;	//	Percent towards next production
-		public var productionNeeded:int;
+		private var randomNum:Number;
 		
 		//	Constructor: default
 		public function Bacteria() 
 		{
+			if (stage) onInit();
+			else addEventListener(Event.ADDED_TO_STAGE, onInit);
+		}
+		
+		
+		//	Function: onInit
+		//	Initialises this bacteria once added to the stage correctly
+		public function onInit(e:Event = null):void
+		{
 			food = 100;
 			production = 0;
-			productionNeeded = 20000;
+			
+			graphics.beginFill(0x0066FF, 0.3);
+			graphics.drawCircle(0, 0, 5);
+			graphics.endFill();
+			
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			stage.addEventListener(MutationEvent.TICK, onTick);
 		}
 		
 		//	Function: update
 		//	Updates the logic of this each frame, needs to be called by it's container
-		public function update():void
+		public function onTick(e:MutationEvent = null):void
 		{
 			if (food > 75) {
 				production += 2;
@@ -38,6 +57,9 @@ package GDM.Mutation.objects
 			}else {
 				food--;
 			}
+			
+			x += Math.random() * 5 - 2.5;
+			y += Math.random() * 5 - 2.5;
 		}
 		
 		//	Function: kill

@@ -17,6 +17,7 @@ package GDM.Mutation
 	import GDM.Mutation.container.Background;
 	import GDM.Mutation.container.Overlay;
 	import GDM.Mutation.container.World;
+	import GDM.Mutation.events.MutationEvent;
 	import GDM.Mutation.objects.TestTube;
 	import GDM.Mutation.ui.Button;
 	import GDM.Mutation.events.ButtonEvent;
@@ -28,6 +29,7 @@ package GDM.Mutation
 	{
 		private var overlay:Overlay;
 		private var world:World;
+		private var tickCount:int;
 		
 		//	Constructor: default
 		public function Main():void 
@@ -46,6 +48,8 @@ package GDM.Mutation
 			//	Set up utilities
 			Keys.init(stage);
 		
+			//	Variable Initialisation
+			tickCount = 0;
 			
 			//	Add children
 			addChild(world);
@@ -54,12 +58,19 @@ package GDM.Mutation
 			
 			//	Event Listener Stuff
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			addEventListener(Event.ENTER_FRAME, onTick);
 		}
 		
 		//	Listener: onTick
 		//	Runs once per frame as the main loop
 		private function onTick(e:Event):void
 		{
+			tickCount++;
+			
+			//	Dispatch the main game tick event
+			var mutationEvent:MutationEvent = new MutationEvent(MutationEvent.TICK);
+			mutationEvent.tickCount = tickCount;
+			stage.dispatchEvent(mutationEvent);
 		}
 		
 	}

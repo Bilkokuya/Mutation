@@ -7,6 +7,7 @@
 package GDM.Mutation.container 
 {
 	import flash.display.Sprite;
+	import GDM.Mutation.events.MutationEvent;
 	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -65,12 +66,12 @@ package GDM.Mutation.container
 			//	listeners
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, onWheel);
-			addEventListener(Event.ENTER_FRAME, onTick);
+			addEventListener(MutationEvent.TICK, onTick);
 		}
 		
 		//	Listener: onTick
 		//	Runs once per frame
-		public function onTick(e:Event):void
+		public function onTick(e:MutationEvent):void
 		{
 			//	Moving left
 			if (Keys.isDown(Keys.A)) {

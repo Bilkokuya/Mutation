@@ -14,6 +14,7 @@ package GDM.Mutation.objects
 	import flash.filters.DropShadowFilter;
 	import flash.text.TextField;
 	import flash.ui.Mouse;
+	import GDM.Mutation.events.MutationEvent;
 
 	//	Class: TestTube extends Sprite
 	//	Represents a single TestTube of bacteria
@@ -27,11 +28,10 @@ package GDM.Mutation.objects
 		
 		private var tubeShape:Sprite;	//	Graphics objects
 		private var tubeInner:Shape;
+		private var tubeWindow:Sprite;
 		private var tubeShadow:Shape;
 		
-		private var bacteria:Bacteria;	//	Output objects
-		private var outFood:TextField;
-		private var outProd:TextField;
+		private var bacteria:Array;		//	Array of Bacteria
 		
 		//	Constructor: default
 		public function TestTube() 
@@ -51,38 +51,38 @@ package GDM.Mutation.objects
 			//	Memory Allocations
 			tubeShape = new Sprite();
 			tubeInner = new Shape();
+			tubeWindow = new Sprite();
 			tubeShadow = new Shape();
-			bacteria = new Bacteria();
-			outFood = new TextField();
-			outProd = new TextField();
+			bacteria = new Array();
 			
 			//	Setup the graphics
 			initGraphics();
 			
 			//	Variable Initialisation
-			outFood.text = bacteria.food.toString();
-			outProd.text = bacteria.production.toString();
-
-			outFood.y = -75;
-			outProd.y = -50;
-			
 			animCount = 0;
 			isAnim = false;
 			originaly = tubeShape.y;
 			tickCount = 0;
 			
+			tubeWindow.visible = false;
+			
 			//	Add childres
 			addChild(tubeShape);
+			addChild(tubeWindow);
 			tubeShape.addChild(tubeInner);
 			addChild(tubeShadow);
-			addChild(outFood);
-			addChild(outProd);
+			
+			for (var i:int = 0; i < 5; i++) {
+				var b:Bacteria = new Bacteria();
+				tubeWindow.addChild(b);
+				bacteria.push(b);
+			}
 			
 			//	Event Listeners
 			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 			addEventListener(MouseEvent.CLICK, onClick);
-			addEventListener(Event.ENTER_FRAME, onTick);
+			stage.addEventListener(MutationEvent.TICK, onTick);
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
@@ -95,6 +95,7 @@ package GDM.Mutation.objects
 			if (!isAnim) {
 				originaly = tubeShape.y;
 				isAnim = true;
+				tubeWindow.visible = true;
 			}
 			
 		}
@@ -111,6 +112,7 @@ package GDM.Mutation.objects
 				tubeShadow.scaleY =1;
 				animCount = 0;
 			}
+			tubeWindow.visible = false;
 			isAnim = false;
 			
 		}
@@ -125,17 +127,11 @@ package GDM.Mutation.objects
 		
 		//	Listener: onTick
 		//	Every frame, process the actions of this TestTube
-		private function onTick(e:Event):void
+		private function onTick(e:MutationEvent):void
 		{
-			tickCount++;
-
-			//	Update outputs
-			outFood.text = bacteria.food.toString();
-			outProd.text = bacteria.production.toString();
-			bacteria.update();
 			
 			//	Animate the floating tube if it's to be animated
-			if (!isAnim) updateAnimation();
+			if (isAnim) updateAnimation(e.tickCount);
 		}
 		
 		
@@ -143,7 +139,7 @@ package GDM.Mutation.objects
 		//	Initialises the graphics for this testtube
 		private function initGraphics():void
 		{
-						//	The outer Grey Tube
+			//	The outer Grey Tube
 			//		Draw the main rectangle body
 			tubeShape.graphics.beginFill(0xCCCCCC);
 			tubeShape.graphics.drawRect( -30, -135, 60, 250);
@@ -177,6 +173,15 @@ package GDM.Mutation.objects
 			tubeInner.scaleX = 0.8;
 			tubeInner.scaleY = 0.97;
 			
+			//	Zoomed Window
+			tubeWindow.graphics.beginFill(0xCCCCCC);
+			tubeWindow.graphics.drawCircle(0, 0, 72);
+			tubeWindow.graphics.endFill();
+			
+			tubeWindow.graphics.beginFill(0x66CCCC);
+			tubeWindow.graphics.drawCircle(0, 0, 65);
+			tubeWindow.graphics.endFill();
+			tubeWindow.y = -10;
 			
 			//	Tube as a Whole
 			//		The shadow as a separate shape, for floating
@@ -189,17 +194,19 @@ package GDM.Mutation.objects
 		
 		//	Function: updateAnimation
 		//	Runs the floating animation
-		private function updateAnimation():void
+		private function updateAnimation(tickCount:int):void
 		{
 			if ((tickCount%3) == 0)animCount++;
 			if (animCount < 30) {
 				tubeShape.y -= 0.1;
+				tubeWindow.y -= 0.1;
 				tubeShadow.scaleX -= 0.001;
 				tubeShadow.scaleY -= 0.001;
 			}else if (animCount < 45) {
 				
 			}else if (animCount < 75) {
 				tubeShape.y += 0.1;
+				tubeWindow.y += 0.1;
 				tubeShadow.scaleX += 0.001;
 				tubeShadow.scaleY += 0.001;
 			}else if (animCount < 90) {
