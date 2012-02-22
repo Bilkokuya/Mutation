@@ -15,6 +15,8 @@ package GDM.Mutation.objects
 	import flash.text.TextField;
 	import flash.ui.Mouse;
 	import GDM.Mutation.events.MutationEvent;
+	import GDM.Mutation.enums.ActionState;
+	import GDM.Mutation.enums.HealthState;
 
 	//	Class: TestTube extends Sprite
 	//	Represents a single TestTube of bacteria
@@ -32,6 +34,7 @@ package GDM.Mutation.objects
 		private var tubeShadow:Shape;
 		
 		private var bacteria:Array;		//	Array of Bacteria
+		private var items:Array;			//	Array of Food
 		
 		//	Constructor: default
 		public function TestTube() 
@@ -54,6 +57,7 @@ package GDM.Mutation.objects
 			tubeWindow = new Sprite();
 			tubeShadow = new Shape();
 			bacteria = new Array();
+			items = new Array();
 			
 			//	Setup the graphics
 			initGraphics();
@@ -81,7 +85,7 @@ package GDM.Mutation.objects
 			//	Event Listeners
 			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
-			addEventListener(MouseEvent.CLICK, onClick);
+			tubeWindow.addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(MutationEvent.TICK, onTick);
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
@@ -124,6 +128,11 @@ package GDM.Mutation.objects
 			for (var i:int = 0; i < 5; i++) {
 				bacteria[i].food += 100;
 			}
+			var food:Food = new Food();
+			food.x = e.localX;
+			food.y = e.localY;
+			tubeWindow.addChild(food);
+			items.push(food);
 		}
 		
 		
@@ -131,9 +140,57 @@ package GDM.Mutation.objects
 		//	Every frame, process the actions of this TestTube
 		private function onTick(e:MutationEvent):void
 		{
-			
 			//	Animate the floating tube if it's to be animated
 			if (isAnim) updateAnimation(e.tickCount);
+			
+			//	Test bacteria - bacteria collisions
+			//		Test every bacteria against every other bacteria
+			for each (var b:Bacteria in bacteria) {
+				for each (var b2:Bacteria in bacteria) {
+					var distance:int = Math.sqrt((b.x - b2.x) * (b.x - b2.x) + (b.y - b2.y) * (b.y - b2.y));
+					if (distance < 5) {
+						b.xSpeed *= -1;
+						b.ySpeed *= -1;
+						b.x -= 5;
+						b.y -= 5;
+						b2.xSpeed *= -1;
+						b2.ySpeed *= -1;
+						b2.x += 5;
+						b2.y += 5;
+					}
+				}
+			}
+			
+			//	Move bacteria towards food when it's present
+			for each( var b:Bacteria in bacteria) {
+				if (b.actionState == ActionState.IDLE) {
+					var distance:int = 1000;
+					for each (var f:Food in items) {
+						var newDistance:int = Math.sqrt((b.x - f.x) * (b.x - f.x) + (b.y - f.y) * (b.y - f.y));
+						if (newDistance < distance) {
+							distance = newDistance;
+							b.moveToFood(f.x, f.y);
+						}
+					}
+				}
+				if (items.length < 1) {
+					b.actionState = ActionState.IDLE;
+				}
+			}
+
+			
+			//	Check collisions of bacteria with food they are after
+			for each (var b:Bacteria in bacteria) {
+				for each (var f:Food in items) {
+					var distance:int = Math.sqrt((b.x - f.x) * (b.x - f.x) + (b.y - f.y) * (b.y - f.y));
+					if (distance < 5) {
+						b.food += 100;
+						tubeWindow.removeChild(f);
+						items.pop();	//	!!!! NEEDS FIXED, CURRENTLY CAUSES ISSUE WHEN MULTIPLE PEICES OF FOOD EXIST
+						
+					}
+				}
+			}
 		}
 		
 		

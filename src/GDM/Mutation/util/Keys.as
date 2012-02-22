@@ -51,7 +51,7 @@ package GDM.Mutation.util
 		//	initialises the utility
 		//		Use this instead of the constructor
 		//		As no instances of this class should be made
-		public static function init(stage):void
+		public static function init(stage:Stage):void
 		{
 			keys = new Array();
 			stageRef = stage;
