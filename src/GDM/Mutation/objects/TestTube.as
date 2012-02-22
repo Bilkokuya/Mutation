@@ -121,7 +121,9 @@ package GDM.Mutation.objects
 		//	Adds food when it's clicked on
 		private function onClick(e:MouseEvent):void
 		{
-			bacteria.food += 100;
+			for (var i:int = 0; i < 5; i++) {
+				bacteria[i].food += 100;
+			}
 		}
 		
 		
