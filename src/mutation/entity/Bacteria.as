@@ -22,9 +22,9 @@ package mutation.entity
 		public var food:int;			//	Currently food level for this bacteria
 		private var foodOut:TextField;	//	DEBUGGING!!! Shows food level for this bacteria as a text field.
 		
+		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(x:int = 0, y:int = 0, xSpeed:Number = 0, ySpeed:Number = 0) 
-		{	
+		public function Bacteria(x:int = 0, y:int = 0, xSpeed:Number = 0, ySpeed:Number = 0) {	
 			//	Set values from parameters
 			this.x = x;
 			this.y = y;
@@ -46,15 +46,13 @@ package mutation.entity
 		}
 		
 		//	Initialisation after stage
-		public function onInit(e:Event = null):void
-		{
+		public function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			stage.addEventListener(MutationEvent.TICK, onTick);
 		}
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
-		public function onTick(e:MutationEvent):void
-		{
+		public function onTick(e:MutationEvent):void {
 			//	Update food amount, ever nth frame
 			if ((e.tickCount % 1) == 0) food--;
 			if (food < 0) kill();
@@ -67,9 +65,9 @@ package mutation.entity
 			y += ySpeed;
 		}
 		
+		
 		//	Feeds the bacteria, limiting to 100
-		public function feed(amount:int = 100):void
-		{
+		public function feed(amount:int = 100):void {
 			food += amount;
 			if (food > 100) {
 				food = 100;
@@ -77,14 +75,13 @@ package mutation.entity
 		}
 		
 		//	Kills this bacteria, dispatching it's death event
-		public function kill():void
-		{
+		public function kill():void {
 			this.visible = false;
 		}
 		
+		
 		//	Draws the graphics representation for this
-		private function draw():void
-		{
+		private function draw():void{
 			graphics.clear();
 			graphics.beginFill(0x0066FF);
 			graphics.drawCircle(0, 0, 10);

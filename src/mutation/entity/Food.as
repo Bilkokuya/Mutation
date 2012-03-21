@@ -11,37 +11,38 @@ package mutation.entity
 	import GDM.Mutation.events.MutationEvent;
 
 	//	Class: Food
-	public class Food extends Sprite
+	public class Food extends Sprite 
 	{
 		
 		//	Constructor: default
-		public function Food() 
-		{
+		public function Food(x:Number = 0, y:Number = 0) {
+			
+			this.x = x;
+			this.y = y;
+			
+			draw();
+			
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
-		//	Function: onInit
-		//	Initialises once the stage has been created
-		private function onInit(e:Event = null):void
-		{
-			graphics.beginFill(0x33FF33, 0.8);
-			graphics.drawRect( -5, -2, 10, 4);
-			graphics.endFill();
-			rotation = Math.random() * 90;
-			
+		//	Initialisation after Stage
+		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			addEventListener(MutationEvent.TICK, onTick);
 		}
 		
-		private function onTick(e:MutationEvent):void
-		{
-			if (e.tickCount % 15 == 0) {
-				
-			}
+		//	OnTick Updates
+		private function onTick(e:MutationEvent):void {
 		}
 		
+		//	Draw the graphics representation
+		private function draw():void {
+			graphics.beginFill(0x00FF66);
+			graphics.drawCircle(0, 0, 5);
+			graphics.endFill();
+		}
 	
 		
 	}
