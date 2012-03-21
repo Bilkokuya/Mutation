@@ -6,6 +6,9 @@
 
 package GDM.Mutation
 {
+	import asunit.textui.TestRunner;
+	import GDM.tests.AllTests;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -14,6 +17,7 @@ package GDM.Mutation
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.net.URLLoaderDataFormat;
+	
 	import GDM.Mutation.container.Background;
 	import GDM.Mutation.container.Overlay;
 	import GDM.Mutation.container.World;
@@ -34,6 +38,11 @@ package GDM.Mutation
 		//	Constructor: default
 		public function Main():void 
 		{
+
+			var unittests:TestRunner = new TestRunner();
+			stage.addChild(unittests);
+			unittests.start(AllTests, null, TestRunner.SHOW_TRACE);
+			 
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
