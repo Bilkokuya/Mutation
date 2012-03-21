@@ -4,7 +4,7 @@
 //		A floating food object that can be consumed by the bacteria
 
 
-package GDM.Mutation.objects 
+package mutation.entity 
 {
 	import flash.display.Sprite;
 	import flash.events.Event;

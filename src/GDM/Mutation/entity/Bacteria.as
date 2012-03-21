@@ -5,29 +5,29 @@
 //		A bacteria contained in a test tube, holding various genetic informations
 //		Represents a single bacteria, which can be held in a test-tube
 
-package GDM.Mutation.objects 
+package GDM.Mutation.entity 
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.ColorTransform;
 	import GDM.Mutation.events.ButtonEvent;
 	import GDM.Mutation.events.MutationEvent;
-	import GDM.Mutation.enums.ActionState;
-	import GDM.Mutation.enums.HealthState;
+	import GDM.Mutation.entity.ActionState;
+	import GDM.Mutation.entity.HealthState;
 	
 	//	Class: bacteria
 	public class Bacteria extends Sprite
-	{		
+	{	
+		public var xSpeed:Number;
+		public var ySpeed:Number;
 		public var food:Number;			//	Currently food level for this colony
 		public var production:int;		//	Percent towards next production
-		private var xDest:Number;		//	x position to move towards
-		private var yDest:Number;		//	y position to move towards
 		public var healthState:HealthState;
 		public var actionState:ActionState;
 		
+		private var xDest:Number;		//	x position to move towards
+		private var yDest:Number;		//	y position to move towards
 		private var timeOffset:int;
-		public var xSpeed:Number;
-		public var ySpeed:Number;
 		
 		//	Constructor: default
 		public function Bacteria() 

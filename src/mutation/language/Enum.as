@@ -5,7 +5,7 @@
 //		Base Class for enums
 //		Allows Enum functionality in Flash that is typesafe
 
-package GDM.Mutation.enums 
+package mutation.language 
 {
 	
 	//	Class: Enum

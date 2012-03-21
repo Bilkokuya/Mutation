@@ -1,6 +1,8 @@
-package GDM.Mutation.enums 
+package GDM.Mutation.entity 
 {
 
+	import GDM.Mutation.language.Enum;
+	
 	//	Class: ActionState (extends Enum)
 	//		internal enum for the action the bacteria is performing
 	public class ActionState extends Enum

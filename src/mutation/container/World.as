@@ -4,7 +4,7 @@
 //		A scalable world, that contains everything scalable in the scene
 
 
-package GDM.Mutation.container 
+package mutation.container 
 {
 	import flash.display.Sprite;
 	import GDM.Mutation.events.MutationEvent;

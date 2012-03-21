@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'14/03/2012'</value>
+      <value>'21/03/2012'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
@@ -26,7 +26,7 @@
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>M:\Media_Production_for_Games\Flash\Mutation\src\GDM\Mutation\Main.as</path-element>
+    <path-element>M:\Media_Production_for_Games\Flash\Mutation\src\mutation\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

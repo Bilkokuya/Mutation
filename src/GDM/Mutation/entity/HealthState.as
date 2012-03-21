@@ -1,7 +1,7 @@
-package GDM.Mutation.enums 
+package GDM.Mutation.entity 
 {
 	
-	import GDM.Mutation.enums.Enum;
+	import GDM.Mutation.language.Enum;
 
 	//	Class: HealthState (extends Enum)
 	//		internal enum for the overall State of the Bacteria

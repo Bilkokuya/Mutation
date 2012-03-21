@@ -5,7 +5,7 @@
 //		The TestTube that holds each type of bacteria
 //		Can be given food, cleared, etc
 
-package GDM.Mutation.objects 
+package GDM.Mutation.entity 
 {
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -15,8 +15,8 @@ package GDM.Mutation.objects
 	import flash.text.TextField;
 	import flash.ui.Mouse;
 	import GDM.Mutation.events.MutationEvent;
-	import GDM.Mutation.enums.ActionState;
-	import GDM.Mutation.enums.HealthState;
+	import GDM.Mutation.entity.ActionState;
+	import GDM.Mutation.entity.HealthState;
 
 	//	Class: TestTube extends Sprite
 	//	Represents a single TestTube of bacteria
@@ -147,6 +147,8 @@ package GDM.Mutation.objects
 			//		Test every bacteria against every other bacteria
 			for each (var b:Bacteria in bacteria) {
 				for each (var b2:Bacteria in bacteria) {
+					if (b == b2) continue;
+					
 					var distance:int = Math.sqrt((b.x - b2.x) * (b.x - b2.x) + (b.y - b2.y) * (b.y - b2.y));
 					if (distance < 5) {
 						b.xSpeed *= -1;
@@ -191,6 +193,7 @@ package GDM.Mutation.objects
 					}
 				}
 			}
+			
 		}
 		
 		

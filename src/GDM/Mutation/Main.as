@@ -22,7 +22,7 @@ package GDM.Mutation
 	import GDM.Mutation.container.Overlay;
 	import GDM.Mutation.container.World;
 	import GDM.Mutation.events.MutationEvent;
-	import GDM.Mutation.objects.TestTube;
+	import GDM.Mutation.entity.TestTube;
 	import GDM.Mutation.ui.Button;
 	import GDM.Mutation.events.ButtonEvent;
 	import GDM.Mutation.util.Keys;
@@ -37,12 +37,7 @@ package GDM.Mutation
 		
 		//	Constructor: default
 		public function Main():void 
-		{
-
-			var unittests:TestRunner = new TestRunner();
-			stage.addChild(unittests);
-			unittests.start(AllTests, null, TestRunner.SHOW_TRACE);
-			 
+		{			 
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
@@ -86,7 +81,7 @@ package GDM.Mutation
 
 }
 
-import GDM.Mutation.enums.Enum;
+import GDM.Mutation.language.Enum;
 
 //	Class: Action (extends Enum)
 //		internal enum for Actions you can take when clicking the tubes
