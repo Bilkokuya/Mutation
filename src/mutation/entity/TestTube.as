@@ -12,6 +12,9 @@ package mutation.entity
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
 	import mutation.events.MutationEvent;
+	import mutation.events.BacteriaEvent;
+	import mutation.events.FoodEvent;
+	import mutation.util.Util;
 
 	//	Class: TestTube extends Sprite
 	//	Represents a single TestTube of bacteria
@@ -31,6 +34,8 @@ package mutation.entity
 			foods = new Array();
 			
 			//	Set up the 5 bacteria in this tube
+			//	Remove this in future when extending the test tube to being a generic container
+			//		i.e. once the "buying" bacteria functionality is added
 			for (var i:int = 0; i < 5; i++) {
 				var xSpeed:Number = (Math.random() - 0.5) * 5;
 				var ySpeed:Number = (Math.random() - 0.5) * 5;
@@ -53,39 +58,89 @@ package mutation.entity
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(MutationEvent.TICK, onTick);
+			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath); 	// !!!!!error caused by this event
+			stage.addEventListener(FoodEvent.FDEATH, onFoodDeath);			// and this event!!!!!
 		}
 		
 		
 		//	Listener: onTick
 		//	Every frame, process the actions of this TestTube
 		private function onTick(e:MutationEvent):void {
+			testBoundaries();
+			testCollisions();
+		}
+
+	
+		//	Checks that all bacteria are in the boundary of the test tube
+		private function testBoundaries():void {
 			//	Ensure each bacteria is within the limits of the testtube radius
 			for each (var b:Bacteria in bacterias) {
-				var distance:int = Math.pow(b.x, 2) + Math.pow(b.y, 2);
-				if (distance > Math.pow(radius,2)) {
+				if ( !(Util.inRadius(b.x, b.y, radius)) ){
 					b.xSpeed *= -1;
 					b.ySpeed *= -1;
 				}
 			}
-			
+			for each (var f:Food in foods) {
+				if ( !(Util.inRadius(f.x, f.y, radius)) ){
+					f.ySpeed *= -0.5;
+					f.xSpeed *= -0.5;
+					if (Util.inRadius(f.xSpeed, f.ySpeed, 1)) f.isMoving = false;
+				}
+			}
 		}
-
+		
+		//	Checks collisions between the Bacteria, and between the food
+		private function testCollisions():void
+		{
+			for each (var b:Bacteria in bacterias) {
+				if (!b.isAlive) continue;
+				// check each bacteria against each peice of food
+				for each (var b2:Bacteria in bacterias) {
+					//	if it hits, knock them back in opposite directions and put space between them
+				}
+				
+				// check each bacteria against each other bacteria
+				for each (var f:Food in foods) {
+					if (!f.isAlive) continue;
+					
+						//	if it hits, the bacteria eats the food, which is removed
+						if (Util.inRadius(b.x, b.y, (b.radius + f.radius), f.x, f.y)) {
+							b.feed();
+							f.kill();
+						}
+				}
+			}
+		}
 		
 		//	Feeds the bacteria when the testTube is clicked on
 		private function onClick(e:MouseEvent):void {
-			for (var i:int = 0; i < 5; i++) {
-				bacterias[i].feed(50);
-			}
 			
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
-			if ((Math.pow(mouseX,2) + Math.pow(mouseY,2)) < Math.pow(radius,2)){
-				var index:int = foods.push(new Food(mouseX, mouseY));
-				addChild(foods[index - 1]);
+			if (Util.inRadius(mouseX, mouseY, radius)) {
+				var food:Food = new Food(mouseX, mouseY);
+				foods.push(food);
+				addChild(food);
 			}
-			
 		}
 		
+		//	Called whenever a piece of food dies
+		private function onFoodDeath(e:FoodEvent):void
+		{
+			//	Terrible temporary method of removing an element from the array
+			if (Util.removeFrom(foods, e.food)){
+				removeChild(e.food);
+			}
+		}
+		
+		//	Called whenever a bacteria dies
+		private function onBacteriaDeath(e:BacteriaEvent):void
+		{
+			//	Terrible temporary method of removing an element from the array
+			if (Util.removeFrom(bacterias, e.bacteria)){
+				removeChild(e.bacteria);
+			}
+		}
 		
 		//	Draws the graphics of the testTube
 		private function draw():void {
