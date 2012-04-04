@@ -13,35 +13,30 @@ package mutation.entity
 	import mutation.util.Util;
 
 	//	Class: Food
-	public class Food extends Sprite 
-	{
-		private const yAccel:Number = 0.05;
+	public class Food extends BaseFood 
+	{	
+		private const yAccel:Number = 0.07;	//	y Acceleration downwards
 		
-		public var radius:Number;
-		public var foodAmount:int;
 		public var isAlive:Boolean;
-		
 		public var xSpeed:Number;
 		public var ySpeed:Number;
 		public var isMoving:Boolean;
 		public var life:Number;
 		
+		
 		//	Constructor: default
-		public function Food(x:Number = 0, y:Number = 0, radius:Number = 5) {
+		public function Food(x:Number, y:Number, base:BaseFood)
+		{
+			super(base.radius, base.colour, base.foodAmount);
 			
-			super();
-
 			this.x = x;
 			this.y = y;
-			this.radius = radius;
-			
-			foodAmount = 100;
-			isAlive = true;
 			xSpeed = 0;
-			ySpeed = 1;
+			ySpeed = 0;
+			life = 5 * 30;
+			isAlive = true;
 			isMoving = true;
-			life = 10 * 15;
-			
+
 			draw();
 			
 			if (stage) onInit();
@@ -83,7 +78,7 @@ package mutation.entity
 		
 		//	Draw the graphics representation
 		private function draw():void {
-			graphics.beginFill(0x00FF66);
+			graphics.beginFill(colour);
 			graphics.drawCircle(0, 0, radius);
 			graphics.endFill();
 		}

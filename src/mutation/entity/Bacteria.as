@@ -26,8 +26,8 @@ package mutation.entity
 		public var ySpeed:Number;		//	Current speed in the y Direction
 		public var food:Number;			//	Currently food level for this bacteria
 		private var foodOut:TextField;	//	DEBUGGING!!! Shows food level for this bacteria as a text field.
-		public var isHungry:Boolean;
-		public var isAlive:Boolean;
+		public var itsHungry:Boolean;
+		public var itsAlive:Boolean;
 		public var target:Sprite;
 		
 		//	Constructor: (int, int, int, int)
@@ -41,8 +41,8 @@ package mutation.entity
 			
 			//	Initialise basic stats
 			food = 100;
-			isAlive = true;
-			isHungry = false;
+			itsAlive = true;
+			itsHungry = false;
 			target = null;
 			
 			foodOut = new TextField();
@@ -64,15 +64,15 @@ package mutation.entity
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
 		public function onTick(e:MutationEvent):void {
-			if (!isAlive) return;
+			if (!itsAlive) return;
 			
 			//	Update food amount, ever nth frame
 			food -= 0.5;
 			
 			processHunger();
 			
-			if (isHungry && (target != null)) {
-				updateChase();
+			if (itsHungry && (target != null)) {
+				chaseTheTarget();
 			}else {
 				moveAround();
 			}
@@ -100,13 +100,13 @@ package mutation.entity
 		//	Kills this bacteria, dispatching it's death event
 		public function kill():void {
 			if (stage) {
-				isAlive = false;
+				itsAlive = false;
 				stage.removeEventListener(MutationEvent.TICK, onTick);
 				stage.dispatchEvent(new BacteriaEvent(BacteriaEvent.DEATH, this));
 			}
 		}
 		
-		public function updateChase():void
+		public function chaseTheTarget():void
 		{
 			var radians:Number = Util.angleTo(x, y, target.x, target.y);
 			moveAt(radians);
@@ -120,8 +120,8 @@ package mutation.entity
 		
 		private function processHunger():void
 		{
-			if (food < 75) isHungry = true;
-			else isHungry = false;
+			if (food < 75) itsHungry = true;
+			else itsHungry = false;
 			
 			if (food < 0) kill();
 		}

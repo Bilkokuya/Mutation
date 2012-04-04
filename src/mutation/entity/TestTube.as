@@ -92,13 +92,13 @@ package mutation.entity
 		private function testCollisions():void
 		{
 			for each (var b:Bacteria in bacterias) {
-				if (!b.isAlive) continue;
+				if (!b.itsAlive) continue;
 				// check each bacteria against other bacteria
 				for each (var b2:Bacteria in bacterias) {
 					//	if it hits, knock them back in opposite directions and put space between them
 				}
 				
-				if (b.isHungry) {
+				if (b.itsHungry) {
 					var closestDistance:Number = 0;
 					var closestFood:Food = null;
 					// check each bacteria against the food
@@ -113,7 +113,7 @@ package mutation.entity
 							
 							//	if it hits, the bacteria eats the food, which is removed
 							if (Util.inRadius(b.x, b.y, (b.radius + f.radius), f.x, f.y)) {
-								b.feed();
+								b.feed(f.foodAmount);
 								f.kill();
 								b.target = null;
 							}
@@ -131,7 +131,7 @@ package mutation.entity
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(mouseX, mouseY, radius)) {
-				var food:Food = new Food(mouseX, mouseY);
+				var food:Food = new Food(mouseX, mouseY, Foods.AGAR);
 				foods.push(food);
 				addChild(food);
 			}
