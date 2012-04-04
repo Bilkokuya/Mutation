@@ -40,7 +40,7 @@ package mutation.entity
 			xSpeed = 0;
 			ySpeed = 1;
 			isMoving = true;
-			life = 30 * 15;
+			life = 10 * 15;
 			
 			draw();
 			
@@ -64,8 +64,8 @@ package mutation.entity
 			}
 			
 			//	force it to fade out before dying
-			if (life < 10){
-				this.alpha = life / 10;
+			if (life < 30){
+				this.alpha = life / 30;
 				if (life < 0) {
 					kill();
 				}

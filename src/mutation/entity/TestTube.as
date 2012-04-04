@@ -51,19 +51,17 @@ package mutation.entity
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		 
-		
-		//	Function: onInit (Event = null)
+
 		//	Initialisation once the stage has been created
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(MutationEvent.TICK, onTick);
-			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath); 	// !!!!!error caused by this event
-			stage.addEventListener(FoodEvent.FDEATH, onFoodDeath);			// and this event!!!!!
+			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath); 
+			stage.addEventListener(FoodEvent.FDEATH, onFoodDeath);	
 		}
 		
 		
-		//	Listener: onTick
 		//	Every frame, process the actions of this TestTube
 		private function onTick(e:MutationEvent):void {
 			testBoundaries();
@@ -84,6 +82,7 @@ package mutation.entity
 				if ( !(Util.inRadius(f.x, f.y, radius)) ){
 					f.ySpeed *= -0.5;
 					f.xSpeed *= -0.5;
+					//	Abuse the inRadius function to check if the combined speed is in range 0->1
 					if (Util.inRadius(f.xSpeed, f.ySpeed, 1)) f.isMoving = false;
 				}
 			}
@@ -94,20 +93,34 @@ package mutation.entity
 		{
 			for each (var b:Bacteria in bacterias) {
 				if (!b.isAlive) continue;
-				// check each bacteria against each peice of food
+				// check each bacteria against other bacteria
 				for each (var b2:Bacteria in bacterias) {
 					//	if it hits, knock them back in opposite directions and put space between them
 				}
 				
-				// check each bacteria against each other bacteria
-				for each (var f:Food in foods) {
-					if (!f.isAlive) continue;
-					
-						//	if it hits, the bacteria eats the food, which is removed
-						if (Util.inRadius(b.x, b.y, (b.radius + f.radius), f.x, f.y)) {
-							b.feed();
-							f.kill();
-						}
+				if (b.isHungry) {
+					var closestDistance:Number = 0;
+					var closestFood:Food = null;
+					// check each bacteria against the food
+					for each (var f:Food in foods) {
+						if (!f.isAlive) continue;
+						
+							var distance:Number = Util.getDistanceSquared(b.x, b.y, f.x, f.y);
+							if ((distance < closestDistance) || (!closestFood)) {
+								closestDistance = distance;
+								closestFood = f;
+							}
+							
+							//	if it hits, the bacteria eats the food, which is removed
+							if (Util.inRadius(b.x, b.y, (b.radius + f.radius), f.x, f.y)) {
+								b.feed();
+								f.kill();
+								b.target = null;
+							}
+					}
+					if (closestFood) {
+						b.target = closestFood;
+					}
 				}
 			}
 		}

@@ -34,17 +34,13 @@ package mutation
 		private function onInit(e:Event = null):void 
 		{	
 			testTube = new TestTube();
-			
-			//	Set up utilities
+
 			Keys.init(stage);
-		
-			//	Variable Initialisation
+			
 			tickCount = 0;
 			
-			//	Add children
 			addChild(testTube);
 			
-			//	Event Listener Stuff
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			addEventListener(Event.ENTER_FRAME, onTick);
 		}

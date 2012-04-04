@@ -14,16 +14,21 @@ package mutation.entity
 	import flash.text.TextField;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.MutationEvent;
+	import mutation.util.Util;
 	
 	//	Class: bacteria
 	public class Bacteria extends Sprite
-	{	
+	{
+		private const SPEED:Number = -1;
+		
 		public var radius:Number;
-		public var isAlive:Boolean;
 		public var xSpeed:Number;		//	Current speed in the x Direction
 		public var ySpeed:Number;		//	Current speed in the y Direction
-		public var food:int;			//	Currently food level for this bacteria
+		public var food:Number;			//	Currently food level for this bacteria
 		private var foodOut:TextField;	//	DEBUGGING!!! Shows food level for this bacteria as a text field.
+		public var isHungry:Boolean;
+		public var isAlive:Boolean;
+		public var target:Sprite;
 		
 		//	Constructor: (int, int, int, int)
 		public function Bacteria(x:int = 0, y:int = 0, xSpeed:Number = 0, ySpeed:Number = 0, radius:Number = 5) {	
@@ -33,9 +38,12 @@ package mutation.entity
 			this.xSpeed = xSpeed;
 			this.ySpeed = ySpeed;
 			this.radius = radius;
-			this.isAlive = true;
+			
 			//	Initialise basic stats
 			food = 100;
+			isAlive = true;
+			isHungry = false;
+			target = null;
 			
 			foodOut = new TextField();
 			addChild(foodOut);
@@ -56,12 +64,21 @@ package mutation.entity
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
 		public function onTick(e:MutationEvent):void {
+			if (!isAlive) return;
+			
 			//	Update food amount, ever nth frame
-			if ((e.tickCount % 30) == 0) food--;
-			if (food < 0) kill();
+			food -= 0.5;
+			
+			processHunger();
+			
+			if (isHungry && (target != null)) {
+				updateChase();
+			}else {
+				moveAround();
+			}
 			
 			//	Update food DEBUGGING OUTPUT !!!!!
-			foodOut.text = food.toString();
+			foodOut.text = food.toFixed(0).toString();
 			
 			//	Update position
 			x += xSpeed;
@@ -82,11 +99,40 @@ package mutation.entity
 		
 		//	Kills this bacteria, dispatching it's death event
 		public function kill():void {
-			this.isAlive = false;
-			stage.removeEventListener(MutationEvent.TICK, onTick);
-			stage.dispatchEvent(new BacteriaEvent(BacteriaEvent.DEATH, this));
+			if (stage) {
+				isAlive = false;
+				stage.removeEventListener(MutationEvent.TICK, onTick);
+				stage.dispatchEvent(new BacteriaEvent(BacteriaEvent.DEATH, this));
+			}
 		}
 		
+		public function updateChase():void
+		{
+			var radians:Number = Util.angleTo(x, y, target.x, target.y);
+			moveAt(radians);
+		}
+		
+		private function moveAt(radians:Number):void
+		{
+			xSpeed = SPEED * Math.cos(radians);
+			ySpeed = SPEED * Math.sin(radians);
+		}
+		
+		private function processHunger():void
+		{
+			if (food < 75) isHungry = true;
+			else isHungry = false;
+			
+			if (food < 0) kill();
+		}
+		
+		private function moveAround():void
+		{
+			if (Math.random() < (1 / (4 * 30))) {
+				var radians:Number = ((Math.random() - 0.5) * 2 * Math.PI);
+				moveAt(radians);
+			}
+		}
 		
 		//	Draws the graphics representation for this
 		private function draw():void{
