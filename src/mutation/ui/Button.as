@@ -67,7 +67,6 @@ package mutation.ui
 		private function onClick(e:Event):void
 		{
 			dispatchEvent(new ButtonEvent(ButtonEvent.CLICKED, buttonName));
-			trace("dispatch");
 		}
 	}
 

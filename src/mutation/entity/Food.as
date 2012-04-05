@@ -23,11 +23,10 @@ package mutation.entity
 		public var isMoving:Boolean;
 		public var life:Number;
 		
-		
 		//	Constructor: default
 		public function Food(x:Number, y:Number, base:BaseFood)
 		{
-			super(base.radius, base.colour, base.foodAmount);
+			super(base.radius, base.colour, base.foodAmount, base.debrisType, base.debrisCount);
 			
 			this.x = x;
 			this.y = y;
@@ -71,9 +70,11 @@ package mutation.entity
 		//	Kills this peice of food from the game
 		public function kill():void
 		{
-			isAlive = false;
-			stage.removeEventListener(MutationEvent.TICK, onTick);
-			stage.dispatchEvent(new FoodEvent(FoodEvent.FDEATH, this));
+			if (isAlive){
+				isAlive = false;
+				stage.removeEventListener(MutationEvent.TICK, onTick);
+				stage.dispatchEvent(new FoodEvent(FoodEvent.FDEATH, this));
+			}
 		}
 		
 		//	Draw the graphics representation

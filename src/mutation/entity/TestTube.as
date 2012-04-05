@@ -14,6 +14,7 @@ package mutation.entity
 	import mutation.events.MutationEvent;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.FoodEvent;
+	import mutation.util.Keys;
 	import mutation.util.Util;
 
 	//	Class: TestTube extends Sprite
@@ -66,6 +67,12 @@ package mutation.entity
 		private function onTick(e:MutationEvent):void {
 			testBoundaries();
 			testCollisions();
+			
+			if (Keys.isDown(Keys.Q)) {
+				Foods.nextFood();
+			}else if (Keys.isDown(Keys.E)) {
+				Foods.lastFood();
+			}
 		}
 
 	
@@ -92,13 +99,13 @@ package mutation.entity
 		private function testCollisions():void
 		{
 			for each (var b:Bacteria in bacterias) {
-				if (!b.itsAlive) continue;
+				if (!b.isAlive) continue;
 				// check each bacteria against other bacteria
 				for each (var b2:Bacteria in bacterias) {
 					//	if it hits, knock them back in opposite directions and put space between them
 				}
 				
-				if (b.itsHungry) {
+				if (b.isHungry) {
 					var closestDistance:Number = 0;
 					var closestFood:Food = null;
 					// check each bacteria against the food
@@ -118,9 +125,7 @@ package mutation.entity
 								b.target = null;
 							}
 					}
-					if (closestFood) {
-						b.target = closestFood;
-					}
+					b.target = closestFood;
 				}
 			}
 		}
@@ -131,7 +136,7 @@ package mutation.entity
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(mouseX, mouseY, radius)) {
-				var food:Food = new Food(mouseX, mouseY, Foods.AGAR);
+				var food:Food = new Food(mouseX, mouseY, Foods.getFood());
 				foods.push(food);
 				addChild(food);
 			}
@@ -143,7 +148,19 @@ package mutation.entity
 			//	Terrible temporary method of removing an element from the array
 			if (Util.removeFrom(foods, e.food)){
 				removeChild(e.food);
+				
+				if (e.food.debrisType) {
+					trace("not null debris");
+					for (var i:int = 0; i < e.food.debrisCount; ++i) {
+						var food:Food = new Food(e.food.x, e.food.y, e.food.debrisType);
+						food.xSpeed = e.food.xSpeed - (Math.random() - 0.5);
+						food.ySpeed = e.food.ySpeed - 3*(Math.random());
+						foods.push(food);
+						addChild(food);
+					}
+				}
 			}
+			
 		}
 		
 		//	Called whenever a bacteria dies

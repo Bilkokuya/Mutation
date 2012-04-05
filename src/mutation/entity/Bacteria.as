@@ -19,15 +19,19 @@ package mutation.entity
 	//	Class: bacteria
 	public class Bacteria extends Sprite
 	{
-		private const SPEED:Number = -1;
+		private const SPEED:Number = 1;
+		private const HUNGRY_SPEED:Number = 3;
+		private const HUNGER_RATE:Number = 0.05;
+		private const DIRECTION_RATE:Number = 1 / 30;
+		private const HUNGER_LEVEL:Number = 95;
 		
 		public var radius:Number;
 		public var xSpeed:Number;		//	Current speed in the x Direction
 		public var ySpeed:Number;		//	Current speed in the y Direction
 		public var food:Number;			//	Currently food level for this bacteria
 		private var foodOut:TextField;	//	DEBUGGING!!! Shows food level for this bacteria as a text field.
-		public var itsHungry:Boolean;
-		public var itsAlive:Boolean;
+		public var isHungry:Boolean;
+		public var isAlive:Boolean;
 		public var target:Sprite;
 		
 		//	Constructor: (int, int, int, int)
@@ -41,8 +45,8 @@ package mutation.entity
 			
 			//	Initialise basic stats
 			food = 100;
-			itsAlive = true;
-			itsHungry = false;
+			isAlive = true;
+			isHungry = false;
 			target = null;
 			
 			foodOut = new TextField();
@@ -64,14 +68,12 @@ package mutation.entity
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
 		public function onTick(e:MutationEvent):void {
-			if (!itsAlive) return;
+			if (!isAlive) return;
 			
-			//	Update food amount, ever nth frame
-			food -= 0.5;
-			
+			food -= HUNGER_RATE;
 			processHunger();
 			
-			if (itsHungry && (target != null)) {
+			if (isHungry && (target != null)) {
 				chaseTheTarget();
 			}else {
 				moveAround();
@@ -100,7 +102,7 @@ package mutation.entity
 		//	Kills this bacteria, dispatching it's death event
 		public function kill():void {
 			if (stage) {
-				itsAlive = false;
+				isAlive = false;
 				stage.removeEventListener(MutationEvent.TICK, onTick);
 				stage.dispatchEvent(new BacteriaEvent(BacteriaEvent.DEATH, this));
 			}
@@ -109,26 +111,27 @@ package mutation.entity
 		public function chaseTheTarget():void
 		{
 			var radians:Number = Util.angleTo(x, y, target.x, target.y);
-			moveAt(radians);
+			moveAt(radians,HUNGRY_SPEED);
 		}
 		
-		private function moveAt(radians:Number):void
+		private function moveAt(radians:Number, factor:Number = 1):void
 		{
-			xSpeed = SPEED * Math.cos(radians);
-			ySpeed = SPEED * Math.sin(radians);
+			xSpeed = -1 * factor * SPEED * Math.cos(radians);
+			ySpeed = -1 * factor * SPEED * Math.sin(radians);
 		}
 		
 		private function processHunger():void
 		{
-			if (food < 75) itsHungry = true;
-			else itsHungry = false;
+			if (food < HUNGER_LEVEL) isHungry = true;
+			else isHungry = false;
 			
 			if (food < 0) kill();
 		}
 		
 		private function moveAround():void
 		{
-			if (Math.random() < (1 / (4 * 30))) {
+			//	Change direction every 2 seconds (2*30 ticks), to a random diretion
+			if (Math.random() < (DIRECTION_RATE)) {
 				var radians:Number = ((Math.random() - 0.5) * 2 * Math.PI);
 				moveAt(radians);
 			}

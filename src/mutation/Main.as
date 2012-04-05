@@ -33,7 +33,7 @@ package mutation
 		//	Initialisation once the stage is created
 		private function onInit(e:Event = null):void 
 		{	
-			testTube = new TestTube();
+			testTube = new TestTube(100,200,100);
 
 			Keys.init(stage);
 			
