@@ -14,6 +14,7 @@ package mutation.entity
 	import mutation.events.MutationEvent;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.FoodEvent;
+	import mutation.Mutation;
 	import mutation.util.Keys;
 	import mutation.util.Util;
 
@@ -136,9 +137,12 @@ package mutation.entity
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(mouseX, mouseY, radius)) {
-				var food:Food = new Food(mouseX, mouseY, Foods.getFood());
-				foods.push(food);
-				addChild(food);
+				if (Mutation.money >= 10){
+					var food:Food = new Food(mouseX, mouseY, Foods.getFood());
+					foods.push(food);
+					addChild(food);
+					Mutation.money -= 10;
+				}
 			}
 		}
 		

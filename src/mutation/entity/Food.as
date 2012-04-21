@@ -10,6 +10,7 @@ package mutation.entity
 	import flash.events.Event;
 	import mutation.events.FoodEvent;
 	import mutation.events.MutationEvent;
+	import mutation.Mutation;
 	import mutation.util.Util;
 
 	//	Class: Food
@@ -33,7 +34,7 @@ package mutation.entity
 			xSpeed = 0;
 			ySpeed = 0;
 			life = 5 * 30;
-			isAlive = true;
+			isAlive = false;
 			isMoving = true;
 
 			draw();
@@ -56,6 +57,8 @@ package mutation.entity
 				x += xSpeed;
 				y += ySpeed;
 			}
+			
+			if (life == 140) isAlive = true;
 			
 			//	force it to fade out before dying
 			if (life < 30){

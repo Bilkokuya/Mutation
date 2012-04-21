@@ -9,11 +9,15 @@ package mutation.entity
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.filters.BitmapFilterQuality;
 	import flash.geom.ColorTransform;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.ui.Mouse;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.MutationEvent;
+	import mutation.ui.BacteriaDisplay;
 	import mutation.util.Util;
 	
 	//	Class: bacteria
@@ -29,10 +33,12 @@ package mutation.entity
 		public var xSpeed:Number;		//	Current speed in the x Direction
 		public var ySpeed:Number;		//	Current speed in the y Direction
 		public var food:Number;			//	Currently food level for this bacteria
-		private var foodOut:TextField;	//	DEBUGGING!!! Shows food level for this bacteria as a text field.
 		public var isHungry:Boolean;
 		public var isAlive:Boolean;
 		public var target:Sprite;
+		
+		private var canMove:Boolean;
+		private var popOut:BacteriaDisplay;
 		
 		//	Constructor: (int, int, int, int)
 		public function Bacteria(x:int = 0, y:int = 0, xSpeed:Number = 0, ySpeed:Number = 0, radius:Number = 5) {	
@@ -48,9 +54,9 @@ package mutation.entity
 			isAlive = true;
 			isHungry = false;
 			target = null;
+			canMove = true;
 			
-			foodOut = new TextField();
-			addChild(foodOut);
+			popOut = new BacteriaDisplay(radius,0,100,50,20,20);
 			
 			//	Draw the graphics
 			draw();
@@ -64,6 +70,8 @@ package mutation.entity
 		public function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			stage.addEventListener(MutationEvent.TICK, onTick);
+			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 		}
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
@@ -79,14 +87,28 @@ package mutation.entity
 				moveAround();
 			}
 			
-			//	Update food DEBUGGING OUTPUT !!!!!
-			foodOut.text = food.toFixed(0).toString();
+			popOut.update("Basic Bacteria", food, isHungry);
 			
 			//	Update position
-			x += xSpeed;
-			y += ySpeed;
+			if (canMove){
+				x += xSpeed;
+				y += ySpeed;
+			}
 		}
 		
+		private function onRollOver(e:MouseEvent):void
+		{
+			popOut.show();
+			addChild(popOut);
+			canMove = false;
+		}
+		
+		private function onRollOut(e:MouseEvent):void
+		{
+			popOut.hide();
+			removeChild(popOut);
+			canMove = true;
+		}
 		
 		//	Feeds the bacteria, limiting to 100
 		//	Must be a positive number
@@ -116,8 +138,10 @@ package mutation.entity
 		
 		private function moveAt(radians:Number, factor:Number = 1):void
 		{
-			xSpeed = -1 * factor * SPEED * Math.cos(radians);
-			ySpeed = -1 * factor * SPEED * Math.sin(radians);
+			if (canMove){
+				xSpeed = -1 * factor * SPEED * Math.cos(radians);
+				ySpeed = -1 * factor * SPEED * Math.sin(radians);
+			}
 		}
 		
 		private function processHunger():void
