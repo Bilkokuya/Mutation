@@ -1,40 +1,37 @@
-//	Copyright 2012 Gordon D Mckendrick
-//	Author: Gordon D Mckendrick
-//	Food
-//		A floating food object that can be consumed by the bacteria
-
-
 package mutation.entity 
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import mutation.events.FoodEvent;
+	import flash.events.MouseEvent;
+	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
-	import mutation.util.Util;
+	import mutation.Main;
 
-	//	Class: Food
-	public class Food extends BaseFood 
-	{	
-		private const yAccel:Number = 0.07;	//	y Acceleration downwards
+	public class Item extends Sprite
+	{
+		
+		private const yAccel:Number = -0.07;	//	y Acceleration downwards
 		
 		public var xSpeed:Number;
 		public var ySpeed:Number;
 		public var life:Number;
+		public var radius:Number;
+		public var money:Number;
 		
 		public var flagIsMoving:Boolean = true;
+		public var flagIsClicked:Boolean = false;
 		public var flagIsAlive:Boolean = true;
 		
 		//	Constructor: default
-		public function Food(x:Number, y:Number, base:BaseFood)
+		public function Item(x:Number, y:Number)
 		{
-			super(base.radius, base.colour, base.foodAmount, base.debrisType, base.debrisCount);
-			
 			this.x = x;
 			this.y = y;
 			xSpeed = 0;
 			ySpeed = 0;
-			life = 5 * 30;
-			flagIsMoving = true;
+			life = 4 * 30;
+			radius = 6;
+			money = 100;
 
 			draw();
 			
@@ -46,10 +43,12 @@ package mutation.entity
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			stage.addEventListener(MutationEvent.TICK, onTick);
+			addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		//	OnTick Updates
-		private function onTick(e:MutationEvent):void {
+		public function onTick(e:MutationEvent):void {
+			
 			if(flagIsMoving){
 				ySpeed += yAccel;
 				x += xSpeed;
@@ -62,7 +61,11 @@ package mutation.entity
 					kill();
 				}
 			}
-			
+		}
+		
+		private function onClick(e:MouseEvent):void
+		{
+			flagIsClicked = true;
 		}
 		
 		//	Kills this peice of food from the game
@@ -70,19 +73,19 @@ package mutation.entity
 		{
 			flagIsAlive = false;
 			flagIsMoving = false;
-			if (stage){
+			if (stage) {
 				stage.removeEventListener(MutationEvent.TICK, onTick);
-				dispatchEvent(new FoodEvent(FoodEvent.DEATH, this, true));
+				removeEventListener(MouseEvent.CLICK, onClick);
+				dispatchEvent(new ItemEvent(ItemEvent.DEATH, this, true));
 			}
 		}
 		
 		//	Draw the graphics representation
 		private function draw():void {
-			graphics.beginFill(colour);
+			graphics.beginFill(0xFFAA33);
 			graphics.drawCircle(0, 0, radius);
 			graphics.endFill();
 		}
-	
 		
 	}
 

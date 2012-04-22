@@ -21,7 +21,7 @@ package mutation
 	
 	//	Class: Main extends Sprite
 	//	The main game class with main loop
-	public class Mutation extends Sprite 
+	public class Main extends Sprite 
 	{
 		static public var money:int;
 		
@@ -30,7 +30,7 @@ package mutation
 		private var moneyOut:TextField;
 		
 		//	Constructor: default
-		public function Mutation():void 
+		public function Main():void 
 		{			 
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -73,7 +73,15 @@ package mutation
 		{
 			tickCount++;
 			
-			moneyOut.text = "$" + money;
+			if (money < 1000){
+				moneyOut.text = "$" + money;
+			}else if (money < 1000000) {
+				var moneyK:Number = money / 1000;
+				moneyOut.text = "$" + moneyK.toFixed(1) + "K";
+			}else {
+				var moneyM:Number = money / 1000000;
+				moneyOut.text = "$" + moneyM.toFixed(2) + "M";
+			}
 			
 			//	Dispatch the main game tick event
 			stage.dispatchEvent(new MutationEvent(MutationEvent.TICK, tickCount));

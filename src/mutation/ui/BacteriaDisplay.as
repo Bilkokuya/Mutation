@@ -10,7 +10,7 @@ package mutation.ui
 	{
 		private var nameField:TextField;
 		private var foodField:TextField;
-		private var hungryField:TextField;
+		private var productionField:TextField;
 		
 		private var boxWidth_:int;
 		private var boxHeight_:int;
@@ -30,7 +30,7 @@ package mutation.ui
 			
 			nameField = new TextField();
 			foodField = new TextField();
-			hungryField = new TextField();
+			productionField = new TextField();
 			
 			var format:TextFormat = new TextFormat();
 			format.size = 12;
@@ -38,7 +38,7 @@ package mutation.ui
 			
 			nameField.defaultTextFormat = format;
 			foodField.defaultTextFormat = format;
-			hungryField.defaultTextFormat = format;
+			productionField.defaultTextFormat = format;
 			
 			nameField.x = arrowWidth_;
 			nameField.y = (-boxHeight_/2) + 2;
@@ -46,8 +46,8 @@ package mutation.ui
 			foodField.x = arrowWidth_;
 			foodField.y = (-boxHeight_/2) + 17;
 			
-			hungryField.x = arrowWidth_;
-			hungryField.y = (-boxHeight_/2) + 32;
+			productionField.x = arrowWidth_;
+			productionField.y = (-boxHeight_/2) + 32;
 			
 			super();
 			if (stage) onInit();
@@ -58,7 +58,7 @@ package mutation.ui
 		{
 			addChild(nameField);
 			addChild(foodField);
-			addChild(hungryField);
+			addChild(productionField);
 			
 			draw();
 			
@@ -74,11 +74,11 @@ package mutation.ui
 			this.visible = false;
 		}
 		
-		public function update(names:String, food:Number, isHungry:Boolean):void
+		public function update(names:String, food:Number, production:Number):void
 		{
 			nameField.text = names;
 			foodField.text = "Food: " + food.toFixed(0) + "/100";
-			hungryField.text = "isHungry: " + isHungry;
+			productionField.text = "Prod: " + production.toFixed(0) + "/100";;
 		}
 		
 		private function draw():void

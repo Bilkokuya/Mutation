@@ -5,7 +5,7 @@ package mutation.events
 	
 	public class FoodEvent extends Event 
 	{
-		public static const FDEATH:String = "FDEATH";
+		public static const DEATH:String = "FOOD_DEATH";
 		public var food:Food;
 		
 		public function FoodEvent(type:String, food:Food, bubbles:Boolean=false, cancelable:Boolean=false) 

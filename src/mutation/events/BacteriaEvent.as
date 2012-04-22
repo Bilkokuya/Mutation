@@ -5,7 +5,8 @@ package mutation.events
 	
 	public class BacteriaEvent extends Event 
 	{
-		public static const DEATH:String = "DEATH";
+		public static const DEATH:String = "BACTERIA_DEATH";
+		public static const PRODUCE:String = "BACTERIA_PRODUCE";
 		
 		public var bacteria:Bacteria;
 		
