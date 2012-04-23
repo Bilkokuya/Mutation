@@ -70,8 +70,8 @@ package mutation.entity
 		private var popOut:BacteriaDisplay;
 		
 		//	Resources for use in the pathways etc
-		public var food:Resource = new Resource(100);
-		public var aps:Resource = new Resource(0);
+		public var food:Resource = new Resource(100000);
+		public var aps:Resource = new Resource(10000);
 		public var paps:Resource = new Resource(0);
 		public var money:Resource = new Resource(0);
 		public var love:Resource = new Resource(0);
@@ -113,7 +113,7 @@ package mutation.entity
 				new cConverter(aps, paps,  30, 0.9),	//	APS to PAPS
 				new cConverter(paps, money,5, 0.2),		//	PAPS to Money
 				new cConverter(paps, love, 5, 0.2),		//	PAPS to Love
-				new cConverter(paps, aps,  29, 0.9),	//	PAPS to APS
+				new cConverter(paps, aps,  20, 0.8),	//	PAPS to APS
 				
 				new cCreator(DNA, -1),	//	DNA damage over time
 				new cInhibitor(new cConverter(aps, DNA, 1, 1), paps, 50),	//	PAPS inhibts DNA repair
