@@ -170,7 +170,7 @@ package mutation.entity
 					foods.push(food);
 					addChild(food);
 					Main.money -= 10;
-			//	}
+				//}
 			}
 		}
 		

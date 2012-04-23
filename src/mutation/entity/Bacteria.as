@@ -16,6 +16,11 @@ package mutation.entity
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
+	import mutation.entity.pathways.cConverter;
+	import mutation.entity.pathways.cCreator;
+	import mutation.entity.pathways.cInhibitor;
+	import mutation.entity.pathways.cPathway;
+	import mutation.entity.pathways.Resource;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.MutationEvent;
 	import mutation.ui.BacteriaDisplay;
@@ -32,7 +37,7 @@ package mutation.entity
 		private const HUNGRY_SPEED:Number = 3;
 		private const HUNGER_RATE:Number = 0.05;
 		private const DIRECTION_RATE:Number = 1 / 30;
-		private const HUNGER_LEVEL:Number = 95;
+		private const HUNGER_LEVEL:Number = 1000;
 		
 		public var flagIsClicked:Boolean = false;
 		public var flagIsAlive:Boolean = true;
@@ -42,7 +47,6 @@ package mutation.entity
 		public var radius:Number;
 		public var xSpeed:Number;		//	Current speed in the x Direction
 		public var ySpeed:Number;		//	Current speed in the y Direction
-		public var food:Number;			//	Currently food level for this bacteria
 		
 		public var bName:String = "Basic Bacteria";
 		
@@ -50,11 +54,6 @@ package mutation.entity
 		public var productionRate:Number = 1;
 		public var productionHungerLimit:Number = 50;
 		public var productionNeeded:Number = 100;
-		
-		public var love:Number = 0;
-		public var loveRate:Number = 1;
-		public var loveHungerLimit = 90;
-		public var loveNeeded:Number = 100;
 		
 		public var geneStability:Number = 1;
 		
@@ -65,8 +64,19 @@ package mutation.entity
 		public var speed:Number;
 		public var animation:int;
 		
+		
+		
 		private var ani:int;
 		private var popOut:BacteriaDisplay;
+		
+		//	Resources for use in the pathways etc
+		public var food:Resource = new Resource(100);
+		public var aps:Resource = new Resource(0);
+		public var paps:Resource = new Resource(0);
+		public var money:Resource = new Resource(0);
+		public var love:Resource = new Resource(0);
+		public var DNA:Resource = new Resource(100);
+		public var pathway:cPathway;
 		
 		//	Constructor: (int, int, int, int)
 		public function Bacteria(x:int = 0, y:int = 0, xSpeed:Number = 0, ySpeed:Number = 0, radius:Number = 5) {	
@@ -78,7 +88,7 @@ package mutation.entity
 			this.radius = radius;
 			
 			//	Initialise basic stats
-			food = 100;
+			food.amount = 100;
 			
 			target = null;
 			canMove = true;
@@ -96,10 +106,18 @@ package mutation.entity
 			bitmap.x = -bitmap.width/2;
 			bitmap.y = -bitmap.height/2;
 			
-			popOut = new BacteriaDisplay(radius,0,100,50,20,20);
+			popOut = new BacteriaDisplay(radius, 0, 100, 50, 20, 20);
 			
-			//	Draw the graphics
-			//draw();
+			pathway = new cPathway([
+				new cConverter(food, aps,  50, 2),		//	Food to APS
+				new cConverter(aps, paps,  30, 0.9),	//	APS to PAPS
+				new cConverter(paps, money,5, 0.2),		//	PAPS to Money
+				new cConverter(paps, love, 5, 0.2),		//	PAPS to Love
+				new cConverter(paps, aps,  29, 0.9),	//	PAPS to APS
+				
+				new cCreator(DNA, -1),	//	DNA damage over time
+				new cInhibitor(new cConverter(aps, DNA, 1, 1), paps, 50),	//	PAPS inhibts DNA repair
+			]);
 			
 			super();
 			if (stage) onInit();
@@ -117,15 +135,11 @@ package mutation.entity
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
 		public function onTick(e:MutationEvent):void {
-			food -= HUNGER_RATE;
 			processHungerState();
 			
-			if (food > productionHungerLimit){
-				production++;
-				if (production > productionNeeded) {
-					production = 0;
-					dispatchEvent(new BacteriaEvent(BacteriaEvent.PRODUCE, this, true));
-				}
+			if (money.amount > productionNeeded) {
+				money.amount -= productionNeeded;
+				dispatchEvent(new BacteriaEvent(BacteriaEvent.PRODUCE, this, true));
 			}
 			
 			if (flagIsHungry && (target != null)) {
@@ -133,6 +147,8 @@ package mutation.entity
 			}else {
 				moveAround();
 			}
+			
+			if (DNA.amount < 0) kill();
 			
 			if (!popOut.visible){
 				if (speed > 1) {
@@ -147,7 +163,9 @@ package mutation.entity
 				scaleY = 1 - ((animation) / 90);
 			}
 			
-			popOut.update(bName, food, production);
+			popOut.update(DNA.amount, aps.amount, paps.amount);
+			pathway.update();
+			//trace(pathway.food.amount);
 			
 			//	Update position
 			if (canMove){
@@ -177,13 +195,10 @@ package mutation.entity
 		
 		//	Feeds the bacteria, limiting to 100
 		//	Must be a positive number
-		public function feed(amount:int = 100):void {
+		public function feed(amount:Number = 100):void {
 			if (amount < 0) return;
 			
-			food += amount;
-			if (food > 100) {
-				food = 100;
-			}
+			food.amount += amount;
 		}
 		
 		//	Kills this bacteria, dispatching it's death event
@@ -209,10 +224,8 @@ package mutation.entity
 		
 		private function processHungerState():void
 		{
-			if (food < HUNGER_LEVEL) flagIsHungry = true;
+			if (food.amount < HUNGER_LEVEL) flagIsHungry = true;
 			else flagIsHungry = false;
-			
-			if (food < 0) kill();
 		}
 		
 		private function moveAround():void
@@ -224,12 +237,5 @@ package mutation.entity
 			}
 		}
 		
-		//	Draws the graphics representation for this
-		private function draw():void{
-			graphics.clear();
-			graphics.beginFill(0x0066FF);
-			graphics.drawCircle(0, 0, radius);
-			graphics.endFill();
-		}
 	}
 }

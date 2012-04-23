@@ -10,12 +10,12 @@ package mutation.entity
 		private static var selectedFood:int = 0;
 		private static const NUMBER_OF_FOODS:int = 1;
 		
-		public static const SMALL_DEBRIS:BaseFood = new BaseFood(2.5, 0xFF6600, 5);
+		public static const SMALL_DEBRIS:BaseFood = new BaseFood(2.5, 0xFF6600, 500);
 		public static const BIG_DEBRIS:BaseFood = new BaseFood(2.5, 0xFF22FF, 8);
 		
 		public static const FOOD_TYPES:Array = new Array(
-			new BaseFood(5, 0xFF6600, 50, SMALL_DEBRIS, 3),
-			new BaseFood(6, 0xFF00FF, 70, BIG_DEBRIS, 5)
+			new BaseFood(5, 0xFF6600, 1200, SMALL_DEBRIS, 3),
+			new BaseFood(6, 0xFF00FF, 1800, BIG_DEBRIS, 5)
 		);
 		
 		

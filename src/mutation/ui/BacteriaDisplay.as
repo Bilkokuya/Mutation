@@ -74,11 +74,11 @@ package mutation.ui
 			this.visible = false;
 		}
 		
-		public function update(names:String, food:Number, production:Number):void
+		public function update(names:Number, food:Number, production:Number):void
 		{
-			nameField.text = names;
-			foodField.text = "Food: " + food.toFixed(0) + "/100";
-			productionField.text = "Prod: " + production.toFixed(0) + "/100";;
+			nameField.text = "DNA: " + names.toFixed(0);
+			foodField.text = "APS: " + food.toFixed(0);
+			productionField.text = "PAPS: " + production.toFixed(0);
 		}
 		
 		private function draw():void
