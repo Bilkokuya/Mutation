@@ -7,6 +7,7 @@ package mutation.events
 	{
 		public static const DEATH:String = "BACTERIA_DEATH";
 		public static const PRODUCE:String = "BACTERIA_PRODUCE";
+		public static const BREED:String = "BACTERIA_BREED";
 		
 		public var bacteria:Bacteria;
 		

@@ -18,8 +18,10 @@ package mutation.entity
 	import flash.ui.Mouse;
 	import mutation.entity.pathways.cConverter;
 	import mutation.entity.pathways.cCreator;
+	import mutation.entity.pathways.cEnzyme;
 	import mutation.entity.pathways.cInhibitor;
 	import mutation.entity.pathways.cPathway;
+	import mutation.entity.pathways.cStorage;
 	import mutation.entity.pathways.Resource;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.MutationEvent;
@@ -63,23 +65,25 @@ package mutation.entity
 		public var bitmap:Bitmap;
 		public var speed:Number;
 		public var animation:int;
-		
-		
-		
+
 		private var ani:int;
 		private var popOut:BacteriaDisplay;
 		
 		//	Resources for use in the pathways etc
-		public var food:Resource = new Resource(100000);
-		public var aps:Resource = new Resource(10000);
+		/*
+		public var food:Resource = new Resource(1000);
+		public var aps:Resource = new Resource(1000);
 		public var paps:Resource = new Resource(0);
 		public var money:Resource = new Resource(0);
 		public var love:Resource = new Resource(0);
-		public var DNA:Resource = new Resource(100);
+		public var DNA:Resource = new Resource(1000);
+		*/
+		
+		public var storage:cStorage;
 		public var pathway:cPathway;
 		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(x:int = 0, y:int = 0, xSpeed:Number = 0, ySpeed:Number = 0, radius:Number = 5) {	
+		public function Bacteria(x:int = 0, y:int = 0, enzyme:cPathway = null, store:cStorage = null, xSpeed:Number = 0, ySpeed:Number = 0, radius:Number = 5) {	
 			//	Set values from parameters
 			this.x = x;
 			this.y = y;
@@ -88,7 +92,6 @@ package mutation.entity
 			this.radius = radius;
 			
 			//	Initialise basic stats
-			food.amount = 100;
 			
 			target = null;
 			canMove = true;
@@ -96,8 +99,8 @@ package mutation.entity
 			ani = 1;
 			production = 0;
 			
+			/*
 			bitmap = new bacteriaGFX();
-
 			visual = new Sprite();
 			addChild(visual);
 			visual.addChild(bitmap);
@@ -105,23 +108,78 @@ package mutation.entity
 			bitmap.height = 2 * radius;
 			bitmap.x = -bitmap.width/2;
 			bitmap.y = -bitmap.height/2;
+			*/
+			
+			graphics.beginFill(0x0066FF);
+			graphics.drawCircle(0, 0, radius);
+			graphics.endFill();
 			
 			popOut = new BacteriaDisplay(radius, 0, 100, 50, 20, 20);
 			
-			pathway = new cPathway([
-				new cConverter(food, aps,  50, 2),		//	Food to APS
-				new cConverter(aps, paps,  30, 0.9),	//	APS to PAPS
-				new cConverter(paps, money,5, 0.2),		//	PAPS to Money
-				new cConverter(paps, love, 5, 0.2),		//	PAPS to Love
-				new cConverter(paps, aps,  20, 0.8),	//	PAPS to APS
-				
-				new cCreator(DNA, -1),	//	DNA damage over time
-				new cInhibitor(new cConverter(aps, DNA, 1, 1), paps, 50),	//	PAPS inhibts DNA repair
-			]);
+			if (store) {
+				this.storage = store;
+			}else {
+				this.storage = new cStorage();
+			}
+			
+			if (enzyme) {
+				pathway = enzyme;
+			}else{
+				pathway = new cPathway([
+					new cConverter(storage.resources[cStorage.FOOD], storage.resources[cStorage.APS],  5, 2),		//	Food to APS
+					new cConverter(storage.resources[cStorage.APS],  storage.resources[cStorage.PAPS],  30, 0.9),	
+					new cConverter(storage.resources[cStorage.PAPS], storage.resources[cStorage.MONEY],1, 0.1),		//	PAPS to Money
+					new cConverter(storage.resources[cStorage.PAPS], storage.resources[cStorage.LOVE], 5, 0.2),		//	PAPS to Love
+					new cConverter(storage.resources[cStorage.PAPS], storage.resources[cStorage.APS],  1, 0.8),	//	PAPS to APS
+					
+					new cCreator(storage.resources[cStorage.DNA], -1),	//	DNA damage over time
+					new cInhibitor(new cConverter(storage.resources[cStorage.APS], storage.resources[cStorage.DNA], 1, 1), storage.resources[cStorage.PAPS], 50),	//	PAPS inhibts DNA repair
+				]);
+			}
 			
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
+		}
+		
+		public function mutatedEnzyme(s:cStorage):cPathway
+		{	
+			var enzyme:cPathway = new cPathway([
+				new cConverter(s.resources[cStorage.APS],  s.resources[cStorage.PAPS],  30, 0.9),	
+				new cConverter(s.resources[cStorage.PAPS], s.resources[cStorage.MONEY],1, 0.1),		//	PAPS to Money
+				new cConverter(s.resources[cStorage.PAPS], s.resources[cStorage.LOVE], 5, 0.2),		//	PAPS to Love
+				new cConverter(s.resources[cStorage.PAPS], s.resources[cStorage.APS],  1, 0.8),	//	PAPS to APS
+					
+				new cCreator(s.resources[cStorage.DNA], -1),	//	DNA damage over time
+				new cInhibitor(new cConverter(s.resources[cStorage.APS], storage.resources[cStorage.DNA], 1, 1), storage.resources[cStorage.PAPS], 50),	//	PAPS inhibts DNA repair
+			]);
+			
+			for (var i:int = 0; i < enzyme.pathwayEnzymes.length; ++i ) {
+				var mutation:Number = (storage.resources[cStorage.DNA].amount/1000) * Math.random();
+				if (mutation > 0.2) continue;
+				
+				var e:cEnzyme = enzyme.pathwayEnzymes[i];
+				var b:cEnzyme = pathway.pathwayEnzymes[i];
+				
+				if (e is cConverter) {
+					mutation = (storage.resources[cStorage.DNA].amount/1000) * ((Math.random()-0.5)/2);
+					(e as cConverter).rate = (b as cConverter).rate * mutation;
+					
+					mutation = (storage.resources[cStorage.DNA].amount/1000) * ((Math.random()-0.5)/2);
+					(e as cConverter).efficiency = (b as cConverter).efficiency * mutation;
+				
+				}else if (e is cInhibitor) {
+					mutation = (storage.resources[cStorage.DNA].amount/1000) * ((Math.random()-0.5)/2);
+					(e as cInhibitor).cost = (b as cInhibitor).cost * mutation;
+					
+					
+				}else if (e is cCreator) {
+					mutation = (storage.resources[cStorage.DNA].amount/1000) * ((Math.random()-0.5)/2);
+					(e as cCreator).rate = (b as cCreator).rate * mutation;
+				}
+			}
+			
+			return enzyme;
 		}
 		
 		//	Initialisation after stage
@@ -137,9 +195,14 @@ package mutation.entity
 		public function onTick(e:MutationEvent):void {
 			processHungerState();
 			
-			if (money.amount > productionNeeded) {
-				money.amount -= productionNeeded;
+			if (storage.resources[cStorage.MONEY].amount > productionNeeded) {
+				storage.resources[cStorage.MONEY].amount -= productionNeeded;
 				dispatchEvent(new BacteriaEvent(BacteriaEvent.PRODUCE, this, true));
+			}
+			
+			if (storage.resources[cStorage.LOVE].amount > 500) {
+				storage.resources[cStorage.LOVE].amount -= 500;
+				dispatchEvent(new BacteriaEvent(BacteriaEvent.BREED, this, true));
 			}
 			
 			if (flagIsHungry && (target != null)) {
@@ -148,7 +211,7 @@ package mutation.entity
 				moveAround();
 			}
 			
-			if (DNA.amount < 0) kill();
+			if (storage.resources[cStorage.DNA].amount < 0) kill();
 			
 			if (!popOut.visible){
 				if (speed > 1) {
@@ -163,9 +226,8 @@ package mutation.entity
 				scaleY = 1 - ((animation) / 90);
 			}
 			
-			popOut.update(DNA.amount, aps.amount, paps.amount);
+			popOut.update(storage.resources[cStorage.DNA].amount, storage.resources[cStorage.APS].amount, storage.resources[cStorage.PAPS].amount);
 			pathway.update();
-			//trace(pathway.food.amount);
 			
 			//	Update position
 			if (canMove){
@@ -198,7 +260,7 @@ package mutation.entity
 		public function feed(amount:Number = 100):void {
 			if (amount < 0) return;
 			
-			food.amount += amount;
+			storage.resources[cStorage.FOOD].amount += amount;
 		}
 		
 		//	Kills this bacteria, dispatching it's death event
@@ -224,7 +286,7 @@ package mutation.entity
 		
 		private function processHungerState():void
 		{
-			if (food.amount < HUNGER_LEVEL) flagIsHungry = true;
+			if (storage.resources[cStorage.FOOD].amount < HUNGER_LEVEL) flagIsHungry = true;
 			else flagIsHungry = false;
 		}
 		

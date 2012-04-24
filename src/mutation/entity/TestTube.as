@@ -12,11 +12,14 @@ package mutation.entity
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
+	import mutation.entity.pathways.cEnzyme;
+	import mutation.entity.pathways.cStorage;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.FoodEvent;
 	import mutation.Main;
+	import mutation.ui.BacteriaDisplay;
 	import mutation.util.Keys;
 	import mutation.util.Util;
 
@@ -43,9 +46,9 @@ package mutation.entity
 			
 			//	Temporay set up the bacteria to test
 			for (var i:int = 0; i < 5; i++) {
-				var xSpeed:Number = (Math.random() - 0.5) * 5;
-				var ySpeed:Number = (Math.random() - 0.5) * 5;
-				var b:Bacteria = new Bacteria(0, 0, xSpeed, ySpeed, 8);
+				var x:Number = (Math.random() - 0.5) * 5;
+				var y:Number = (Math.random() - 0.5) * 5;
+				var b:Bacteria = new Bacteria(x, y);
 				bacterias.push(b);
 				addChild(b);
 			}
@@ -69,6 +72,7 @@ package mutation.entity
 			addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			addEventListener(ItemEvent.DEATH, onItemDeath);
 			addEventListener(BacteriaEvent.PRODUCE, onBacteriaProduce);
+			addEventListener(BacteriaEvent.BREED, onBacteriaBreed);
 		}
 		
 		
@@ -78,7 +82,9 @@ package mutation.entity
 			updateFood();
 			updateBacteria();
 			
-			if (flagIsClicked) spawnFood();
+			if (flagIsClicked) spawnFood(mouseX, mouseY);
+			else spawnFood(0, 0, 0);
+			
 			flagIsClicked = false;
 		}
 
@@ -154,23 +160,40 @@ package mutation.entity
 			items.push(item);
 			addChild(item);
 		}
+		
+		//	TEMPORARY
+		public var bacteriaCount:int = 5;
+		
+		//	Bacteria created/ mutated function
+		private function onBacteriaBreed(e:BacteriaEvent):void
+		{
+			bacteriaCount++;
+			var storage:cStorage = new cStorage();
+			
+			var bacteria:Bacteria = new Bacteria(e.bacteria.x, e.bacteria.y, e.bacteria.mutatedEnzyme(storage), storage);
+			bacterias.push(bacteria);
+			addChild(bacteria);
+			
+			if (bacteriaCount > 100) e.bacteria.kill();
+		}
+		
 		//	Feeds the bacteria when the testTube is clicked on
 		private function onClick(e:MouseEvent):void {
 			
 			flagIsClicked = true;
 		}
 		
-		private function spawnFood():void
+		private function spawnFood(x:Number, y:Number, cost:int = 10):void
 		{
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
-			if (Util.inRadius(mouseX, mouseY, radius)) {
-				//if (Main.money >= 10){
-					var food:Food = new Food(mouseX, mouseY, Foods.getFood());
+			if (Util.inRadius(x, y, radius)) {
+				if (Main.money >= cost){
+					var food:Food = new Food(x, y, Foods.getFood());
 					foods.push(food);
 					addChild(food);
-					Main.money -= 10;
-				//}
+					Main.money -= cost;
+				}
 			}
 		}
 		
@@ -196,6 +219,7 @@ package mutation.entity
 		{
 			removeChild(e.bacteria);
 			bacterias.splice(bacterias.indexOf(e.bacteria), 1);
+			bacteriaCount--;
 		}
 		
 		private function onItemDeath(e:ItemEvent):void 
