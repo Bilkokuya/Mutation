@@ -21,6 +21,17 @@ package mutation.entity.pathways
 			}
 		}
 		
+		public function mutate(storage:cStorage, DNA:Number):cEnzyme
+		{
+			
+			var array:Array = new Array();
+			for each ( var e:cEnzyme in pathwayEnzymes) {
+				array.push(e.mutate(storage, DNA));
+			}
+			return new cPathway(array);
+			
+		}
+		
 	}
 
 }

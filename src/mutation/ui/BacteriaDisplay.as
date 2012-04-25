@@ -77,7 +77,7 @@ package mutation.ui
 		public function update(names:Number, food:Number, production:Number):void
 		{
 			nameField.text = "DNA: " + names.toFixed(0);
-			foodField.text = "APS: " + food.toFixed(0);
+			foodField.text = "Gen: " + food.toFixed(0);
 			productionField.text = "PAPS: " + production.toFixed(0);
 		}
 		

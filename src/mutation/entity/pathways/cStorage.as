@@ -11,14 +11,9 @@ package mutation.entity.pathways
 		public static const MONEY:int = 4;
 		public static const LOVE:int = 5;
 		
-		public var resources:Vector.<Resource> = Vector.<Resource>([
-			new Resource(1000),
-			new Resource(1000),
-			new Resource(1000),
-			new Resource(0),
-			new Resource(0),
-			new Resource(0)
-		]);
+		public var resources:Array = new Array(
+			50, 100, 1000, 0, 0, 0
+		);
 				
 		public function cStorage() 
 		{

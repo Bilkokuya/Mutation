@@ -8,8 +8,9 @@ package mutation.entity.pathways
 		public var needed:Number;
 		public var event:Event;
 		
-		public function cProducer(from:Resource, needed:Number, event:Event) 
+		public function cProducer(storage:cStorage,from:Resource, needed:Number, event:Event) 
 		{
+			this.storage = storage;
 			this.from = from;
 			this.needed = needed;
 			this.event = event;

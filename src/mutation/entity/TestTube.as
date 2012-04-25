@@ -27,6 +27,10 @@ package mutation.entity
 	//	Represents a single TestTube of bacteria
 	public class TestTube extends Sprite
 	{
+		//	TEMPORARY
+		public var bacteriaCount:int = 0;
+		public const MAX_BACTERIA:int = 50;
+		
 		private var bacterias:Array;	//	Array of Bacteria
 		private var foods:Array;		//	Array of Food
 		private var items:Array;
@@ -83,7 +87,7 @@ package mutation.entity
 			updateBacteria();
 			
 			if (flagIsClicked) spawnFood(mouseX, mouseY);
-			else spawnFood(0, 0, 0);
+			else spawnFood(0, (radius - 15), 0);
 			
 			flagIsClicked = false;
 		}
@@ -161,20 +165,24 @@ package mutation.entity
 			addChild(item);
 		}
 		
-		//	TEMPORARY
-		public var bacteriaCount:int = 5;
-		
 		//	Bacteria created/ mutated function
 		private function onBacteriaBreed(e:BacteriaEvent):void
 		{
+			if (bacteriaCount > MAX_BACTERIA) return;
+			
 			bacteriaCount++;
 			var storage:cStorage = new cStorage();
 			
-			var bacteria:Bacteria = new Bacteria(e.bacteria.x, e.bacteria.y, e.bacteria.mutatedEnzyme(storage), storage);
+			var bacteria:Bacteria = new Bacteria(
+				e.bacteria.x, 
+				e.bacteria.y,
+				e.bacteria.generation + 1,
+				e.bacteria.pathway.mutate(storage, e.bacteria.storage.resources[cStorage.DNA]/500), 
+				storage
+			);
+			
 			bacterias.push(bacteria);
 			addChild(bacteria);
-			
-			if (bacteriaCount > 100) e.bacteria.kill();
 		}
 		
 		//	Feeds the bacteria when the testTube is clicked on
