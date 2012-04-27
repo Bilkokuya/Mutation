@@ -30,7 +30,7 @@ package mutation.entity
 			xSpeed = 0;
 			ySpeed = 0;
 			life = 4 * 30;
-			radius = 6;
+			radius =  4 * (amount/100);
 			money = amount;
 
 			draw();

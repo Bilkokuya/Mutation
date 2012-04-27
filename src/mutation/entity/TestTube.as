@@ -18,6 +18,8 @@ package mutation.entity
 	import mutation.events.FoodEvent;
 	import mutation.Main;
 	import mutation.ui.BacteriaDisplay;
+	import mutation.ui.NameBacteriaDisplay;
+	import mutation.ui.PopupDisplay;
 	import mutation.util.Keys;
 	import mutation.util.Util;
 
@@ -35,6 +37,7 @@ package mutation.entity
 		private var radius:int;			//	Radius of movement for the testtube
 		
 		private var flagIsClicked:Boolean = false;
+		private var popup:NameBacteriaDisplay;
 		
 		//	Constructor: default
 		public function TestTube(x:Number = 200, y:Number = 200, radius:int = 50) {
@@ -45,14 +48,10 @@ package mutation.entity
 			bacterias = new Array();
 			foods = new Array();
 			items = new Array();
+			popup = new NameBacteriaDisplay(-3*radius/4, 0);
 			
-			//	Temporay set up the bacteria to test
-			for (var i:int = 0; i < 5; i++) {
-				var x:Number = (Math.random() - 0.5) * 5;
-				var y:Number = (Math.random() - 0.5) * 5;
-				spawnBacteria(x, y);
-			}
-
+			addChild(popup);
+			
 			draw();
 			
 			super();
@@ -72,6 +71,11 @@ package mutation.entity
 			addEventListener(ItemEvent.DEATH, onItemDeath);
 			addEventListener(ItemEvent.PRODUCE, onBacteriaProduce);
 			addEventListener(BacteriaEvent.BREED, onBacteriaBreed);
+			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
+			
+			popup.display(new Bacteria(0,0,5));
+			Main.isPaused = true;
+			removeEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		
@@ -154,6 +158,14 @@ package mutation.entity
 			}
 		}
 		
+		private function onBacteriaNamed(e:BacteriaEvent):void
+		{
+			popup.hide();
+			Main.isPaused = false;
+			addEventListener(MouseEvent.CLICK, onClick);
+			spawnBacteria(e.bacteria);
+		}
+		
 		//	Called when a bacteria produces something
 		private function onBacteriaProduce(e:ItemEvent):void
 		{
@@ -164,22 +176,24 @@ package mutation.entity
 		//	Bacteria created/ mutated function
 		private function onBacteriaBreed(e:BacteriaEvent):void
 		{
-			spawnBacteria(e.bacteria.x, e.bacteria.y);
+			addChildAt(popup, numChildren - 1);
+			popup.display(new Bacteria(e.bacteria.x, e.bacteria.y,e.bacteria.radius));
+			Main.isPaused = true;
+			removeEventListener(MouseEvent.CLICK, onClick);
 		}
 		
-		private function spawnBacteria(x:Number, y:Number):void
+		private function spawnBacteria(bacteria:Bacteria):void
 		{
 			if (bacteriaCount > MAX_BACTERIA) return;
 			bacteriaCount++;
 			
-			var bacteria:Bacteria = new Bacteria(x, y);
 			bacterias.push(bacteria);
 			addChild(bacteria);
 		}
 		
 		//	Feeds the bacteria when the testTube is clicked on
-		private function onClick(e:MouseEvent):void {
-			
+		private function onClick(e:MouseEvent):void
+		{			
 			flagIsClicked = true;
 		}
 		

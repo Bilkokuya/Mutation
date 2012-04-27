@@ -69,7 +69,7 @@ package mutation.entity
 			
 			food = new Resource(100, -0.1, 100);
 			money = new Resource(Math.random()*50, 1, 100);
-			love = new Resource(Math.random()*50, 0, 100);
+			love = new Resource(Math.random()*50, 0.01, 100);
 			
 			super();
 			if (stage) onInit();
@@ -83,6 +83,7 @@ package mutation.entity
 			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 			
+			moveAround(true);
 		}
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
@@ -100,7 +101,7 @@ package mutation.entity
 			}
 			
 			if (flagIsHungry) {
-				draw(0x00FF66);
+				draw(0x006611);
 			}else {
 				draw(0x0066FF);
 			}
@@ -127,7 +128,7 @@ package mutation.entity
 			
 			if (food.amount < 1) kill();
 			
-			popOut.update(food.amount ,money.amount ,level.experience);
+			popOut.update(nameString ,money.amount ,love.amount);
 			
 			//	Update position
 			if (canMove){
@@ -145,7 +146,6 @@ package mutation.entity
 			parent.setChildIndex(this, parent.numChildren - 1);
 			addChild(popOut);
 			canMove = false;
-			Main.isPaused = true;
 		}
 		
 		//	Hide the stats display
@@ -156,7 +156,6 @@ package mutation.entity
 			scaleY = 1;
 			removeChild(popOut);
 			canMove = true;
-			Main.isPaused = false;
 		}
 		
 		//	Feeds the bacteria, limiting to 100
@@ -199,9 +198,9 @@ package mutation.entity
 		}
 		
 		//	Moving around when there is no target
-		private function moveAround():void
+		private function moveAround(forced:Boolean = false):void
 		{
-			if (Math.random() < (DIRECTION_RATE)) {
+			if ((Math.random() < (DIRECTION_RATE)) || (forced)) {
 				var radians:Number = ((Math.random() - 0.5) * 2 * Math.PI);
 				moveAt(radians);
 			}
