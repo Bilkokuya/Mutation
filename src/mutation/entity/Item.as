@@ -11,9 +11,9 @@ package mutation.entity
 	{
 		
 		private const yAccel:Number = -0.07;	//	y Acceleration downwards
-		
 		public var xSpeed:Number;
 		public var ySpeed:Number;
+		
 		public var life:Number;
 		public var radius:Number;
 		public var money:Number;
@@ -23,7 +23,7 @@ package mutation.entity
 		public var flagIsAlive:Boolean = true;
 		
 		//	Constructor: default
-		public function Item(x:Number, y:Number)
+		public function Item(x:Number, y:Number, amount:Number = 100)
 		{
 			this.x = x;
 			this.y = y;
@@ -31,7 +31,7 @@ package mutation.entity
 			ySpeed = 0;
 			life = 4 * 30;
 			radius = 6;
-			money = 100;
+			money = amount;
 
 			draw();
 			

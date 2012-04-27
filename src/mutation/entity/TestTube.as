@@ -12,8 +12,6 @@ package mutation.entity
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
-	import mutation.entity.pathways.cEnzyme;
-	import mutation.entity.pathways.cStorage;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
 	import mutation.events.BacteriaEvent;
@@ -52,12 +50,9 @@ package mutation.entity
 			for (var i:int = 0; i < 5; i++) {
 				var x:Number = (Math.random() - 0.5) * 5;
 				var y:Number = (Math.random() - 0.5) * 5;
-				var b:Bacteria = new Bacteria(x, y);
-				bacterias.push(b);
-				addChild(b);
+				spawnBacteria(x, y);
 			}
-			
-			//	Temporary draw the circle
+
 			draw();
 			
 			super();
@@ -75,7 +70,7 @@ package mutation.entity
 			addEventListener(FoodEvent.DEATH, onFoodDeath);
 			addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			addEventListener(ItemEvent.DEATH, onItemDeath);
-			addEventListener(BacteriaEvent.PRODUCE, onBacteriaProduce);
+			addEventListener(ItemEvent.PRODUCE, onBacteriaProduce);
 			addEventListener(BacteriaEvent.BREED, onBacteriaBreed);
 		}
 		
@@ -87,11 +82,11 @@ package mutation.entity
 			updateBacteria();
 			
 			if (flagIsClicked) spawnFood(mouseX, mouseY);
-			else spawnFood(0, (radius - 15), 0);
 			
 			flagIsClicked = false;
 		}
 
+		//	Updates all the items in the testtube
 		private function updateItems():void
 		{
 			for each (var i:Item in items) {
@@ -111,6 +106,7 @@ package mutation.entity
 			}
 		}
 		
+		//	Updates all the food in the testtube
 		private function updateFood():void
 		{
 			for each (var f:Food in foods) {
@@ -123,6 +119,7 @@ package mutation.entity
 			}
 		}
 		
+		//	Updates all bacteria in the testtube
 		private function updateBacteria():void
 		{
 			for each (var b:Bacteria in bacterias) {	
@@ -155,32 +152,27 @@ package mutation.entity
 					b.target = closestFood;
 				}
 			}
-			
 		}
 		
-		private function onBacteriaProduce(e:BacteriaEvent):void
+		//	Called when a bacteria produces something
+		private function onBacteriaProduce(e:ItemEvent):void
 		{
-			var item:Item = new Item(e.bacteria.x, e.bacteria.y);
-			items.push(item);
-			addChild(item);
+			items.push(e.item);
+			addChild(e.item);
 		}
 		
 		//	Bacteria created/ mutated function
 		private function onBacteriaBreed(e:BacteriaEvent):void
 		{
+			spawnBacteria(e.bacteria.x, e.bacteria.y);
+		}
+		
+		private function spawnBacteria(x:Number, y:Number):void
+		{
 			if (bacteriaCount > MAX_BACTERIA) return;
-			
 			bacteriaCount++;
-			var storage:cStorage = new cStorage();
 			
-			var bacteria:Bacteria = new Bacteria(
-				e.bacteria.x, 
-				e.bacteria.y,
-				e.bacteria.generation + 1,
-				e.bacteria.pathway.mutate(storage, e.bacteria.storage.resources[cStorage.DNA]/500), 
-				storage
-			);
-			
+			var bacteria:Bacteria = new Bacteria(x, y);
 			bacterias.push(bacteria);
 			addChild(bacteria);
 		}
@@ -191,6 +183,7 @@ package mutation.entity
 			flagIsClicked = true;
 		}
 		
+		//	Spawns a new item of food at the specified position
 		private function spawnFood(x:Number, y:Number, cost:int = 10):void
 		{
 			//	Add a new peice of food
@@ -230,6 +223,7 @@ package mutation.entity
 			bacteriaCount--;
 		}
 		
+		//	Called when an item dies and needs removed
 		private function onItemDeath(e:ItemEvent):void 
 		{
 			removeChild(e.item);

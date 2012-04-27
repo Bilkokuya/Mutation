@@ -13,6 +13,8 @@ package mutation
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
+	import flash.text.TextFieldType;
+	import mutation.container.Background;
 	import mutation.entity.Bacteria;
 
 	import mutation.events.MutationEvent;
@@ -24,10 +26,12 @@ package mutation
 	public class Main extends Sprite 
 	{
 		static public var money:int;
+		static public var isPaused:Boolean = false;
 		
 		private var tickCount:int;
 		private var testTube:TestTube;
 		private var moneyOut:TextField;
+		
 		
 		//	Constructor: default
 		public function Main():void 
@@ -40,9 +44,9 @@ package mutation
 		//	Initialisation once the stage is created
 		private function onInit(e:Event = null):void 
 		{	
-			testTube = new TestTube(100, 200, 100);
+			testTube = new TestTube(125, 200, 100);
 			moneyOut = new TextField();
-		
+			
 			Keys.init(stage);
 			
 			var format:TextFormat = new TextFormat();
@@ -71,20 +75,22 @@ package mutation
 		//	Runs once per frame as the main loop
 		private function onTick(e:Event):void
 		{
-			tickCount++;
-			
-			if (money < 1000){
-				moneyOut.text = "$" + money;
-			}else if (money < 1000000) {
-				var moneyK:Number = money / 1000;
-				moneyOut.text = "$" + moneyK.toFixed(1) + "K";
-			}else {
-				var moneyM:Number = money / 1000000;
-				moneyOut.text = "$" + moneyM.toFixed(2) + "M";
+			if (!isPaused){
+				tickCount++;
+				
+				if (money < 1000){
+					moneyOut.text = "$" + money;
+				}else if (money < 1000000) {
+					var moneyK:Number = money / 1000;
+					moneyOut.text = "$" + moneyK.toFixed(1) + "K";
+				}else {
+					var moneyM:Number = money / 1000000;
+					moneyOut.text = "$" + moneyM.toFixed(2) + "M";
+				}
+				
+				//	Dispatch the main game tick event
+				stage.dispatchEvent(new MutationEvent(MutationEvent.TICK, tickCount));
 			}
-			
-			//	Dispatch the main game tick event
-			stage.dispatchEvent(new MutationEvent(MutationEvent.TICK, tickCount));
 		}
 		
 	}
