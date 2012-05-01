@@ -54,7 +54,7 @@ package mutation.ui
 		{
 			nameField.text = "Name: " + names;
 			foodField.text = "Money: " + food.toFixed(0);
-			productionField.text = "Love: " + production.toFixed(0);
+			productionField.text = "Food: " + production.toFixed(0);
 		}
 	}
 

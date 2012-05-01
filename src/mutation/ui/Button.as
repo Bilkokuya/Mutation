@@ -7,11 +7,13 @@
 
 package mutation.ui
 {
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
-	import GDM.Mutation.events.ButtonEvent;
+	import flash.text.TextFieldAutoSize;
+	import mutation.events.ButtonEvent;
 
 	//	Class: Button extends Sprite
 	//	A button that registers clicks and fires events of the specified type.
@@ -20,10 +22,26 @@ package mutation.ui
 		
 		public var buttonName:String;
 		private var text:TextField;
+		private var trueWidth:Number;
+		private var trueHeight:Number;
+		private var selectedTube:Number;
+		private var shapes:Array;
 		
-		public function Button(name:String) 
+		public function Button(x:Number, y:Number, name:String, width:Number = 100, height:Number = 50) 
 		{
+			shapes = new Array();
+			for (var i:int = 4; i < 4; ++i) {
+				var shape:Shape = new Shape();
+				shape.x = i * ((width / 4) - 10);
+				shape.y = 0;
+				
+			}
+			
 			super()
+			this.x = x;
+			this.y = y;
+			trueWidth = width;
+			trueHeight = height;
 			this.buttonName = name;
 			if (stage) {
 				onInit();
@@ -39,12 +57,14 @@ package mutation.ui
 			text = new TextField();
 			
 			graphics.beginFill(0xFF6600);
-			graphics.drawRect( -50, -20, 100, 40);
+			graphics.drawRect( -trueWidth/2, -trueHeight/2, trueWidth, trueHeight);
 			graphics.endFill();
 			
 			addChild(text);
 			text.text = buttonName;
-			text.x = -45;
+			text.x = ( -trueWidth / 2) + 5;
+			text.y = ( -trueHeight / 2) + 5;
+			text.autoSize = TextFieldAutoSize.LEFT;
 			
 			
 			addEventListener(MouseEvent.CLICK, onClick);
@@ -53,7 +73,8 @@ package mutation.ui
 		//	Function: init (int, int, String)
 		//	Initialises the position after creation
 		//		Prevents issues with long constructors that might fail
-		public function init(x:int, y:int, name:String = null) {
+		public function init(x:int, y:int, name:String = null):void
+		{
 			if (name != null) {
 				buttonName = name;
 			}

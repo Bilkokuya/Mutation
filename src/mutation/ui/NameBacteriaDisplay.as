@@ -79,7 +79,7 @@ package mutation.ui
 		
 		public function display(bacteria:Bacteria):void
 		{
-			visible = true;
+			show();
 			nameInput.text = "Name...";
 			this.bacteria = bacteria;
 			

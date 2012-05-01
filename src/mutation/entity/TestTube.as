@@ -37,7 +37,6 @@ package mutation.entity
 		private var radius:int;			//	Radius of movement for the testtube
 		
 		private var flagIsClicked:Boolean = false;
-		private var popup:NameBacteriaDisplay;
 		
 		//	Constructor: default
 		public function TestTube(x:Number = 200, y:Number = 200, radius:int = 50) {
@@ -48,9 +47,6 @@ package mutation.entity
 			bacterias = new Array();
 			foods = new Array();
 			items = new Array();
-			popup = new NameBacteriaDisplay(-3*radius/4, 0);
-			
-			addChild(popup);
 			
 			draw();
 			
@@ -58,7 +54,6 @@ package mutation.entity
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
-		 
 
 		//	Initialisation once the stage has been created
 		private function onInit(e:Event = null):void {
@@ -70,12 +65,6 @@ package mutation.entity
 			addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			addEventListener(ItemEvent.DEATH, onItemDeath);
 			addEventListener(ItemEvent.PRODUCE, onBacteriaProduce);
-			addEventListener(BacteriaEvent.BREED, onBacteriaBreed);
-			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
-			
-			popup.display(new Bacteria(0,0,5));
-			Main.isPaused = true;
-			removeEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		
@@ -128,6 +117,8 @@ package mutation.entity
 		{
 			for each (var b:Bacteria in bacterias) {	
 				
+				if (Main.isPaused) return;
+				
 				if ( !(Util.inRadius(b.x, b.y, radius)) ){
 					b.xSpeed *= -1;
 					b.ySpeed *= -1;
@@ -157,15 +148,7 @@ package mutation.entity
 				}
 			}
 		}
-		
-		private function onBacteriaNamed(e:BacteriaEvent):void
-		{
-			popup.hide();
-			Main.isPaused = false;
-			addEventListener(MouseEvent.CLICK, onClick);
-			spawnBacteria(e.bacteria);
-		}
-		
+
 		//	Called when a bacteria produces something
 		private function onBacteriaProduce(e:ItemEvent):void
 		{
@@ -173,16 +156,7 @@ package mutation.entity
 			addChild(e.item);
 		}
 		
-		//	Bacteria created/ mutated function
-		private function onBacteriaBreed(e:BacteriaEvent):void
-		{
-			addChildAt(popup, numChildren - 1);
-			popup.display(new Bacteria(e.bacteria.x, e.bacteria.y,e.bacteria.radius));
-			Main.isPaused = true;
-			removeEventListener(MouseEvent.CLICK, onClick);
-		}
-		
-		private function spawnBacteria(bacteria:Bacteria):void
+		public function spawnBacteria(bacteria:Bacteria):void
 		{
 			if (bacteriaCount > MAX_BACTERIA) return;
 			bacteriaCount++;

@@ -46,7 +46,6 @@ package mutation.entity
 		public var nameString:String;
 		public var food:Resource;
 		public var money:Resource;
-		public var love:Resource;
 		public var level:SimpleLeveling = new SimpleLeveling();
 
 		public var target:Sprite;
@@ -69,7 +68,6 @@ package mutation.entity
 			
 			food = new Resource(100, -0.1, 100);
 			money = new Resource(Math.random()*50, 1, 100);
-			love = new Resource(Math.random()*50, 0.01, 100);
 			
 			super();
 			if (stage) onInit();
@@ -93,9 +91,7 @@ package mutation.entity
 			level.update(1);
 			
 			food.update();
-			if (food.amount > 50){
-				love.update();
-			}
+			
 			if (food.amount > 25) {
 				money.update();
 			}
@@ -111,11 +107,6 @@ package mutation.entity
 				money.amount = 0;
 			}
 			
-			if (love.isFilled()) {
-				love.amount = 0;
-				dispatchEvent(new BacteriaEvent(BacteriaEvent.BREED, this, true));
-			}
-			
 			if (level.hasLevelledUp()) {
 				onLevelUp();
 			}
@@ -128,7 +119,7 @@ package mutation.entity
 			
 			if (food.amount < 1) kill();
 			
-			popOut.update(nameString ,money.amount ,love.amount);
+			popOut.update(nameString ,money.amount , food.amount);
 			
 			//	Update position
 			if (canMove){
@@ -211,7 +202,6 @@ package mutation.entity
 		{
 			food.scale(1, 0.99, 1);
 			money.scale(1, 1.05, 1.1);
-			love.scale(1, 1, 1);
 		}
 		
 		//	Draws the bacteria's vector image
