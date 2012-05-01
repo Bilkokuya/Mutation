@@ -41,7 +41,7 @@ package mutation
 		private var tickCount:int = 0;
 		private var testTube:TestTube;
 		private var moneyOut:TextField;
-		private var collectedOut:TextField;
+		private static var collectedOut:TextField;
 		private var collectButton:Button;
 		private var bacteriaButton:Button;
 		private var upgradeFood:Button;
@@ -110,6 +110,17 @@ package mutation
 			collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 		}
 		
+		public static function collect(amount:int):void
+		{
+			collected += amount;
+			
+			if (collected < 0) {
+				collected = 0;
+			}else if (collected > 1000) {
+				collected = 1000;
+			}
+			collectedOut.text = collected + "/ 1000";
+		}
 		//	Listener: onTick
 		//	Runs once per frame as the main loop
 		private function onTick(e:Event):void
@@ -117,8 +128,6 @@ package mutation
 			if (!isPaused){
 				tickCount++;
 				moneyOut.text = "$" + money;
-				collectedOut.text = collected + "/ 1000";
-				if (collected >= 1000) collected = 1000;
 				
 				//	Dispatch the main game tick event
 				stage.dispatchEvent(new MutationEvent(MutationEvent.TICK, tickCount));

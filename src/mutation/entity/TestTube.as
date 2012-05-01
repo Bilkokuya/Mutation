@@ -92,7 +92,7 @@ package mutation.entity
 				
 				if (i.flagIsClicked) {
 					this.flagIsClicked = false;
-					Main.collected += i.money;
+					Main.collect(i.money);
 					i.kill();
 				}
 				i.flagIsClicked = false;
