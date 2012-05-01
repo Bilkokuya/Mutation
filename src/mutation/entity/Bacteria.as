@@ -31,7 +31,7 @@ package mutation.entity
 	//	Class: bacteria
 	public class Bacteria extends Sprite
 	{
-		private const DIRECTION_RATE:Number = 1/ (2 * 30);
+		private const DIRECTION_RATE:Number = 1 / (2 * 30);
 		private const HUNGRY_SPEED:Number = 2.5;
 		private const HUNGER_LEVEL:Number = 80;
 		private const SPEED:Number = 1.5;
@@ -55,7 +55,7 @@ package mutation.entity
 		private var popOut:BacteriaDisplay;
 		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(x:int = 0, y:int = 0, radius:Number = 5, hat:Hat = null) {	
+		public function Bacteria(x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
 			//	Set values from parameters
 			this.x = x;
 			this.y = y;
@@ -227,7 +227,7 @@ package mutation.entity
 		{
 			removeChild(this.hat);
 			this.hat = hat;
-			this.hat.y = -radius / 2;
+			this.hat.y = -radius;
 			this.hat.x = 0;
 			addChild(hat);
 		}

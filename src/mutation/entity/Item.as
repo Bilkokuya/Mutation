@@ -29,7 +29,7 @@ package mutation.entity
 			this.y = y;
 			xSpeed = 0;
 			ySpeed = 0;
-			life = 4 * 30;
+			life = 8 * 30;
 			radius =  4 * (amount/100);
 			money = amount;
 

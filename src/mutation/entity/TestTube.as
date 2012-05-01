@@ -87,12 +87,12 @@ package mutation.entity
 					i.ySpeed *= -0.5;
 					i.xSpeed *= -0.5;
 					//	Abuse the inRadius function to check if the combined speed is in range 0->1
-					if (Util.inRadius(i.xSpeed, i.ySpeed, 1)) i.flagIsMoving = false;
+					if (Util.inRadius(i.xSpeed, i.ySpeed, 0.2)) i.flagIsMoving = false;
 				}
 				
 				if (i.flagIsClicked) {
 					this.flagIsClicked = false;
-					Main.money += i.money;
+					Main.collected += i.money;
 					i.kill();
 				}
 				i.flagIsClicked = false;

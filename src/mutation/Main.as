@@ -8,12 +8,14 @@ package mutation
 {	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	import flash.text.TextFieldType;
+	import flash.ui.Keyboard;
 	import mutation.container.Background;
 	import mutation.entity.Bacteria;
 	import mutation.entity.Food;
@@ -30,14 +32,17 @@ package mutation
 	//	The main game class with main loop
 	public class Main extends Sprite 
 	{
-		static public var money:int;
+		static public var money:int = 250;
+		static public var collected:int = 0;
 		static public var isPaused:Boolean = false;
 		public const BACTERIA_COST:Number = 150;
 		public const FOOD_UPGRADE_COST:Number = 250;
 		
-		private var tickCount:int;
+		private var tickCount:int = 0;
 		private var testTube:TestTube;
 		private var moneyOut:TextField;
+		private var collectedOut:TextField;
+		private var collectButton:Button;
 		private var bacteriaButton:Button;
 		private var upgradeFood:Button;
 		private var popup:NameBacteriaDisplay;
@@ -55,9 +60,12 @@ package mutation
 		{	
 			testTube = new TestTube(125, 200, 100);
 			moneyOut = new TextField();
+			collectedOut = new TextField();
+			collectButton = new Button(350, 20, "COLLECT", 100, 50);
 			bacteriaButton = new Button(100, 20, "BACTERIA", 75, 30);
 			upgradeFood = new Button(200, 20, "FOOD", 75, 30);
 			popup = new NameBacteriaDisplay(stage.stageWidth/2, stage.stageHeight/2);
+			
 			
 			Keys.init(stage);
 			
@@ -72,15 +80,23 @@ package mutation
 			moneyOut.y = 4 * stage.stageHeight / 5;
 			moneyOut.autoSize = TextFieldAutoSize.RIGHT;
 			moneyOut.defaultTextFormat = format;
+			moneyOut.selectable = false;
 			
-			tickCount = 0;
-			money = 50;
+			collectedOut.x = 320;
+			collectedOut.y = 12;
+			collectedOut.autoSize = TextFieldAutoSize.LEFT;
+			collectedOut.selectable = false;
 			
 			addChild(testTube);
 			addChild(moneyOut);
 			addChild(bacteriaButton);
+			addChild(collectButton);
+			addChild(collectedOut);
 			addChild(upgradeFood);
 			addChild(popup);
+			
+			moneyOut.text = "$" + money;
+			collectedOut.text = collected + "/ 1000";
 			
 			popup.display(new Bacteria(0, 0, 5));
 			isPaused = true;
@@ -89,8 +105,9 @@ package mutation
 			addEventListener(Event.ENTER_FRAME, onTick);
 			bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 			upgradeFood.addEventListener(ButtonEvent.CLICKED, onFoodUpgrade);
-			
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 		}
 		
 		//	Listener: onTick
@@ -100,6 +117,8 @@ package mutation
 			if (!isPaused){
 				tickCount++;
 				moneyOut.text = "$" + money;
+				collectedOut.text = collected + "/ 1000";
+				if (collected >= 1000) collected = 1000;
 				
 				//	Dispatch the main game tick event
 				stage.dispatchEvent(new MutationEvent(MutationEvent.TICK, tickCount));
@@ -136,6 +155,22 @@ package mutation
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
+		private function onCollected(e:ButtonEvent):void
+		{
+			if (collected >= 1000) {
+				collected = 0;
+				money += 500;
+			}
+			collectedOut.text = collected + "/ 1000";
+		}
+		
+		private function onKeyDown(e:KeyboardEvent):void
+		{
+			if (e.keyCode == Keyboard.SPACE) {
+				money += 1000;
+			}
+			moneyOut.text = "$" + money;
+		}
 	}
 
 }

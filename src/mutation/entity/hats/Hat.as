@@ -1,33 +1,22 @@
 package mutation.entity.hats 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 
 	public class Hat extends Sprite
 	{
-		protected var colour:int;
+		public var bitmap:Bitmap;
 		
-		public function Hat(colour:int = 0xFF00FF) 
+		public function Hat(image:Class) 
 		{
 			super();
-			this.colour = colour;
-			draw();
-			
-			if (stage) onInit;
-			else addEventListener(Event.ADDED_TO_STAGE, onInit);
-		}
-		
-		private function onInit(e:Event = null):void
-		{
-			
-		}
-		
-		private function draw():void
-		{
-			graphics.clear();
-			graphics.beginFill(colour);
-			graphics.drawRect( -2, -4, 4, 6);
-			graphics.endFill();
+			this.bitmap = new image();
+			addChild(bitmap);
+			bitmap.width = 15;
+			bitmap.height = 15;
+			bitmap.x = - bitmap.width / 2;
+			bitmap.y = - bitmap.height / 2;
 		}
 	}
 

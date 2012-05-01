@@ -18,14 +18,13 @@ package mutation.ui
 		public var infoOut:TextField;
 		public var nameInput:TextField;
 		private var bacteria:Bacteria = new Bacteria(0, 0, 5);
-		private var hat:Hat;
+		private var hatSelector:HatSelector;
 		
 		public function NameBacteriaDisplay(x:Number = 0, y:Number = 0) 
 		{
 			infoOut = new TextField();
 			nameInput = new TextField();
-			hat = new ExplorerHat();
-			hat.x = 50;
+			hatSelector = new HatSelector();
 			
 			infoOut.text = "Spawn New Bacteria";
 			infoOut.y = -50;
@@ -56,7 +55,7 @@ package mutation.ui
 		{
 			addChild(infoOut);
 			addChild(nameInput);
-			addChild(hat);
+			addChild(hatSelector);
 			
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			nameInput.addEventListener(FocusEvent.FOCUS_IN, onFocus);
@@ -72,7 +71,7 @@ package mutation.ui
 		{
 			if (e.keyCode == Keyboard.ENTER) {
 				bacteria.nameString = nameInput.text;
-				bacteria.setHat(hat);
+				bacteria.setHat(new (hatSelector.getHat()));
 				dispatchEvent(new BacteriaEvent(BacteriaEvent.COMPLETE, bacteria, true));
 			}
 		}
@@ -82,8 +81,6 @@ package mutation.ui
 			show();
 			nameInput.text = "Name...";
 			this.bacteria = bacteria;
-			hat = new ExplorerHat();
-			hat.x = 50;
 		}
 	}
 
