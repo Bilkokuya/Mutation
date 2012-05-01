@@ -37,7 +37,7 @@ package mutation.ui
 				
 			}
 			
-			super()
+			super();
 			this.x = x;
 			this.y = y;
 			trueWidth = width;
@@ -56,18 +56,21 @@ package mutation.ui
 		{
 			text = new TextField();
 			
-			graphics.beginFill(0xFF6600);
-			graphics.drawRect( -trueWidth/2, -trueHeight/2, trueWidth, trueHeight);
-			graphics.endFill();
+			draw(0xFF6600);
 			
 			addChild(text);
 			text.text = buttonName;
 			text.x = ( -trueWidth / 2) + 5;
 			text.y = ( -trueHeight / 2) + 5;
 			text.autoSize = TextFieldAutoSize.LEFT;
+			text.selectable = false;
 			
 			
 			addEventListener(MouseEvent.CLICK, onClick);
+			addEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			addEventListener(MouseEvent.MOUSE_UP, onRelease);
+			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 		}
 		
 		//	Function: init (int, int, String)
@@ -88,6 +91,32 @@ package mutation.ui
 		private function onClick(e:Event):void
 		{
 			dispatchEvent(new ButtonEvent(ButtonEvent.CLICKED, buttonName));
+		}
+		
+		private function onDown(e:MouseEvent):void
+		{
+			draw(0xCC5500);
+		}
+		private function onRelease(e:MouseEvent):void
+		{
+			draw(0xFF9900);
+		}
+		
+		private function onRollOver(e:MouseEvent):void
+		{
+			draw(0xFF9900);
+		}
+		private function onRollOut(e:MouseEvent):void
+		{
+			draw(0xFF6600);
+		}
+		
+		private function draw(colour:int):void
+		{
+			graphics.clear();
+			graphics.beginFill(colour);
+			graphics.drawRect( -trueWidth/2, -trueHeight/2, trueWidth, trueHeight);
+			graphics.endFill();
 		}
 	}
 

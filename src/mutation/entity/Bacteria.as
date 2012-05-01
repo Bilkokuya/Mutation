@@ -16,7 +16,9 @@ package mutation.entity
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
-	import GDM.Mutation.entity.ActionState;
+	import mutation.entity.hats.Hat;
+	import mutation.entity.hats.PirateHat;
+	
 	import mutation.entity.behaviours.SimpleLeveling;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.ItemEvent;
@@ -38,6 +40,7 @@ package mutation.entity
 		public var flagIsAlive:Boolean = true;
 		public var flagIsHungry:Boolean= false;
 		private var canMove:Boolean;
+		public var hat:Hat;
 		
 		public var radius:Number;
 		public var xSpeed:Number;		//	Current speed in the x Direction
@@ -52,7 +55,7 @@ package mutation.entity
 		private var popOut:BacteriaDisplay;
 		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(x:int = 0, y:int = 0, radius:Number = 5) {	
+		public function Bacteria(x:int = 0, y:int = 0, radius:Number = 5, hat:Hat = null) {	
 			//	Set values from parameters
 			this.x = x;
 			this.y = y;
@@ -67,7 +70,14 @@ package mutation.entity
 			popOut = new BacteriaDisplay(radius, 0, 100, 50, 20, 20);
 			
 			food = new Resource(100, -0.1, 100);
-			money = new Resource(Math.random()*50, 1, 100);
+			money = new Resource(Math.random() * 50, 1, 100);
+			
+			if (hat != null) {
+				this.hat = hat;
+			}else {
+				this.hat = new PirateHat();
+			}
+			addChild(this.hat);
 			
 			super();
 			if (stage) onInit();
@@ -211,6 +221,15 @@ package mutation.entity
 			graphics.beginFill(colour);
 			graphics.drawCircle(0, 0, radius);
 			graphics.endFill();
+		}
+		
+		public function setHat(hat:Hat):void
+		{
+			removeChild(this.hat);
+			this.hat = hat;
+			this.hat.y = -radius / 2;
+			this.hat.x = 0;
+			addChild(hat);
 		}
 	}
 }

@@ -16,6 +16,7 @@ package mutation
 	import flash.text.TextFieldType;
 	import mutation.container.Background;
 	import mutation.entity.Bacteria;
+	import mutation.entity.Food;
 	import mutation.events.BacteriaEvent;
 	import mutation.ui.Button;
 	import mutation.ui.NameBacteriaDisplay;
@@ -32,11 +33,13 @@ package mutation
 		static public var money:int;
 		static public var isPaused:Boolean = false;
 		public const BACTERIA_COST:Number = 150;
+		public const FOOD_UPGRADE_COST:Number = 250;
 		
 		private var tickCount:int;
 		private var testTube:TestTube;
 		private var moneyOut:TextField;
 		private var bacteriaButton:Button;
+		private var upgradeFood:Button;
 		private var popup:NameBacteriaDisplay;
 		
 		//	Constructor: default
@@ -52,7 +55,8 @@ package mutation
 		{	
 			testTube = new TestTube(125, 200, 100);
 			moneyOut = new TextField();
-			bacteriaButton = new Button(100,20,"BACTERIA", 75, 30);
+			bacteriaButton = new Button(100, 20, "BACTERIA", 75, 30);
+			upgradeFood = new Button(200, 20, "FOOD", 75, 30);
 			popup = new NameBacteriaDisplay(stage.stageWidth/2, stage.stageHeight/2);
 			
 			Keys.init(stage);
@@ -75,6 +79,7 @@ package mutation
 			addChild(testTube);
 			addChild(moneyOut);
 			addChild(bacteriaButton);
+			addChild(upgradeFood);
 			addChild(popup);
 			
 			popup.display(new Bacteria(0, 0, 5));
@@ -82,7 +87,9 @@ package mutation
 			
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			addEventListener(Event.ENTER_FRAME, onTick);
-			stage.addEventListener(ButtonEvent.CLICKED, onButton);
+			bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
+			upgradeFood.addEventListener(ButtonEvent.CLICKED, onFoodUpgrade);
+			
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
@@ -101,16 +108,24 @@ package mutation
 		
 		private function onButton(e:ButtonEvent):void
 		{
-			if (e.buttonName == "BACTERIA") {
-				if (money < BACTERIA_COST) {
-					return;
-				}else {
-					money -= BACTERIA_COST;
-				}
-				popup.display(new Bacteria(0,0,5));
-				isPaused = true;
-				popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
+			if (money < BACTERIA_COST) {
+				return;
+			}else {
+				money -= BACTERIA_COST;
 			}
+			popup.display(new Bacteria(0,0,5));
+			isPaused = true;
+			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
+		}
+		
+		private function onFoodUpgrade(e:ButtonEvent):void
+		{
+			if (money < FOOD_UPGRADE_COST) {
+				return;
+			}else {
+				money -= FOOD_UPGRADE_COST;
+			}
+			
 		}
 		
 		private function onBacteriaNamed(e:BacteriaEvent):void

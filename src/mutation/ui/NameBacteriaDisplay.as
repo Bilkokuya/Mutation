@@ -9,30 +9,30 @@ package mutation.ui
 	import flash.events.FocusEvent;
 	import flash.ui.Keyboard;
 	import mutation.entity.Bacteria;
+	import mutation.entity.hats.ExplorerHat;
+	import mutation.entity.hats.Hat;
 	import mutation.events.BacteriaEvent;
 	
 	public class NameBacteriaDisplay extends PopupDisplay
 	{
 		public var infoOut:TextField;
 		public var nameInput:TextField;
-		public var submitOut:TextField;
-		public var submitButton:Sprite;
-		private var bacteria:Bacteria = new Bacteria(0,0,5);
+		private var bacteria:Bacteria = new Bacteria(0, 0, 5);
+		private var hat:Hat;
 		
 		public function NameBacteriaDisplay(x:Number = 0, y:Number = 0) 
 		{
 			infoOut = new TextField();
 			nameInput = new TextField();
-			submitOut = new TextField();
-			submitButton = new Sprite();
+			hat = new ExplorerHat();
+			hat.x = 50;
 			
-			infoOut.text = "Congratulations! \n" +
-							"A new Bacteria has been born! \n" +
-							"Let's give it a name.";
+			infoOut.text = "Spawn New Bacteria";
 			infoOut.y = -50;
 			infoOut.width = boxWidth_;
 			infoOut.multiline = true;
 			infoOut.autoSize = TextFieldAutoSize.LEFT;
+			infoOut.selectable = false;
 
 			nameInput.type = TextFieldType.INPUT;
 			nameInput.text = "Name...";
@@ -56,8 +56,7 @@ package mutation.ui
 		{
 			addChild(infoOut);
 			addChild(nameInput);
-			addChild(submitOut);
-			addChild(submitButton);
+			addChild(hat);
 			
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			nameInput.addEventListener(FocusEvent.FOCUS_IN, onFocus);
@@ -73,6 +72,7 @@ package mutation.ui
 		{
 			if (e.keyCode == Keyboard.ENTER) {
 				bacteria.nameString = nameInput.text;
+				bacteria.setHat(hat);
 				dispatchEvent(new BacteriaEvent(BacteriaEvent.COMPLETE, bacteria, true));
 			}
 		}
@@ -82,7 +82,8 @@ package mutation.ui
 			show();
 			nameInput.text = "Name...";
 			this.bacteria = bacteria;
-			
+			hat = new ExplorerHat();
+			hat.x = 50;
 		}
 	}
 
