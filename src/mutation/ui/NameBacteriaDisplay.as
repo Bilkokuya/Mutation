@@ -24,9 +24,11 @@ package mutation.ui
 			infoOut = new TextField();
 			nameInput = new TextField();
 			hatSelector = new HatSelector();
+			hatSelector.x = 15;
 			
 			infoOut.text = "Spawn New Bacteria";
 			infoOut.y = -50;
+			infoOut.x = 20;
 			infoOut.width = boxWidth_;
 			infoOut.multiline = true;
 			infoOut.autoSize = TextFieldAutoSize.LEFT;
@@ -35,7 +37,7 @@ package mutation.ui
 			nameInput.type = TextFieldType.INPUT;
 			nameInput.text = "Name...";
 			nameInput.border = true;
-			nameInput.y = 10;
+			nameInput.y = 30;
 			nameInput.x = 25;
 			nameInput.multiline = false;
 			nameInput.background = true;
@@ -45,7 +47,7 @@ package mutation.ui
 			nameInput.restrict = "a-zA-Z .";
 			
 			
-			super(x, y, 150, 100, 0, 0);
+			super(x, y, 150, 130, 0, 0);
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}

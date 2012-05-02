@@ -78,7 +78,7 @@ package mutation.ui
 			removeChild(hat);
 			hat = new Hat(Game.hats[selectedHat]);
 			addChild(hat);
-			hat.x = 50;
+			hat.x = 60;
 			hat.scaleX = 3;
 			hat.scaleY = 3;
 		}

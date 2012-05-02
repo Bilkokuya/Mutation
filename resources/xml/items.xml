@@ -35,7 +35,7 @@
 		<graphic>			0 		</graphic>
 		<radius>			3		</radius>
 		<life>				3		</life>
-		<money>				330		</money>
+		<money>				200		</money>
 		<unlock>
 			<unlocked> 		1 	</unlocked>
 			<cost>			0	</cost>
