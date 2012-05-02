@@ -1,37 +1,40 @@
-package mutation.entity 
+//	Copyright 2012 Gordon D Mckendrick
+//	Author: Gordon D Mckendrick
+//	Food
+//		A floating food object that can be consumed by the bacteria
+
+
+package mutation.entity.foods 
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import mutation.events.ItemEvent;
+	import mutation.events.FoodEvent;
 	import mutation.events.MutationEvent;
-	import mutation.Main;
+	import mutation.util.Util;
 
-	public class Item extends Sprite
-	{
+	//	Class: Food
+	public class Food extends BaseFood 
+	{	
+		private const yAccel:Number = 0.07;	//	y Acceleration downwards
 		
-		private const yAccel:Number = -0.07;	//	y Acceleration downwards
 		public var xSpeed:Number;
 		public var ySpeed:Number;
-		
 		public var life:Number;
-		public var radius:Number;
-		public var money:Number;
 		
 		public var flagIsMoving:Boolean = true;
-		public var flagIsClicked:Boolean = false;
 		public var flagIsAlive:Boolean = true;
 		
 		//	Constructor: default
-		public function Item(x:Number, y:Number, amount:Number = 100)
+		public function Food(x:Number, y:Number, base:BaseFood)
 		{
+			super(base.radius, base.colour, base.foodAmount, base.debrisType, base.debrisCount);
+			
 			this.x = x;
 			this.y = y;
 			xSpeed = 0;
 			ySpeed = 0;
-			life = 8 * 30;
-			radius =  4 * (amount/100);
-			money = amount;
+			life = 5 * 30;
+			flagIsMoving = true;
 
 			draw();
 			
@@ -43,12 +46,10 @@ package mutation.entity
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			stage.addEventListener(MutationEvent.TICK, onTick);
-			addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		//	OnTick Updates
-		public function onTick(e:MutationEvent):void {
-			
+		private function onTick(e:MutationEvent):void {
 			if(flagIsMoving){
 				ySpeed += yAccel;
 				x += xSpeed;
@@ -61,11 +62,7 @@ package mutation.entity
 					kill();
 				}
 			}
-		}
-		
-		private function onClick(e:MouseEvent):void
-		{
-			flagIsClicked = true;
+			
 		}
 		
 		//	Kills this peice of food from the game
@@ -73,19 +70,19 @@ package mutation.entity
 		{
 			flagIsAlive = false;
 			flagIsMoving = false;
-			if (stage) {
+			if (stage){
 				stage.removeEventListener(MutationEvent.TICK, onTick);
-				removeEventListener(MouseEvent.CLICK, onClick);
-				dispatchEvent(new ItemEvent(ItemEvent.DEATH, this, true));
+				dispatchEvent(new FoodEvent(FoodEvent.DEATH, this, true));
 			}
 		}
 		
 		//	Draw the graphics representation
 		private function draw():void {
-			graphics.beginFill(0xFFAA33);
+			graphics.beginFill(colour);
 			graphics.drawCircle(0, 0, radius);
 			graphics.endFill();
 		}
+	
 		
 	}
 

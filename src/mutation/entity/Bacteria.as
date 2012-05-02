@@ -16,10 +16,11 @@ package mutation.entity
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
-	import mutation.entity.hats.Hat;
-	import mutation.entity.hats.PirateHat;
-	import mutation.entity.levelling.Level;
+	import mutation.entity.hats.Hats;
+	import mutation.entity.items.Item;
 	
+	import mutation.entity.hats.Hat;
+	import mutation.entity.levelling.Level;
 	import mutation.entity.levelling.SimpleLeveling;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.ItemEvent;
@@ -74,7 +75,7 @@ package mutation.entity
 			if (hat != null) {
 				this.hat = hat;
 			}else {
-				this.hat = new PirateHat();
+				this.hat = new Hat(Hats.PIRATE);
 			}
 			addChild(this.hat);
 			

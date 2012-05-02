@@ -1,7 +1,7 @@
 package mutation.events 
 {
 	import flash.events.Event;
-	import mutation.entity.Item;
+	import mutation.entity.items.Item;
 	
 	public class ItemEvent extends Event 
 	{

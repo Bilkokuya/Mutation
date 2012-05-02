@@ -1,4 +1,4 @@
-package mutation.entity 
+package mutation.entity.foods 
 {
 	import flash.display.Sprite;
 	

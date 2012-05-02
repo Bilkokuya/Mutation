@@ -34,9 +34,11 @@ package mutation.entity.levelling
 		//	Called whenever the object gets to the next level
 		private function nextLevel():void
 		{
-			hasLevelledThisTick = true;
-			level++;
-			experience = 0;
+			if (level < (levels.length-1)){
+				hasLevelledThisTick = true;
+				level++;
+				experience = 0;
+			}
 		}
 		
 		//	Returns tue if it has levelled up this tick

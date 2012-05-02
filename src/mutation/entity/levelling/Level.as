@@ -1,7 +1,6 @@
 package mutation.entity.levelling 
 {
 	import flash.display.Sprite;
-	import mutation.entity.Item;
 
 	//	Simple data holding class for giving new values to the bacteria after it levels
 	//	Used by the levelling systems

@@ -18,7 +18,7 @@ package mutation
 	import flash.ui.Keyboard;
 	import mutation.container.Background;
 	import mutation.entity.Bacteria;
-	import mutation.entity.Food;
+	import mutation.entity.foods.Food;
 	import mutation.events.BacteriaEvent;
 	import mutation.ui.Button;
 	import mutation.ui.NameBacteriaDisplay;
@@ -66,7 +66,6 @@ package mutation
 			upgradeFood = new Button(200, 20, "FOOD", 75, 30);
 			popup = new NameBacteriaDisplay(stage.stageWidth/2, stage.stageHeight/2);
 			
-			
 			Keys.init(stage);
 			
 			var format:TextFormat = new TextFormat();
@@ -106,7 +105,7 @@ package mutation
 			bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 			upgradeFood.addEventListener(ButtonEvent.CLICKED, onFoodUpgrade);
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 			collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 		}
 		

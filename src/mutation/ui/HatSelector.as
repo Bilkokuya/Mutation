@@ -3,18 +3,17 @@ package mutation.ui
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import mutation.entity.hats.ExplorerHat;
 	import mutation.entity.hats.Hat;
-	import mutation.entity.hats.PirateHat;
-	import mutation.entity.hats.PrettyHat;
+	import mutation.entity.hats.HatDescriptor;
+	import mutation.entity.hats.Hats;
 	import mx.core.SpriteAsset;
 
 	public class HatSelector extends Sprite
 	{
 		private static const HAT_TYPES:Array = [
-			ExplorerHat,
-			PirateHat,
-			PrettyHat
+			Hats.EXPLORER,
+			Hats.PIRATE,
+			Hats.PRETTY
 		];
 		
 		private var selectedHat:Number = 0;
@@ -28,13 +27,13 @@ package mutation.ui
 			super();
 			leftArrow = new Sprite();
 			rightArrow = new Sprite();
-			hat = new (HAT_TYPES[selectedHat]);
+			hat = new Hat(HAT_TYPES[selectedHat]);
 			
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
-		public function getHat():Class
+		public function getHatDescriptor():HatDescriptor
 		{
 			return HAT_TYPES[selectedHat];
 		}
@@ -83,7 +82,7 @@ package mutation.ui
 		private function drawHat():void
 		{
 			removeChild(hat);
-			hat = new (HAT_TYPES[selectedHat]);
+			hat = new Hat(HAT_TYPES[selectedHat]);
 			addChild(hat);
 			hat.x = 50;
 			hat.scaleX = 3;

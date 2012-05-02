@@ -9,7 +9,6 @@ package mutation.ui
 	import flash.events.FocusEvent;
 	import flash.ui.Keyboard;
 	import mutation.entity.Bacteria;
-	import mutation.entity.hats.ExplorerHat;
 	import mutation.entity.hats.Hat;
 	import mutation.events.BacteriaEvent;
 	
@@ -71,7 +70,7 @@ package mutation.ui
 		{
 			if (e.keyCode == Keyboard.ENTER) {
 				bacteria.nameString = nameInput.text;
-				bacteria.setHat(new (hatSelector.getHat()));
+				bacteria.setHat(new Hat(hatSelector.getHatDescriptor()));
 				dispatchEvent(new BacteriaEvent(BacteriaEvent.COMPLETE, bacteria, true));
 			}
 		}

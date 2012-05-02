@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<data>
+	
+	<hat id="0">
+		<name>				EXPLORER</name>
+		<graphic>			0 		</graphic>
+		<unlock>
+			<default> 		true 	</default>
+			<cost>			0		</cost>
+		</unlock>
+		<stats>	
+			<foodRate>		1	</foodRate>	
+			<foodAmount>	1	</foodAmount>
+			<moneyRate>		1	</moneyRate>
+			<moneyAmount>	0.5	</moneyAmount>
+		</stats>		
+	</hat>
+	
+	<hat id="1">
+		<name>				PIRATE	</name>
+		<graphic> 			1 		</graphic>
+		<unlock>
+			<default> 		true 	</default>
+			<cost> 			0 		</cost>
+		</unlock>
+		<stats>	
+			<foodRate>		1	</foodRate>	
+			<foodAmount>	1	</foodAmount>
+			<moneyRate>		10	</moneyRate>
+			<moneyAmount>	10	</moneyAmount>
+		</stats>		
+	</hat>
+	
+	<hat id="2">
+		<name>				PRETTY	</name>
+		<graphic> 			2 		</graphic>
+		<unlock>
+			<default> 		true 	</default>
+			<cost> 			0 		</cost>
+		</unlock>
+		<stats>	
+			<foodRate>		1	</foodRate>	
+			<foodAmount>	1	</foodAmount>
+			<moneyRate>		2	</moneyRate>
+			<moneyAmount>	2	</moneyAmount>
+		</stats>		
+	</hat>
+	
+</data>

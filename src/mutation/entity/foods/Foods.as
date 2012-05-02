@@ -1,4 +1,4 @@
-package mutation.entity 
+package mutation.entity.foods 
 {
 	public class Foods 
 	{

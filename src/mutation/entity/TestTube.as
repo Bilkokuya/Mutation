@@ -12,6 +12,9 @@ package mutation.entity
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
+	import mutation.entity.items.Item;
+	import mutation.entity.foods.Food;
+	import mutation.entity.foods.Foods;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
 	import mutation.events.BacteriaEvent;
