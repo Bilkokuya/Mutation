@@ -5,29 +5,23 @@ package mutation.ui
 	import flash.events.MouseEvent;
 	import mutation.entity.hats.Hat;
 	import mutation.entity.hats.HatDescriptor;
-	import mutation.entity.hats.Hats;
+	import mutation.Game;
 	import mx.core.SpriteAsset;
 
+	//	Very temporary - don't think twice before refactoring this into something more generic
 	public class HatSelector extends Sprite
-	{
-		private static const HAT_TYPES:Array = [
-			Hats.EXPLORER,
-			Hats.PIRATE,
-			Hats.PRETTY
-		];
-		
+	{		
 		private var selectedHat:Number = 0;
 		private var leftArrow:Sprite;
 		private var rightArrow:Sprite;
 		private var hat:Hat;
-		
 		
 		public function HatSelector() 
 		{
 			super();
 			leftArrow = new Sprite();
 			rightArrow = new Sprite();
-			hat = new Hat(HAT_TYPES[selectedHat]);
+			hat = new Hat(Game.hats[selectedHat]);
 			
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -35,7 +29,7 @@ package mutation.ui
 		
 		public function getHatDescriptor():HatDescriptor
 		{
-			return HAT_TYPES[selectedHat];
+			return Game.hats[selectedHat];
 		}
 		
 		private function onInit(e:Event = null):void
@@ -65,7 +59,7 @@ package mutation.ui
 		{
 			selectedHat--;
 			if (selectedHat < 0) {
-				selectedHat = HAT_TYPES.length-1;
+				selectedHat = Game.hats.length-1;
 			}
 			drawHat();
 		}
@@ -73,7 +67,7 @@ package mutation.ui
 		private function onRight(e:MouseEvent):void
 		{
 			selectedHat++;
-			if (selectedHat > (HAT_TYPES.length - 1)) {
+			if (selectedHat > (Game.hats.length - 1)) {
 				selectedHat = 0;
 			}
 			drawHat();
@@ -82,7 +76,7 @@ package mutation.ui
 		private function drawHat():void
 		{
 			removeChild(hat);
-			hat = new Hat(HAT_TYPES[selectedHat]);
+			hat = new Hat(Game.hats[selectedHat]);
 			addChild(hat);
 			hat.x = 50;
 			hat.scaleX = 3;

@@ -37,18 +37,18 @@
 	<!-- Basic Explorer hat -->
 	<hat>
 		<id> 				0		</id>
-		<name>				EXPLORER</name>
+		<name>				EXPLORE	</name>
 		<graphic>			0 		</graphic>
-		<unlock>
-			<default> 		true 	</default>
-			<cost>			0		</cost>
-		</unlock>
 		<stats>	
 			<foodRate>		1	</foodRate>	
 			<foodAmount>	1	</foodAmount>
 			<moneyRate>		1	</moneyRate>
 			<moneyAmount>	1	</moneyAmount>
-		</stats>		
+		</stats>	
+		<unlock>
+			<unlocked> 		1 	</unlocked>
+			<cost>			0	</cost>
+		</unlock>
 	</hat>
 	
 	<!-- Pirate hat -->
@@ -56,16 +56,16 @@
 		<id> 				1		</id>
 		<name>				PIRATE	</name>
 		<graphic> 			1 		</graphic>
-		<unlock>
-			<default> 		true 	</default>
-			<cost> 			0 		</cost>
-		</unlock>
 		<stats>	
 			<foodRate>		1	</foodRate>	
 			<foodAmount>	1	</foodAmount>
 			<moneyRate>		1.1	</moneyRate>
 			<moneyAmount>	1.2	</moneyAmount>
-		</stats>		
+		</stats>
+		<unlock>
+			<unlocked> 		1 	</unlocked>
+			<cost>			0	</cost>
+		</unlock>
 	</hat>
 	
 	<!-- Pretty Purple Women's hat -->
@@ -73,16 +73,17 @@
 		<id> 				2		</id>
 		<name>				PRETTY	</name>
 		<graphic> 			2 		</graphic>
-		<unlock>
-			<default> 		true 	</default>
-			<cost> 			0 		</cost>
-		</unlock>
 		<stats>	
 			<foodRate>		1	</foodRate>	
 			<foodAmount>	1	</foodAmount>
 			<moneyRate>		0.1	</moneyRate>
 			<moneyAmount>	2	</moneyAmount>
-		</stats>		
+		</stats>
+		<unlock>
+			<unlocked> 		1 	</unlocked>
+			<cost>			0	</cost>
+		</unlock>
 	</hat>
+
 	
 </data>

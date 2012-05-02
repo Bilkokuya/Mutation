@@ -15,23 +15,24 @@ package mutation.entity.items
 		public var ySpeed:Number;
 		
 		public var life:Number;
-		public var radius:Number;
-		public var money:Number;
+		public var amount:Number = 0;
+		
+		public var type:ItemDescriptor;
 		
 		public var flagIsMoving:Boolean = true;
 		public var flagIsClicked:Boolean = false;
 		public var flagIsAlive:Boolean = true;
 		
 		//	Constructor: default
-		public function Item(x:Number, y:Number, amount:Number = 100)
+		public function Item(x:Number, y:Number, itemType:ItemDescriptor, money:Number = 0 )
 		{
+			type = itemType;
 			this.x = x;
 			this.y = y;
 			xSpeed = 0;
 			ySpeed = 0;
-			life = 8 * 30;
-			radius =  4 * (amount/100);
-			money = amount;
+			life = type.startingLife *  30;
+			this.amount = money;
 
 			draw();
 			
@@ -46,6 +47,10 @@ package mutation.entity.items
 			addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
+		public function getMoney():Number
+		{
+			return (type.money + amount);
+		}
 		//	OnTick Updates
 		public function onTick(e:MutationEvent):void {
 			
@@ -83,7 +88,7 @@ package mutation.entity.items
 		//	Draw the graphics representation
 		private function draw():void {
 			graphics.beginFill(0xFFAA33);
-			graphics.drawCircle(0, 0, radius);
+			graphics.drawCircle(0, 0, type.radius * ((type.money + amount)/type.money));
 			graphics.endFill();
 		}
 		

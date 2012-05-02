@@ -14,11 +14,11 @@ package mutation.entity
 	import flash.ui.Mouse;
 	import mutation.entity.items.Item;
 	import mutation.entity.foods.Food;
-	import mutation.entity.foods.Foods;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.FoodEvent;
+	import mutation.Game;
 	import mutation.Main;
 	import mutation.ui.BacteriaDisplay;
 	import mutation.ui.NameBacteriaDisplay;
@@ -86,7 +86,7 @@ package mutation.entity
 		private function updateItems():void
 		{
 			for each (var i:Item in items) {
-				if ( !(Util.inRadius(i.x, i.y, radius - i.radius)) ){
+				if ( !(Util.inRadius(i.x, i.y, radius - i.type.radius)) ){
 					i.ySpeed *= -0.5;
 					i.xSpeed *= -0.5;
 					//	Abuse the inRadius function to check if the combined speed is in range 0->1
@@ -95,7 +95,7 @@ package mutation.entity
 				
 				if (i.flagIsClicked) {
 					this.flagIsClicked = false;
-					Main.collect(i.money);
+					Main.collect(i.getMoney());
 					i.kill();
 				}
 				i.flagIsClicked = false;
@@ -181,7 +181,7 @@ package mutation.entity
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
 				if (Main.money >= cost){
-					var food:Food = new Food(x, y, Foods.foods[Foods.selectedFood]);
+					var food:Food = new Food(x, y, Game.foods[Game.selectedFood]);
 					foods.push(food);
 					addChild(food);
 					Main.money -= cost;
@@ -197,7 +197,7 @@ package mutation.entity
 			
 			if (e.food.type.debrisType > -1) {
 				for (var i:int = 0; i < e.food.type.debrisCount; ++i) {
-					var debris:Food = new Food(e.food.x, e.food.y, Foods.foods[e.food.type.debrisType]);
+					var debris:Food = new Food(e.food.x, e.food.y, Game.foods[e.food.type.debrisType]);
 					debris.xSpeed = e.food.xSpeed - (Math.random() - 0.5);
 					debris.ySpeed = e.food.ySpeed - 3*(Math.random());
 					foods.push(debris);

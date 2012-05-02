@@ -13,13 +13,14 @@ package mutation.entity.levelling
 		public var visual:Sprite;			//	New visual appearance, or null if the appearance won't change this level
 		
 		//	Users of this class must check for moneyType and visual being null; indicating they aren't to change
-		public function Level(exp:Number, food:Number, money:Number, moneyTypeChange:Class = null, visualChange:Sprite = null) 
+		//	the XML data used is the XML of a specific <Level></Level> tag; not the entire file.
+		public function Level(xml:XML) 
 		{
-			experienceNeeded = exp;
-			foodScale = food;
-			moneyScale = money;
-			moneyType = moneyTypeChange;
-			visual = visualChange;
+			experienceNeeded = xml.e;
+			foodScale = xml.f;
+			moneyScale = xml.m;
+			moneyType = null;
+			visual = null;
 		}
 		
 		//	Returns true if the level can be obtained with the given amount of exp

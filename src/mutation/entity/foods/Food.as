@@ -31,14 +31,15 @@ package mutation.entity.foods
 		{
 			super();
 			
+			type = foodType;
 			this.x = x;
 			this.y = y;
 			xSpeed = 0;
 			ySpeed = 0;
-			life = 5 * 30;
+			life = type.startingLife * 30;
 			flagIsMoving = true;
 
-			type = foodType;
+			
 			draw();
 			
 			if (stage) onInit();

@@ -16,12 +16,13 @@ package mutation.entity
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
-	import mutation.entity.hats.Hats;
 	import mutation.entity.items.Item;
+	import mutation.entity.levelling.Leveling;
+	import mutation.Game;
+	import mutation.util.Resources;
 	
 	import mutation.entity.hats.Hat;
 	import mutation.entity.levelling.Level;
-	import mutation.entity.levelling.SimpleLeveling;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
@@ -51,7 +52,7 @@ package mutation.entity
 		public var nameString:String;
 		public var food:Resource;
 		public var money:Resource;
-		public var level:SimpleLeveling = new SimpleLeveling();
+		public var level:Leveling = new Leveling(Resources.getXML(Resources.XML_LEVELS));
 		public var moneyType:Class;
 
 		public var target:Sprite;
@@ -75,7 +76,7 @@ package mutation.entity
 			if (hat != null) {
 				this.hat = hat;
 			}else {
-				this.hat = new Hat(Hats.PIRATE);
+				this.hat = new Hat(Game.hats[0]);
 			}
 			addChild(this.hat);
 			
@@ -114,7 +115,7 @@ package mutation.entity
 			}
 			
 			if (money.isFilled()) {
-				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(x,y, money.amount), true));
+				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(x,y, Game.items[0], money.amount), true));
 				money.amount = 0;
 			}
 			

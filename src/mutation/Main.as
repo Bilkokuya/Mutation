@@ -19,10 +19,10 @@ package mutation
 	import mutation.container.Background;
 	import mutation.entity.Bacteria;
 	import mutation.entity.foods.Food;
-	import mutation.entity.foods.Foods;
 	import mutation.events.BacteriaEvent;
 	import mutation.ui.Button;
 	import mutation.ui.NameBacteriaDisplay;
+	import mutation.util.Resources;
 
 	import mutation.events.MutationEvent;
 	import mutation.entity.TestTube;
@@ -59,6 +59,8 @@ package mutation
 		//	Initialisation once the stage is created
 		private function onInit(e:Event = null):void 
 		{	
+			Game.init();
+			
 			testTube = new TestTube(125, 200, 100);
 			moneyOut = new TextField();
 			collectedOut = new TextField();
@@ -68,6 +70,7 @@ package mutation
 			popup = new NameBacteriaDisplay(stage.stageWidth/2, stage.stageHeight/2);
 			
 			Keys.init(stage);
+			
 			
 			var format:TextFormat = new TextFormat();
 			format.size = 48;
@@ -153,8 +156,8 @@ package mutation
 		private function onFoodUpgrade(e:ButtonEvent):void
 		{
 			if (money >= FOOD_UPGRADE_COST) {
-				Foods.selectedFood++;
-				if (Foods.selectedFood > (Foods.foods.length - 1)) Foods.selectedFood = Foods.foods.length - 1;
+				Game.selectedFood++;
+				if (Game.selectedFood > (Game.foods.length - 1)) Game.selectedFood = Game.foods.length - 1;
 				money -= FOOD_UPGRADE_COST;
 			}
 		}

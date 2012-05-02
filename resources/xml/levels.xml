@@ -2,10 +2,15 @@
 <!--
 	//////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////	This File	//////////////////////////////////
-	
+	Contains the levelling data for how the bacteria to level up. Allows for simple editing of
+	this data, without chaging the source files.
+	Currently the project needs recompiled each time, as these files are embedded, not loaded.
+	In future, it would be best to load them from file - but this causes issues on some machines.
+	Warning: There is no error or syntax checking on this. Bad data will corrupt the application.
 
 	///////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////	Data Layout	//////////////////////////////////
+	Each level data is layed out on it's own line, so it is easy to see patterns of progression.
 	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
 	
 	Symbols:
@@ -19,16 +24,18 @@
 
 <!-- Start of Actual File Data -->
 <data>	
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
-	<level><e>	200		</e><f>	1	</f><m>	1	</m></level>
+	<!-----------EXP-----------FOOD--------MONEY--------->
+	<level><e>	0		</e><f>	1	</f><m>	1	</m></level>
+	<level><e>	200		</e><f>	1	</f><m>	1.1	</m></level>
+	<level><e>	400		</e><f>	1	</f><m>	1.1	</m></level>
+	<level><e>	600		</e><f>	1	</f><m>	1.1	</m></level>
+	<level><e>	800		</e><f>	1	</f><m>	1.1	</m></level>
+	<!-----------EXP-----------FOOD--------MONEY--------->
+	<level><e>	1000	</e><f>	1	</f><m>	1.2	</m></level>
+	<level><e>	1500	</e><f>	1	</f><m>	1.2	</m></level>
+	<level><e>	1600	</e><f>	1	</f><m>	1.2	</m></level>
+	<level><e>	1800	</e><f>	1	</f><m>	1.2	</m></level>
+	<level><e>	2000	</e><f>	1	</f><m>	1.2	</m></level>
+	<!-----------EXP-----------FOOD--------MONEY--------->
 	
 </data>
