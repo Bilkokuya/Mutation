@@ -2,6 +2,7 @@ package mutation.entity.levelling
 {
 
 	//	Simple levelling used for the Bacteria
+	//	Should be refactored into XML
 	public class SimpleLeveling extends Leveling
 	{
 		public function SimpleLeveling() 

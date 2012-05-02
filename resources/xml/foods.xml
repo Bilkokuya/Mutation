@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	//////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////	This File	//////////////////////////////////
+	XML data for the hats; embedded into the SWF file; but could be loaded at runtime with few tweaks
+	Allows easy changes to each type of hat, and addition of new types by simply listing them here
+	Uncomplete data will corrupt the program, as will bad syntax - there is no eror checking on this
+
+	///////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////	Data Layout	//////////////////////////////////
+	<food>
+		<id> 				0		</id>			
+		<name>				BASIC	</name>			//	Name of this Food presented to the player
+		<graphic>			0 		</graphic>		//	Graphic to use from Resources.as
+		<radius>			4		</radius>		//	Size as a radius to be drawn, and for collisions
+		<life>				4		</life>			//	Time in seconds it will remain, before it dissapears
+		<foodAmount>		100		</foodAmount>	//	Amount of food it provides when eaten
+		<debrisCount>		3		</debrisCount>	//	Number of pieces of debris poduced when eaten
+		<debrisType>		0		</debrisType>	//	Type of debris (by food ID) produced when eaten
+	</food>
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+-->
+
+<!-- Start of Actual File Data -->
+<data>
+	
+	<!-- Starter Food -->
+	<food>
+		<id> 				0		</id>
+		<name>				DEBRIS	</name>
+		<graphic>			0 		</graphic>
+		<radius>			2		</radius>
+		<life>				2		</life>
+		<foodAmount>		50		</foodAmount>
+		<debrisCount>		0		</debrisCount>
+		<debrisType>		0		</debrisType>
+	</food>
+	
+	<food>
+		<id> 				0		</id>
+		<name>				BASIC	</name>
+		<graphic>			0 		</graphic>
+		<radius>			4		</radius>
+		<life>				4		</life>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		3		</debrisCount>
+		<debrisType>		0		</debrisType>
+	</food>
+	
+	<!-- High Explosive Food -->
+	<food>
+		<id> 				1		</id>
+		<name>				DOUBLE	</name>
+		<graphic>			0 		</graphic>
+		<radius>			6		</radius>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		10		</debrisCount>
+		<debrisType>		0		</debrisType>
+	</food>
+	
+</data>

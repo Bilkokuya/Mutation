@@ -86,7 +86,7 @@ package mutation.entity
 		private function updateItems():void
 		{
 			for each (var i:Item in items) {
-				if ( !(Util.inRadius(i.x, i.y, radius)) ){
+				if ( !(Util.inRadius(i.x, i.y, radius - i.radius)) ){
 					i.ySpeed *= -0.5;
 					i.xSpeed *= -0.5;
 					//	Abuse the inRadius function to check if the combined speed is in range 0->1
@@ -106,7 +106,7 @@ package mutation.entity
 		private function updateFood():void
 		{
 			for each (var f:Food in foods) {
-				if ( !(Util.inRadius(f.x, f.y, radius)) ){
+				if ( !(Util.inRadius(f.x, f.y, radius - f.type.radius)) ){
 					f.ySpeed *= -0.5;
 					f.xSpeed *= -0.5;
 					//	Abuse the inRadius function to check if the combined speed is in range 0->1
@@ -141,8 +141,8 @@ package mutation.entity
 							}
 							
 							//	if it hits, the bacteria eats the food, which is removed
-							if (Util.inRadius(b.x, b.y, (b.radius + f.radius), f.x, f.y)) {
-								b.feed(f.foodAmount);
+							if (Util.inRadius(b.x, b.y, (b.radius + f.type.radius), f.x, f.y)) {
+								b.feed(f.type.foodAmount);
 								f.kill();
 								b.target = null;
 							}
@@ -181,7 +181,7 @@ package mutation.entity
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
 				if (Main.money >= cost){
-					var food:Food = new Food(x, y, Foods.getFood());
+					var food:Food = new Food(x, y, Foods.foods[Foods.selectedFood]);
 					foods.push(food);
 					addChild(food);
 					Main.money -= cost;
@@ -195,9 +195,9 @@ package mutation.entity
 			removeChild(e.food);
 			foods.splice(foods.indexOf(e.food), 1);
 			
-			if (e.food.debrisType) {
-				for (var i:int = 0; i < e.food.debrisCount; ++i) {
-					var debris:Food = new Food(e.food.x, e.food.y, e.food.debrisType);
+			if (e.food.type.debrisType > -1) {
+				for (var i:int = 0; i < e.food.type.debrisCount; ++i) {
+					var debris:Food = new Food(e.food.x, e.food.y, Foods.foods[e.food.type.debrisType]);
 					debris.xSpeed = e.food.xSpeed - (Math.random() - 0.5);
 					debris.ySpeed = e.food.ySpeed - 3*(Math.random());
 					foods.push(debris);

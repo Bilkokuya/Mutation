@@ -4,17 +4,20 @@ package mutation.entity.hats
 	import flash.utils.ByteArray;
 	import mutation.util.Resources;
 
-	//	Acts as a base clas for hats, can be loaded in from an XML object
+	//	Acts as a base class for hats, can be loaded in from an XML object
+	//	Instances of hats take one of these hat descriptors to function
 	public class HatDescriptor 
 	{
-		public var bitmapIndex:int;
-		public var foodRateScale:Number;
-		public var foodAmountScale:Number;
-		public var moneyAmountScale:Number;
-		public var moneyRateScale:Number;
-		public var isUnlocked:Boolean;
-		public var unlockCost:Boolean;
+		public var bitmapIndex:int;			//	Index in the resource list for this bitmap
+		public var foodRateScale:Number;	//	Factor for the rate the food decreases at
+		public var foodAmountScale:Number;	//	Factor for the amount of food the bacteria can hold
+		public var moneyAmountScale:Number;	//	Factor for the amount of money the bacteria can hold
+		public var moneyRateScale:Number;	//	Factor for the rate the money is created at
+		public var isUnlocked:Boolean;		//	True if it is unlocked/useable by default
+		public var unlockCost:Boolean;		//	Cost to unlock it (if it is not unlocked)
 		
+		//	Creates a new HatDescriptor from the XML input
+		//	XML input expected to be just the XML for this hat node; not the entire file
 		public function HatDescriptor(xml:XML) 
 		{
 			bitmapIndex = xml.graphic;

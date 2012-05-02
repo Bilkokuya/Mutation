@@ -19,6 +19,7 @@ package mutation
 	import mutation.container.Background;
 	import mutation.entity.Bacteria;
 	import mutation.entity.foods.Food;
+	import mutation.entity.foods.Foods;
 	import mutation.events.BacteriaEvent;
 	import mutation.ui.Button;
 	import mutation.ui.NameBacteriaDisplay;
@@ -151,12 +152,11 @@ package mutation
 		//	Called when the upgrade food button is pressed
 		private function onFoodUpgrade(e:ButtonEvent):void
 		{
-			if (money < FOOD_UPGRADE_COST) {
-				return;
-			}else {
+			if (money >= FOOD_UPGRADE_COST) {
+				Foods.selectedFood++;
+				if (Foods.selectedFood > (Foods.foods.length - 1)) Foods.selectedFood = Foods.foods.length - 1;
 				money -= FOOD_UPGRADE_COST;
 			}
-			
 		}
 		
 		//	Called when a bacteria has been given a name

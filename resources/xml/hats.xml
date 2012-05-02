@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+	//////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////	This File	//////////////////////////////////
+	XML data for the hats; embedded into the SWF file; but could be loaded at runtime with few tweaks
+	Allows easy changes to each type of hat, and addition of new types by simply listing them here
+	Uncomplete data will corrupt the program, as will bad syntax - there is no eror checking on this
 
+	///////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////	Data Layout	//////////////////////////////////
+	<hat>
+		<id> 				0		</id>		//	The numerical ID for this; used for Array indexing
+		<name>				NAME	</name>		//	Name of the hat; used for menus and on-hover tags
+		<graphic>			0 		</graphic>	//	The index of the graphics found in the Resources.as file
+		
+		//	Data relating to the unlocking of this as a reward
+		<unlock>
+			<default> 		true 	</default>	//	True if it is to be unlocked from the start (no cost)
+			<cost>			0		</cost>		//	The cost to unlock it, assuming <default> is false
+		</unlock>
+		
+		//	Data relating to the actual stats and ability of the hat
+		<stats>	
+			<foodRate>		1	</foodRate>		//	Factor for the rate the food decreases at
+			<foodAmount>	1	</foodAmount>	//	Factor for the amount of food the bacteria can hold
+			<moneyRate>		1	</moneyRate>	//	Factor for the amount of money the bacteria can hold
+			<moneyAmount>	1	</moneyAmount>	//	Factor for the rate the money is created at
+		</stats>		
+	</hat>
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+-->
+
+<!-- Start of Actual File Data -->
 <data>
 	
-	<hat id="0">
+	<!-- Basic Explorer hat -->
+	<hat>
+		<id> 				0		</id>
 		<name>				EXPLORER</name>
 		<graphic>			0 		</graphic>
 		<unlock>
@@ -13,11 +47,13 @@
 			<foodRate>		1	</foodRate>	
 			<foodAmount>	1	</foodAmount>
 			<moneyRate>		1	</moneyRate>
-			<moneyAmount>	0.5	</moneyAmount>
+			<moneyAmount>	1	</moneyAmount>
 		</stats>		
 	</hat>
 	
-	<hat id="1">
+	<!-- Pirate hat -->
+	<hat>
+		<id> 				1		</id>
 		<name>				PIRATE	</name>
 		<graphic> 			1 		</graphic>
 		<unlock>
@@ -27,12 +63,14 @@
 		<stats>	
 			<foodRate>		1	</foodRate>	
 			<foodAmount>	1	</foodAmount>
-			<moneyRate>		10	</moneyRate>
-			<moneyAmount>	10	</moneyAmount>
+			<moneyRate>		1.1	</moneyRate>
+			<moneyAmount>	1.2	</moneyAmount>
 		</stats>		
 	</hat>
 	
-	<hat id="2">
+	<!-- Pretty Purple Women's hat -->
+	<hat>
+		<id> 				2		</id>
 		<name>				PRETTY	</name>
 		<graphic> 			2 		</graphic>
 		<unlock>
@@ -42,7 +80,7 @@
 		<stats>	
 			<foodRate>		1	</foodRate>	
 			<foodAmount>	1	</foodAmount>
-			<moneyRate>		2	</moneyRate>
+			<moneyRate>		0.1	</moneyRate>
 			<moneyAmount>	2	</moneyAmount>
 		</stats>		
 	</hat>

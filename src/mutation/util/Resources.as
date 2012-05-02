@@ -22,12 +22,20 @@ package mutation.util
 			GFX_HAT_PRETTY
 		];
 		
-		/////////////////////////////////////////////////////
+		///////////////////////////////////////////////////
 		//	XML EMBEDDING
 		///////////////////////////////////////////////////
 		[Embed(source = "../../../resources/xml/hats.xml", mimeType="application/octet-stream")]
 		public static const XML_HATS:Class;
 		
+		[Embed(source = "../../../resources/xml/levels.xml", mimeType="application/octet-stream")]
+		public static const XML_LEVELS:Class;
+		
+		[Embed(source = "../../../resources/xml/foods.xml", mimeType="application/octet-stream")]
+		public static const XML_FOODS:Class;
+		
+		//	Returns the XML from an embedded octet-stream (XML).
+		//	This is a workaround to a bug in the AS3 compiler, that tries to compile XML files.
 		public static function getXML(embeddedXML:Class):XML
 		{
 			var bytes:ByteArray = (new embeddedXML()) as ByteArray;

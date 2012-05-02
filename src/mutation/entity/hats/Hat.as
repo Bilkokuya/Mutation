@@ -6,16 +6,21 @@ package mutation.entity.hats
 	import flash.utils.ByteArray;
 	import mutation.util.Resources;
 	
+	//	An instace of the hat itself; used by the bacteria visually and functionaly
+	//	Based off of a HatDescriptor which describes it's behaviour
+	//	Extends Sprite so it can be drawn to the stage
 	public class Hat extends Sprite
 	{
-		private var type:HatDescriptor;
-		private var bitmap:Bitmap;
+		private var type:HatDescriptor;	//	The base type this instance takes functionality from
+		private var bitmap:Bitmap;		//	The visual element of this instance
 		
+		//	Constructor takes an existig HatDescriptor
 		public function Hat(hatType:HatDescriptor) 
 		{
 			super();
 			this.type = hatType;
 			
+			//	Setup the bitmap to be visually cetered on the x,y co-ordinates
 			this.bitmap = new Resources.GRAPHICS[type.bitmapIndex];
 			addChild(bitmap);
 			bitmap.width = 15;
@@ -24,21 +29,25 @@ package mutation.entity.hats
 			bitmap.y = - bitmap.height / 2;
 		}
 		
+		//	Accessor for the foodRateScale found in the HatDescriptor - for backwards compatibility
 		public function get foodRateScale():Number 
 		{
 			return type.foodRateScale;
 		}
 		
+		//	Accessor for the foodAmountScale found in the HatDescriptor - for backwards compatibility
 		public function get foodAmountScale():Number 
 		{
 			return type.foodAmountScale;
 		}
 		
+		//	Accessor for the moneyAmountScale found in the HatDescriptor - for backwards compatibility
 		public function get moneyAmountScale():Number 
 		{
 			return type.moneyAmountScale;
 		}
 		
+		//	Accessor for the moneyRateScale found in the HatDescriptor - for backwards compatibility
 		public function get moneyRateScale():Number 
 		{
 			return type.moneyRateScale;

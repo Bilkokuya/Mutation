@@ -12,6 +12,7 @@ package mutation.entity.levelling
 		public var moneyType:Class;			//	New money type, or null if the money type won't change this level
 		public var visual:Sprite;			//	New visual appearance, or null if the appearance won't change this level
 		
+		//	Users of this class must check for moneyType and visual being null; indicating they aren't to change
 		public function Level(exp:Number, food:Number, money:Number, moneyTypeChange:Class = null, visualChange:Sprite = null) 
 		{
 			experienceNeeded = exp;
