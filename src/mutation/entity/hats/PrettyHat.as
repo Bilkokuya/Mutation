@@ -4,12 +4,12 @@ package mutation.entity.hats
 
 	public class PrettyHat extends Hat
 	{
-		[Embed(source="../../../../resouces/gfx/prettyhat.png")]
+		[Embed(source="../../../../resources/gfx/prettyhat.png")]
 		private var BITMAP:Class;
 		
 		public function PrettyHat() 
 		{
-			super(BITMAP);
+			super(BITMAP, 1, 1, 1, 1);
 		}
 		
 	}

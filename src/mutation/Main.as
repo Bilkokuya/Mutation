@@ -110,6 +110,7 @@ package mutation
 			collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 		}
 		
+		//	Used to collect items into the chest, when clicked
 		public static function collect(amount:int):void
 		{
 			collected += amount;
@@ -121,6 +122,7 @@ package mutation
 			}
 			collectedOut.text = collected + "/ 1000";
 		}
+		
 		//	Listener: onTick
 		//	Runs once per frame as the main loop
 		private function onTick(e:Event):void
@@ -134,6 +136,7 @@ package mutation
 			}
 		}
 		
+		//	Called when the new Bacteria button is pressed
 		private function onButton(e:ButtonEvent):void
 		{
 			if (money < BACTERIA_COST) {
@@ -146,6 +149,7 @@ package mutation
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
+		//	Called when the upgrade food button is pressed
 		private function onFoodUpgrade(e:ButtonEvent):void
 		{
 			if (money < FOOD_UPGRADE_COST) {
@@ -156,6 +160,7 @@ package mutation
 			
 		}
 		
+		//	Called when a bacteria has been given a name
 		private function onBacteriaNamed(e:BacteriaEvent):void
 		{
 			popup.hide();
@@ -164,6 +169,7 @@ package mutation
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
+		//	Called when the collection is emptied (clicked on)
 		private function onCollected(e:ButtonEvent):void
 		{
 			if (collected >= 1000) {
@@ -173,6 +179,8 @@ package mutation
 			collectedOut.text = collected + "/ 1000";
 		}
 		
+		//	Debug/Cheat code button - MUST REMOVE BEFORE HAND-IN
+		//	Adds 1000 money when you hit the space bar
 		private function onKeyDown(e:KeyboardEvent):void
 		{
 			if (e.keyCode == Keyboard.SPACE) {

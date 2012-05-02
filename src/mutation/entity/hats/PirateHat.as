@@ -5,12 +5,12 @@ package mutation.entity.hats
 	
 	public class PirateHat extends Hat
 	{
-		[Embed(source = "../../../../resouces/gfx/piratehat.png")]
+		[Embed(source = "../../../../resources/gfx/piratehat.png")]
 		private var BITMAP:Class;
 		
 		public function PirateHat() 
 		{
-			super(BITMAP);
+			super(BITMAP, 1, 1, 10, 10);
 		}
 		
 	}

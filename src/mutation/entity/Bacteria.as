@@ -18,8 +18,9 @@ package mutation.entity
 	import flash.ui.Mouse;
 	import mutation.entity.hats.Hat;
 	import mutation.entity.hats.PirateHat;
+	import mutation.entity.levelling.Level;
 	
-	import mutation.entity.behaviours.SimpleLeveling;
+	import mutation.entity.levelling.SimpleLeveling;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
@@ -50,6 +51,7 @@ package mutation.entity
 		public var food:Resource;
 		public var money:Resource;
 		public var level:SimpleLeveling = new SimpleLeveling();
+		public var moneyType:Class;
 
 		public var target:Sprite;
 		private var popOut:BacteriaDisplay;
@@ -69,15 +71,15 @@ package mutation.entity
 			
 			popOut = new BacteriaDisplay(radius, 0, 100, 50, 20, 20);
 			
-			food = new Resource(100, -0.1, 100);
-			money = new Resource(Math.random() * 50, 1, 100);
-			
 			if (hat != null) {
 				this.hat = hat;
 			}else {
 				this.hat = new PirateHat();
 			}
 			addChild(this.hat);
+			
+			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
+			money = new Resource(Math.random() * 50, 1*this.hat.moneyRateScale, 100*this.hat.moneyAmountScale);
 			
 			super();
 			if (stage) onInit();
@@ -97,8 +99,6 @@ package mutation.entity
 		//	Updates the logic of this each frame, needs to be called by it's container
 		public function onTick(e:MutationEvent):void {
 			processHungerState();
-			
-			level.update(1);
 			
 			food.update();
 			
@@ -165,7 +165,7 @@ package mutation.entity
 			if (amount < 0) return;
 			
 			food.amount += amount;
-		
+			level.update(amount);
 		}
 		
 		//	Kills this bacteria, dispatching it's death event
@@ -210,8 +210,12 @@ package mutation.entity
 		//	Called when the bacteria has levelled up
 		private function onLevelUp():void
 		{
-			food.scale(1, 0.99, 1);
-			money.scale(1, 1.05, 1.1);
+			var l:Level = level.getLevel();
+			food.scale(1, l.foodScale, 1);
+			money.scale(1, l.moneyScale, l.moneyScale);
+			if (l.moneyType) {
+				moneyType = l.moneyType;
+			}
 		}
 		
 		//	Draws the bacteria's vector image
@@ -230,6 +234,9 @@ package mutation.entity
 			this.hat.y = -radius;
 			this.hat.x = 0;
 			addChild(hat);
+			
+			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
+			money = new Resource(Math.random() * 50, 1*this.hat.moneyRateScale, 100*this.hat.moneyAmountScale);
 		}
 	}
 }
