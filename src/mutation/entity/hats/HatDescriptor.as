@@ -15,7 +15,7 @@ package mutation.entity.hats
 		public var moneyRateScale:Number;	//	Factor for the rate the money is created at
 		
 		public var isUnlocked:Boolean;		//	True if it is unlocked/useable by default
-		public var unlockCost:Boolean;		//	Cost to unlock it (if it is not unlocked)
+		public var unlockCost:Number;		//	Cost to unlock it (if it is not unlocked)
 		
 		//	Creates a new HatDescriptor from the XML input
 		//	XML input expected to be just the XML for this hat node; not the entire file
@@ -28,8 +28,10 @@ package mutation.entity.hats
 			moneyAmountScale	= stats.moneyAmount;
 			moneyRateScale 		= stats.moneyRate;
 			
-			isUnlocked 			= xml.unlock.unlocked;
+			(xml.unlock.unlocked == "true") ? isUnlocked = true : isUnlocked = false;
 			unlockCost 			= xml.unlock.cost;
+			
+			trace("xml " + xml.unlock.unlocked + ", hat " + isUnlocked);
 		}
 		
 	}

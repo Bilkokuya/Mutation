@@ -24,7 +24,7 @@ package mutation.entity.foods
 			this.startingLife 	= xml.life;
 			this.names 			= xml.name;
 			
-			isUnlocked 			= xml.unlock.unlocked;
+			(xml.unlock.unlocked == "true") ? isUnlocked = true : isUnlocked = false;
 			unlockCost 			= xml.unlock.cost;
 		}
 		

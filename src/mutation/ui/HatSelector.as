@@ -72,6 +72,7 @@ package mutation.ui
 		{
 			selectedHat++;
 			if (selectedHat > (Resources.HAT_TYPES.length - 1)) selectedHat = Resources.HAT_TYPES.length - 1;
+			if (!Resources.HAT_TYPES[selectedHat].isUnlocked) selectedHat--;
 			draw();
 		}
 	}

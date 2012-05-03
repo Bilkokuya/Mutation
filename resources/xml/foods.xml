@@ -39,8 +39,8 @@
 		<debrisCount>		0		</debrisCount>
 		<debrisType>		0		</debrisType>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</food>
 	
@@ -55,8 +55,8 @@
 		<debrisCount>		3		</debrisCount>
 		<debrisType>		0		</debrisType>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true 	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</food>
 	
@@ -71,8 +71,8 @@
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		0		</debrisType>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true 	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</food>
 	

@@ -37,8 +37,8 @@
 		<life>				4		</life>
 		<money>				200		</money>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true 	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</item>
 	

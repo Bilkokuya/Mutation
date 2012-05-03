@@ -15,7 +15,8 @@ package mutation.entity.items
 			radius = xml.radius;
 			money = xml.money;
 			startingLife = xml.life;
-			isUnlocked = xml.unlock.unlocked;
+			
+			(xml.unlock.unlocked == "true") ? isUnlocked = true : isUnlocked = false;
 			unlockCost = xml.unlock.cost;
 			
 		}

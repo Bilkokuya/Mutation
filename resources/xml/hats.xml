@@ -40,14 +40,14 @@
 		<name>				EXPLORE	</name>
 		<graphic>			0 		</graphic>
 		<stats>	
-			<foodRate>		1	</foodRate>	
-			<foodAmount>	1	</foodAmount>
-			<moneyRate>		1	</moneyRate>
-			<moneyAmount>	1	</moneyAmount>
+			<foodRate>		1		</foodRate>	
+			<foodAmount>	1		</foodAmount>
+			<moneyRate>		1		</moneyRate>
+			<moneyAmount>	1		</moneyAmount>
 		</stats>	
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true 	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</hat>
 	
@@ -57,14 +57,14 @@
 		<name>				PIRATE	</name>
 		<graphic> 			1 		</graphic>
 		<stats>	
-			<foodRate>		1	</foodRate>	
-			<foodAmount>	1	</foodAmount>
-			<moneyRate>		1.1	</moneyRate>
-			<moneyAmount>	1.2	</moneyAmount>
+			<foodRate>		1		</foodRate>	
+			<foodAmount>	1		</foodAmount>
+			<moneyRate>		1.1		</moneyRate>
+			<moneyAmount>	1.2		</moneyAmount>
 		</stats>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true 	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</hat>
 	
@@ -74,14 +74,30 @@
 		<name>				PRETTY	</name>
 		<graphic> 			2 		</graphic>
 		<stats>	
-			<foodRate>		1	</foodRate>	
-			<foodAmount>	1	</foodAmount>
-			<moneyRate>		0.1	</moneyRate>
-			<moneyAmount>	2	</moneyAmount>
+			<foodRate>		1		</foodRate>	
+			<foodAmount>	1		</foodAmount>
+			<moneyRate>		0.1		</moneyRate>
+			<moneyAmount>	2		</moneyAmount>
 		</stats>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		false 	</unlocked>
+			<cost>			500		</cost>
+		</unlock>
+	</hat>
+	
+	<hat>
+		<id> 				3		</id>
+		<name>				POIPOI	</name>
+		<graphic> 			1 		</graphic>
+		<stats>	
+			<foodRate>		1		</foodRate>	
+			<foodAmount>	1		</foodAmount>
+			<moneyRate>		0.1		</moneyRate>
+			<moneyAmount>	2		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			1500		</cost>
 		</unlock>
 	</hat>
 
