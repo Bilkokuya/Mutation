@@ -6,6 +6,7 @@ package mutation.ui
 	import mutation.entity.hats.Hat;
 	import mutation.entity.hats.HatDescriptor;
 	import mutation.Game;
+	import mutation.util.Resources;
 	import mx.core.SpriteAsset;
 
 	//	Very temporary - don't think twice before refactoring this into something more generic
@@ -15,21 +16,23 @@ package mutation.ui
 		private var leftArrow:Sprite;
 		private var rightArrow:Sprite;
 		private var hat:Hat;
+		private var game:Game;
 		
-		public function HatSelector() 
+		public function HatSelector(game:Game) 
 		{
-			super();
+			this.game = game;
 			leftArrow = new Sprite();
 			rightArrow = new Sprite();
-			hat = new Hat(Game.hats[selectedHat]);
+			hat = new Hat(game, Resources.HAT_TYPES[selectedHat]);
 			
+			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
 		public function getHatDescriptor():HatDescriptor
 		{
-			return Game.hats[selectedHat];
+			return Resources.HAT_TYPES[selectedHat];
 		}
 		
 		private function onInit(e:Event = null):void
@@ -59,7 +62,7 @@ package mutation.ui
 		{
 			selectedHat--;
 			if (selectedHat < 0) {
-				selectedHat = Game.hats.length-1;
+				selectedHat = Resources.HAT_TYPES.length-1;
 			}
 			drawHat();
 		}
@@ -67,7 +70,7 @@ package mutation.ui
 		private function onRight(e:MouseEvent):void
 		{
 			selectedHat++;
-			if (selectedHat > (Game.hats.length - 1)) {
+			if (selectedHat > (Resources.HAT_TYPES.length - 1)) {
 				selectedHat = 0;
 			}
 			drawHat();
@@ -76,7 +79,7 @@ package mutation.ui
 		private function drawHat():void
 		{
 			removeChild(hat);
-			hat = new Hat(Game.hats[selectedHat]);
+			hat = new Hat(game, Resources.HAT_TYPES[selectedHat]);
 			addChild(hat);
 			hat.x = 60;
 			hat.scaleX = 3;

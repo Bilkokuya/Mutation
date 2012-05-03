@@ -5,6 +5,7 @@ package mutation.entity.items
 	import flash.events.MouseEvent;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
+	import mutation.Game;
 	import mutation.Main;
 
 	public class Item extends Sprite
@@ -13,6 +14,7 @@ package mutation.entity.items
 		private const yAccel:Number = -0.07;	//	y Acceleration downwards
 		public var xSpeed:Number;
 		public var ySpeed:Number;
+		private var game:Game;
 		
 		public var life:Number;
 		public var amount:Number = 0;
@@ -24,9 +26,10 @@ package mutation.entity.items
 		public var flagIsAlive:Boolean = true;
 		
 		//	Constructor: default
-		public function Item(x:Number, y:Number, itemType:ItemDescriptor, money:Number = 0 )
+		public function Item(game:Game, x:Number, y:Number, itemType:ItemDescriptor, money:Number = 0 )
 		{
 			type = itemType;
+			this.game = game;
 			this.x = x;
 			this.y = y;
 			xSpeed = 0;

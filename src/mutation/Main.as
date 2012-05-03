@@ -21,6 +21,7 @@ package mutation
 	import mutation.entity.foods.Food;
 	import mutation.events.BacteriaEvent;
 	import mutation.ui.Button;
+	import mutation.ui.FoodSelector;
 	import mutation.ui.NameBacteriaDisplay;
 	import mutation.util.Resources;
 
@@ -47,6 +48,7 @@ package mutation
 		private var bacteriaButton:Button;
 		private var upgradeFood:Button;
 		private var popup:NameBacteriaDisplay;
+		public var game:Game;
 		
 		//	Constructor: default
 		public function Main():void 
@@ -59,7 +61,8 @@ package mutation
 		//	Initialisation once the stage is created
 		private function onInit(e:Event = null):void 
 		{	
-			Game.init();
+			game = new Game();
+			Resources.load();
 			
 			testTube = new TestTube(125, 200, 100);
 			moneyOut = new TextField();
@@ -67,7 +70,7 @@ package mutation
 			collectButton = new Button(350, 20, "COLLECT", 100, 50);
 			bacteriaButton = new Button(100, 20, "BACTERIA", 75, 30);
 			upgradeFood = new Button(200, 20, "FOOD", 75, 30);
-			popup = new NameBacteriaDisplay(stage.stageWidth/2, stage.stageHeight/2);
+			popup = new NameBacteriaDisplay(stage.stageWidth / 2, stage.stageHeight / 2);
 			
 			Keys.init(stage);
 			
@@ -96,7 +99,7 @@ package mutation
 			addChild(collectButton);
 			addChild(collectedOut);
 			addChild(upgradeFood);
-			addChild(popup);
+			addChild(popup);		
 			
 			moneyOut.text = "$" + money;
 			collectedOut.text = collected + "/ 1000";
@@ -107,7 +110,6 @@ package mutation
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			addEventListener(Event.ENTER_FRAME, onTick);
 			bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
-			upgradeFood.addEventListener(ButtonEvent.CLICKED, onFoodUpgrade);
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 			collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
@@ -150,16 +152,6 @@ package mutation
 			popup.display(new Bacteria(0,0,5));
 			isPaused = true;
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
-		}
-		
-		//	Called when the upgrade food button is pressed
-		private function onFoodUpgrade(e:ButtonEvent):void
-		{
-			if (money >= FOOD_UPGRADE_COST) {
-				Game.selectedFood++;
-				if (Game.selectedFood > (Game.foods.length - 1)) Game.selectedFood = Game.foods.length - 1;
-				money -= FOOD_UPGRADE_COST;
-			}
 		}
 		
 		//	Called when a bacteria has been given a name

@@ -48,7 +48,7 @@
 	<food>
 		<id> 				0		</id>
 		<name>				BASIC	</name>
-		<graphic>			0 		</graphic>
+		<graphic>			1 		</graphic>
 		<radius>			4		</radius>
 		<life>				4		</life>
 		<foodAmount>		100		</foodAmount>
@@ -64,7 +64,7 @@
 	<food>
 		<id> 				1		</id>
 		<name>				DOUBLE	</name>
-		<graphic>			0 		</graphic>
+		<graphic>			2 		</graphic>
 		<radius>			6		</radius>
 		<life>				0.5		</life>
 		<foodAmount>		100		</foodAmount>

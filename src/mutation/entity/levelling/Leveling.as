@@ -1,6 +1,7 @@
 package mutation.entity.levelling 
 {
 	import mutation.Game;
+	import mutation.util.Resources;
 
 	//	Levelling component for bacteria experience 
 	public class Leveling 
@@ -19,7 +20,7 @@ package mutation.entity.levelling
 		{
 			hasLevelledThisTick = false;
 			experience += exp;
-			if (Game.levels[level].canLevel(experience)) {
+			if (Resources.LEVEL_TYPES[level].canLevel(experience)) {
 				nextLevel();
 			}
 		}
@@ -27,13 +28,13 @@ package mutation.entity.levelling
 		//	Returns the current level for the bacteria to update with
 		public function getLevel():Level
 		{
-			return (Game.levels[level]);
+			return (Resources.LEVEL_TYPES[level]);
 		}
 		
 		//	Called whenever the object gets to the next level
 		private function nextLevel():void
 		{
-			if (level < (Game.levels.length-1)){
+			if (level < (Resources.LEVEL_TYPES.length-1)){
 				hasLevelledThisTick = true;
 				level++;
 				experience = 0;

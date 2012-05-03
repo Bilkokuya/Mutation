@@ -44,6 +44,7 @@ package mutation.entity
 		public var flagIsHungry:Boolean= false;
 		private var canMove:Boolean;
 		public var hat:Hat;
+		private var game:Game;
 		
 		public var radius:Number;
 		public var xSpeed:Number;		//	Current speed in the x Direction
@@ -59,11 +60,12 @@ package mutation.entity
 		private var popOut:BacteriaDisplay;
 		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
+		public function Bacteria(game:Game,x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
 			//	Set values from parameters
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
+			this.game = game;
 			
 			//	Initialise basic stats
 			target = null;
@@ -71,12 +73,12 @@ package mutation.entity
 
 			draw(0x0066FF);
 			
-			popOut = new BacteriaDisplay(radius, 0, 100, 50, 20, 20);
+			popOut = new BacteriaDisplay(game,radius, 0, 100, 50, 20, 20);
 			
 			if (hat != null) {
 				this.hat = hat;
 			}else {
-				this.hat = new Hat(Game.hats[0]);
+				this.hat = new Hat(game, Resources.HAT_TYPES[0]);
 			}
 			addChild(this.hat);
 			
@@ -115,7 +117,7 @@ package mutation.entity
 			}
 			
 			if (money.isFilled()) {
-				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(x,y, Game.items[0], money.amount), true));
+				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(game, x,y, Resources.ITEM_TYPES[0], money.amount), true));
 				money.amount = 0;
 			}
 			

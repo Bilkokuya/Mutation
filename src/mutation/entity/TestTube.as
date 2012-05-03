@@ -24,6 +24,7 @@ package mutation.entity
 	import mutation.ui.NameBacteriaDisplay;
 	import mutation.ui.PopupDisplay;
 	import mutation.util.Keys;
+	import mutation.util.Resources;
 	import mutation.util.Util;
 
 	//	Class: TestTube extends Sprite
@@ -40,12 +41,14 @@ package mutation.entity
 		private var radius:int;			//	Radius of movement for the testtube
 		
 		private var flagIsClicked:Boolean = false;
+		private var game:Game;
 		
 		//	Constructor: default
-		public function TestTube(x:Number = 200, y:Number = 200, radius:int = 50) {
+		public function TestTube(game:Game, x:Number = 200, y:Number = 200, radius:int = 50) {
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
+			this.game = game;
 
 			bacterias = new Array();
 			foods = new Array();
@@ -181,7 +184,7 @@ package mutation.entity
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
 				if (Main.money >= cost){
-					var food:Food = new Food(x, y, Game.foods[Game.selectedFood]);
+					var food:Food = new Food(game, x, y, Resources.FOOD_TYPES[Game.selectedFood]);
 					foods.push(food);
 					addChild(food);
 					Main.money -= cost;
@@ -197,7 +200,7 @@ package mutation.entity
 			
 			if (e.food.type.debrisType > -1) {
 				for (var i:int = 0; i < e.food.type.debrisCount; ++i) {
-					var debris:Food = new Food(e.food.x, e.food.y, Game.foods[e.food.type.debrisType]);
+					var debris:Food = new Food(game, e.food.x, e.food.y, Resources.FOOD_TYPES[e.food.type.debrisType]);
 					debris.xSpeed = e.food.xSpeed - (Math.random() - 0.5);
 					debris.ySpeed = e.food.ySpeed - 3*(Math.random());
 					foods.push(debris);

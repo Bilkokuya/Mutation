@@ -10,6 +10,7 @@ package mutation.entity.foods
 	import flash.events.Event;
 	import mutation.events.FoodEvent;
 	import mutation.events.MutationEvent;
+	import mutation.Game;
 	import mutation.util.Util;
 
 	//	Class: Food
@@ -25,12 +26,14 @@ package mutation.entity.foods
 		public var life:Number;
 		public var flagIsMoving:Boolean = true;
 		public var flagIsAlive:Boolean = true;
+		private var game:Game;
 		
 		//	Constructor: default
-		public function Food(x:Number, y:Number, foodType:FoodDescriptor)
+		public function Food(game:Game, x:Number, y:Number, foodType:FoodDescriptor)
 		{
 			super();
 			
+			this.game = game;
 			type = foodType;
 			this.x = x;
 			this.y = y;

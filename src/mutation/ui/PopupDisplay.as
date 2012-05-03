@@ -2,6 +2,7 @@ package mutation.ui
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import mutation.Game;
 
 	public class PopupDisplay extends Sprite
 	{
@@ -9,9 +10,11 @@ package mutation.ui
 		protected var boxHeight_:Number;
 		protected var arrowWidth_:Number;
 		protected var arrowHeight_:Number;
+		private var game:Game;
 		
-		public function PopupDisplay(x:Number, y:Number, width:Number, height:Number, length:Number = 10, thickness:Number = 20) 
+		public function PopupDisplay(game:Game, x:Number, y:Number, width:Number, height:Number, length:Number = 10, thickness:Number = 20) 
 		{
+			this.game = game;
 			this.x = x;
 			this.y = y;
 			

@@ -11,20 +11,24 @@ package mutation.ui
 	import mutation.entity.Bacteria;
 	import mutation.entity.hats.Hat;
 	import mutation.events.BacteriaEvent;
+	import mutation.Game;
 	
 	public class NameBacteriaDisplay extends PopupDisplay
 	{
 		public var infoOut:TextField;
 		public var nameInput:TextField;
-		private var bacteria:Bacteria = new Bacteria(0, 0, 5);
+		private var bacteria:Bacteria;
 		private var hatSelector:HatSelector;
+		private var game:Game;
 		
-		public function NameBacteriaDisplay(x:Number = 0, y:Number = 0) 
+		public function NameBacteriaDisplay(game:Game, x:Number = 0, y:Number = 0) 
 		{
-			infoOut = new TextField();
-			nameInput = new TextField();
-			hatSelector = new HatSelector();
-			hatSelector.x = 15;
+			infoOut			= new TextField();
+			nameInput		= new TextField();
+			hatSelector		= new HatSelector(game);
+			bacteria		= new Bacteria(game, 0, 0, 5);
+			hatSelector.x	= 15;
+			this.game		= game;
 			
 			infoOut.text = "Spawn New Bacteria";
 			infoOut.y = -50;
@@ -47,7 +51,7 @@ package mutation.ui
 			nameInput.restrict = "a-zA-Z .";
 			
 			
-			super(x, y, 150, 130, 0, 0);
+			super(game, x, y, 150, 130, 0, 0);
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
@@ -72,7 +76,7 @@ package mutation.ui
 		{
 			if (e.keyCode == Keyboard.ENTER) {
 				bacteria.nameString = nameInput.text;
-				bacteria.setHat(new Hat(hatSelector.getHatDescriptor()));
+				bacteria.setHat(new Hat(game, hatSelector.getHatDescriptor()));
 				dispatchEvent(new BacteriaEvent(BacteriaEvent.COMPLETE, bacteria, true));
 			}
 		}

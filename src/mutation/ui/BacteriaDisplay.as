@@ -5,21 +5,25 @@ package mutation.ui
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import mutation.entity.Bacteria;
+	import mutation.Game;
 	
 	public class BacteriaDisplay extends PopupDisplay
 	{
 		private var nameField:TextField;
 		private var foodField:TextField;
 		private var productionField:TextField;
+		private var game:Game;
 		
-		public function BacteriaDisplay(x:Number, y:Number, width:Number, height:Number, length:Number = 10, thickness:Number = 20)
+		public function BacteriaDisplay(game:Game, x:Number, y:Number, width:Number, height:Number, length:Number = 10, thickness:Number = 20)
 		{			
+			this.game = game;
+			
 			nameField = new TextField();
 			foodField = new TextField();
 			productionField = new TextField();
 
 			
-			super(x, y, width, height, length, thickness);
+			super(game, x, y, width, height, length, thickness);
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit)
 		}
