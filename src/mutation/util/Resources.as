@@ -23,10 +23,18 @@ package mutation.util
 		[Embed(source="../../../resources/gfx/prettyhat.png")]
 		public static const GFX_HAT_PRETTY:Class;
 		
+		[Embed(source = "../../../resources/gfx/cookie.jpg")]
+		public static const GFX_FOOD_COOKIE:Class;
+		
+		[Embed(source="../../../resources/gfx/grapefruit.jpg")]
+		public static const GFX_FOOD_GRAPEFRUIT:Class;
+		
 		public static const GRAPHICS:Vector.<Class> = new <Class>[
 			GFX_HAT_EXPLORER,
 			GFX_HAT_PIRATE,
-			GFX_HAT_PRETTY
+			GFX_HAT_PRETTY,
+			GFX_FOOD_GRAPEFRUIT,
+			GFX_FOOD_COOKIE	
 		];
 		
 		///////////////////////////////////////////////////

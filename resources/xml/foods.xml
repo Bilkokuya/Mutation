@@ -65,8 +65,8 @@
 		<id> 				1		</id>
 		<name>				Explodey	</name>
 		<graphic>			4 		</graphic>
-		<radius>			6		</radius>
-		<life>				0.5		</life>
+		<radius>			5		</radius>
+		<life>				1		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		0		</debrisType>
@@ -75,5 +75,6 @@
 			<cost>			0	</cost>
 		</unlock>
 	</food>
+	
 	
 </data>

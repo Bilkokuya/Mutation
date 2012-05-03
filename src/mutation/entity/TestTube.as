@@ -34,6 +34,7 @@ package mutation.entity
 		//	TEMPORARY
 		public var bacteriaCount:int = 0;
 		public const MAX_BACTERIA:int = 50;
+		private const ITEM_CLICK_RANGE:int = 50;
 		
 		private var bacterias:Array;	//	Array of Bacteria
 		private var foods:Array;		//	Array of Food
@@ -42,6 +43,9 @@ package mutation.entity
 		
 		private var flagIsClicked:Boolean = false;
 		private var game:Game;
+		private var selector:Sprite;
+		private var closestItem:Item = null;
+		private var closestRange:Number = ITEM_CLICK_RANGE;
 		
 		//	Constructor: default
 		public function TestTube(game:Game, x:Number = 200, y:Number = 200, radius:int = 50) {
@@ -50,11 +54,13 @@ package mutation.entity
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
+			closestItem = null;
 			
 
 			bacterias = new Array();
 			foods = new Array();
 			items = new Array();
+			selector = new Sprite();
 			
 			draw();
 			
@@ -66,8 +72,10 @@ package mutation.entity
 		//	Initialisation once the stage has been created
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			addEventListener(MouseEvent.CLICK, onClick);
+			stage.addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(MutationEvent.TICK, onTick);
+			
+			addChild(selector);
 			
 			addEventListener(FoodEvent.DEATH, onFoodDeath);
 			addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
@@ -81,15 +89,15 @@ package mutation.entity
 			updateItems();
 			updateFood();
 			updateBacteria();
-			
-			if (flagIsClicked) spawnFood(mouseX, mouseY);
-			
-			flagIsClicked = false;
 		}
 
 		//	Updates all the items in the testtube
 		private function updateItems():void
 		{
+			//	Get closest clickable item
+			closestRange = ITEM_CLICK_RANGE;
+			closestItem = null;
+			
 			for each (var i:Item in items) {
 				if ( !(Util.inRadius(i.x, i.y, radius - i.type.radius)) ){
 					i.ySpeed *= -0.5;
@@ -98,12 +106,19 @@ package mutation.entity
 					if (Util.inRadius(i.xSpeed, i.ySpeed, 0.2)) i.flagIsMoving = false;
 				}
 				
-				if (i.flagIsClicked) {
-					this.flagIsClicked = false;
-					game.collect(i.getMoney());
-					i.kill();
+				//	Get the closest selected item
+				var distance:Number = Math.sqrt(Math.pow(i.x - mouseX, 2) + Math.pow(i.y - mouseY, 2));
+				if (distance < closestRange) {
+					closestItem = i;
+					closestRange = distance;
 				}
-				i.flagIsClicked = false;
+			}
+			
+			selector.graphics.clear();
+			if (closestItem) {
+				selector.graphics.lineStyle(10, 0xFF6600,0.2);
+				selector.graphics.moveTo(mouseX, mouseY);
+				selector.graphics.lineTo(closestItem.x, closestItem.y);
 			}
 		}
 		
@@ -175,8 +190,19 @@ package mutation.entity
 		
 		//	Feeds the bacteria when the testTube is clicked on
 		private function onClick(e:MouseEvent):void
-		{			
-			flagIsClicked = true;
+		{	
+			if (Main.isPaused) return;
+			if (Util.inRadius(mouseX, mouseY, radius)) {
+				//	If an item was clicked - collect it
+				if (closestItem) {
+					selector.graphics.clear();
+					game.collect(closestItem.getMoney());
+					closestItem.kill();
+				//	Otherwise it was the test-tube, so spawn food
+				}else {
+					spawnFood(mouseX, mouseY)
+				}
+			}
 		}
 		
 		//	Spawns a new item of food at the specified position

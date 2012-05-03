@@ -43,7 +43,7 @@ package mutation
 			ui = new UI(this);
 			
 			testTubes.push( new TestTube(this, 125, 200, 100) );
-			
+		
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -52,6 +52,7 @@ package mutation
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
 			popup = new NameBacteriaDisplay(this, stage.stageWidth / 2, stage.stageHeight / 2);
 					
 			addChild(testTubes[0]);

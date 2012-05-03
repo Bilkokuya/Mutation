@@ -6,11 +6,13 @@
 
 package mutation.entity.foods 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import mutation.events.FoodEvent;
 	import mutation.events.MutationEvent;
 	import mutation.Game;
+	import mutation.util.Resources;
 	import mutation.util.Util;
 
 	//	Class: Food
@@ -27,6 +29,7 @@ package mutation.entity.foods
 		public var flagIsMoving:Boolean = true;
 		public var flagIsAlive:Boolean = true;
 		private var game:Game;
+		private var bitmap:Bitmap;
 		
 		//	Constructor: default
 		public function Food(game:Game, x:Number, y:Number, foodType:FoodDescriptor)
@@ -41,8 +44,9 @@ package mutation.entity.foods
 			ySpeed = 0;
 			life = type.startingLife * 30;
 			flagIsMoving = true;
-
 			
+			//bitmap = new (Resources.GRAPHICS[type.graphic])();
+
 			draw();
 			
 			if (stage) onInit();
@@ -52,6 +56,11 @@ package mutation.entity.foods
 		//	Initialisation after Stage
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
+			//addChild(bitmap);
+			//bitmap.width = type.radius;
+			//bitmap.height = type.radius;
+			
 			stage.addEventListener(MutationEvent.TICK, onTick);
 		}
 		
@@ -85,7 +94,7 @@ package mutation.entity.foods
 		
 		//	Draw the graphics representation
 		private function draw():void {
-			graphics.beginFill(0xFF6600);
+		graphics.beginFill(0xFF6600);
 			graphics.drawCircle(0, 0, type.radius);
 			graphics.endFill();
 		}

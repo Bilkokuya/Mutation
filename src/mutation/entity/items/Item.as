@@ -22,7 +22,6 @@ package mutation.entity.items
 		public var type:ItemDescriptor;
 		
 		public var flagIsMoving:Boolean = true;
-		public var flagIsClicked:Boolean = false;
 		public var flagIsAlive:Boolean = true;
 		
 		//	Constructor: default
@@ -37,8 +36,6 @@ package mutation.entity.items
 			ySpeed = 0;
 			life = type.startingLife *  30;
 			this.amount = money;
-
-			draw();
 			
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -47,8 +44,10 @@ package mutation.entity.items
 		//	Initialisation after Stage
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
+			draw();
+			
 			stage.addEventListener(MutationEvent.TICK, onTick);
-			addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		public function getMoney():Number
@@ -72,11 +71,6 @@ package mutation.entity.items
 			}
 		}
 		
-		private function onClick(e:MouseEvent):void
-		{
-			flagIsClicked = true;
-		}
-		
 		//	Kills this peice of food from the game
 		public function kill():void
 		{
@@ -84,7 +78,6 @@ package mutation.entity.items
 			flagIsMoving = false;
 			if (stage) {
 				stage.removeEventListener(MutationEvent.TICK, onTick);
-				removeEventListener(MouseEvent.CLICK, onClick);
 				dispatchEvent(new ItemEvent(ItemEvent.DEATH, this, true));
 			}
 		}
