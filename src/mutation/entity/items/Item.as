@@ -28,8 +28,9 @@ package mutation.entity.items
 		//	Constructor: default
 		public function Item(game:Game, x:Number, y:Number, itemType:ItemDescriptor, money:Number = 0 )
 		{
-			type = itemType;
 			this.game = game;
+			
+			type = itemType;
 			this.x = x;
 			this.y = y;
 			xSpeed = 0;

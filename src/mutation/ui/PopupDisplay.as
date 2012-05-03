@@ -15,6 +15,7 @@ package mutation.ui
 		public function PopupDisplay(game:Game, x:Number, y:Number, width:Number, height:Number, length:Number = 10, thickness:Number = 20) 
 		{
 			this.game = game;
+			
 			this.x = x;
 			this.y = y;
 			

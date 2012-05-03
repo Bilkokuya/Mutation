@@ -45,10 +45,12 @@ package mutation.entity
 		
 		//	Constructor: default
 		public function TestTube(game:Game, x:Number = 200, y:Number = 200, radius:int = 50) {
+			this.game = game;
+			
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
-			this.game = game;
+			
 
 			bacterias = new Array();
 			foods = new Array();
@@ -98,7 +100,7 @@ package mutation.entity
 				
 				if (i.flagIsClicked) {
 					this.flagIsClicked = false;
-					Main.collect(i.getMoney());
+					game.collect(i.getMoney());
 					i.kill();
 				}
 				i.flagIsClicked = false;
@@ -183,11 +185,11 @@ package mutation.entity
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
-				if (Main.money >= cost){
-					var food:Food = new Food(game, x, y, Resources.FOOD_TYPES[Game.selectedFood]);
+				if (game.money >= cost){
+					var food:Food = new Food(game, x, y, Resources.FOOD_TYPES[game.selectedFood]);
 					foods.push(food);
 					addChild(food);
-					Main.money -= cost;
+					game.money -= cost;
 				}
 			}
 		}

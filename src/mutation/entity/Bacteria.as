@@ -62,10 +62,12 @@ package mutation.entity
 		//	Constructor: (int, int, int, int)
 		public function Bacteria(game:Game,x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
 			//	Set values from parameters
+			this.game = game;
+			
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
-			this.game = game;
+			
 			
 			//	Initialise basic stats
 			target = null;

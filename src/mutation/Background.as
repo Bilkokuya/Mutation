@@ -1,10 +1,8 @@
 package mutation 
 {
-	/**
-	 * ...
-	 * @author ...
-	 */
-	public class Background 
+	import flash.display.Sprite;
+
+	public class Background extends Sprite
 	{
 		
 		public function Background() 

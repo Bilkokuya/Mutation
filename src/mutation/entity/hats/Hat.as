@@ -19,9 +19,11 @@ package mutation.entity.hats
 		//	Constructor takes an existig HatDescriptor
 		public function Hat(game:Game, hatType:HatDescriptor) 
 		{
+			this.game = game;
+			
 			super();
 			this.type = hatType;
-			this.game = game;
+			
 			
 			//	Setup the bitmap to be visually cetered on the x,y co-ordinates
 			this.bitmap = new Resources.GRAPHICS[type.bitmapIndex];

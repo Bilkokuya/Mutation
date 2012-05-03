@@ -21,8 +21,9 @@ package mutation.ui
 		public function HatSelector(game:Game) 
 		{
 			this.game = game;
-			leftArrow = new Sprite();
-			rightArrow = new Sprite();
+			
+			leftArrow = new Arrow(Arrow.LEFT);
+			rightArrow = new Arrow(Arrow.RIGHT);
 			hat = new Hat(game, Resources.HAT_TYPES[selectedHat]);
 			
 			super();
@@ -40,8 +41,11 @@ package mutation.ui
 			addChild(leftArrow);
 			addChild(rightArrow);
 			addChild(hat);
+			
+			leftArrow.x = 10;
+			rightArrow.x = 100;
+			
 			draw();
-			drawHat();
 			
 			leftArrow.addEventListener(MouseEvent.CLICK, onLeft);
 			rightArrow.addEventListener(MouseEvent.CLICK, onRight);
@@ -49,41 +53,26 @@ package mutation.ui
 		
 		private function draw():void
 		{
-			leftArrow.graphics.beginFill(0xFF0000);
-			leftArrow.graphics.drawRect(0, -20, 20, 40);
-			leftArrow.graphics.endFill();
-			
-			rightArrow.graphics.beginFill(0xFFFF00);
-			rightArrow.graphics.drawRect(100, -20, 20, 40);
-			rightArrow.graphics.endFill();
-		}
-		
-		private function onLeft(e:MouseEvent):void
-		{
-			selectedHat--;
-			if (selectedHat < 0) {
-				selectedHat = Resources.HAT_TYPES.length-1;
-			}
-			drawHat();
-		}
-		
-		private function onRight(e:MouseEvent):void
-		{
-			selectedHat++;
-			if (selectedHat > (Resources.HAT_TYPES.length - 1)) {
-				selectedHat = 0;
-			}
-			drawHat();
-		}
-		
-		private function drawHat():void
-		{
 			removeChild(hat);
 			hat = new Hat(game, Resources.HAT_TYPES[selectedHat]);
 			addChild(hat);
 			hat.x = 60;
 			hat.scaleX = 3;
 			hat.scaleY = 3;
+		}
+		
+		private function onLeft(e:MouseEvent):void
+		{
+			selectedHat--;
+			if (selectedHat < 0) selectedHat = 0;
+			draw();
+		}
+		
+		private function onRight(e:MouseEvent):void
+		{
+			selectedHat++;
+			if (selectedHat > (Resources.HAT_TYPES.length - 1)) selectedHat = Resources.HAT_TYPES.length - 1;
+			draw();
 		}
 	}
 

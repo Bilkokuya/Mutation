@@ -23,12 +23,14 @@ package mutation.ui
 		
 		public function NameBacteriaDisplay(game:Game, x:Number = 0, y:Number = 0) 
 		{
+			this.game		= game;
+			
 			infoOut			= new TextField();
 			nameInput		= new TextField();
 			hatSelector		= new HatSelector(game);
 			bacteria		= new Bacteria(game, 0, 0, 5);
 			hatSelector.x	= 15;
-			this.game		= game;
+			
 			
 			infoOut.text = "Spawn New Bacteria";
 			infoOut.y = -50;

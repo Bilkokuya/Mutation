@@ -22,11 +22,14 @@ package mutation.ui
 		
 		public function FoodSelector(game:Game) 
 		{
+			this.game = game;
+			
 			leftArrow = new Arrow(Arrow.LEFT);
 			rightArrow = new Arrow(Arrow.RIGHT);
 			foodBMP = new currentFoodGraphic();
 			foodNameOut = new TextField();
-			this.game = game;
+			foodNameOut.selectable = false;
+			
 			
 			super();
 			if (stage) onInit();
@@ -44,8 +47,9 @@ package mutation.ui
 			rightArrow.x = 100;
 			
 			foodBMP.x = 50;
-			foodBMP.width = 25;
-			foodBMP.height = 25;
+			foodBMP.width = 35;
+			foodBMP.height = 35;
+			foodBMP.y = -foodBMP.height / 2;
 			
 			foodNameOut.text = currentFoodDescriptor.names;
 			foodNameOut.x = 10;
@@ -58,20 +62,20 @@ package mutation.ui
 		
 		public function getFoodDesc():FoodDescriptor
 		{
-			return Resources.FOOD_TYPES[Game.selectedFood];
+			return Resources.FOOD_TYPES[game.selectedFood];
 		}
 		
 		private function onLeft(e:MouseEvent):void
 		{
-			Game.selectedFood--;
-			if (Game.selectedFood < minFood) Game.selectedFood = minFood;
+			game.selectedFood--;
+			if (game.selectedFood < minFood) game.selectedFood = minFood;
 			draw();
 		}
 		
 		private function onRight(e:MouseEvent):void
 		{
-			Game.selectedFood++;
-			if (Game.selectedFood > maxFood) Game.selectedFood = maxFood;
+			game.selectedFood++;
+			if (game.selectedFood > maxFood) game.selectedFood = maxFood;
 			draw();
 		}
 		
@@ -80,15 +84,16 @@ package mutation.ui
 			removeChild(foodBMP);
 			foodBMP = new currentFoodGraphic();
 			foodBMP.x = 50;
-			foodBMP.width = 25;
-			foodBMP.height = 25;
+			foodBMP.width = 35;
+			foodBMP.height = 35;
+			foodBMP.y = -foodBMP.height / 2;
 			addChild(foodBMP);
 			foodNameOut.text = currentFoodDescriptor.names;
 		}
 		
 		private function get currentFoodDescriptor():FoodDescriptor
 		{
-			return (Resources.FOOD_TYPES[Game.selectedFood]);
+			return (Resources.FOOD_TYPES[game.selectedFood]);
 		}
 		private function get currentFoodGraphic():Class
 		{

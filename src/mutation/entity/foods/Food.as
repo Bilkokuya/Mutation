@@ -31,9 +31,9 @@ package mutation.entity.foods
 		//	Constructor: default
 		public function Food(game:Game, x:Number, y:Number, foodType:FoodDescriptor)
 		{
-			super();
-			
 			this.game = game;
+			
+			super();
 			type = foodType;
 			this.x = x;
 			this.y = y;
