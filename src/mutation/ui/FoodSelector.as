@@ -54,6 +54,8 @@ package mutation.ui
 			foodNameOut.x = 10;
 			foodNameOut.y = 25;
 			
+			draw();
+			
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			leftArrow.addEventListener(MouseEvent.CLICK, onLeft);
 			rightArrow.addEventListener(MouseEvent.CLICK, onRight);
@@ -85,15 +87,15 @@ package mutation.ui
 			addChild(foodBMP);
 			foodNameOut.text = currentFoodDescriptor.names;
 			
-			if (!game.foods.hasUnlocked(game.foodSelection - 1)) {
-				leftArrow.visible = false;
-			}else {
-				leftArrow.visible = true;
+			if (!game.foods.hasUnlocked(game.foodSelection - 2)) {
+				leftArrow.setUnselectable();
+			}else{
+				leftArrow.setSelectable();
 			}
 			if (!game.foods.hasUnlocked(game.foodSelection + 1)) {
-				rightArrow.visible = false;
-			}else {
-				rightArrow.visible = true;
+				rightArrow.setUnselectable();
+			}else{
+				rightArrow.setSelectable();
 			}
 		}
 		

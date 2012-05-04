@@ -72,7 +72,7 @@
 		<debrisType>		0		</debrisType>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
-			<cost>			0		</cost>
+			<cost>			750		</cost>
 		</unlock>
 	</food>
 	

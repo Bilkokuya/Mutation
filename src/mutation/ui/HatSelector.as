@@ -14,8 +14,8 @@ package mutation.ui
 	public class HatSelector extends Sprite
 	{		
 		private var selectedHat:Number = 0;
-		private var leftArrow:Sprite;
-		private var rightArrow:Sprite;
+		private var leftArrow:Arrow;
+		private var rightArrow:Arrow;
 		private var hat:Hat;
 		private var game:Game;
 		
@@ -59,14 +59,14 @@ package mutation.ui
 			hat.scaleY = 3;
 			
 			if (!game.hats.hasUnlocked(selectedHat - 1)) {
-				leftArrow.visible = false;
+				leftArrow.setUnselectable();
 			}else {
-				leftArrow.visible = true;
+				leftArrow.setSelectable();
 			}
 			if (!game.hats.hasUnlocked(selectedHat + 1)) {
-				rightArrow.visible = false;
+				rightArrow.setUnselectable();
 			}else {
-				rightArrow.visible = true;
+				rightArrow.setSelectable();
 			}
 		}
 		

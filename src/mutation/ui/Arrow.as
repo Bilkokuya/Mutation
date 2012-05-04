@@ -26,6 +26,16 @@ package mutation.ui
 			this.scaleX *= direction;
 		}
 		
+		public function setUnselectable():void
+		{
+			alpha = 0.3;
+		}
+		
+		public function setSelectable():void
+		{
+			alpha = 1;
+		}
+		
 		private function draw():void
 		{
 			graphics.beginFill(0xFFFF00);

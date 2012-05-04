@@ -6,6 +6,7 @@ package mutation.ui
 	import flash.events.MouseEvent;
 	import mutation.entity.hats.Hat;
 	import mutation.entity.Resource;
+	import mutation.events.UnlockEvent;
 	import mutation.Game;
 	import mutation.util.Resources;
 
@@ -54,19 +55,28 @@ package mutation.ui
 		
 		private function onFoodClick(e:MouseEvent):void
 		{
-			if (game.foods.hasLocked()){
+			if (game.foods.hasLocked()) {
+				var unlockCost:Number = game.foods.getNextLocked().unlockCost;
+				if (game.money < unlockCost) return;
+				game.money -= unlockCost;
+				
 				game.foods.unlockNext();
 				if (game.foods.hasLocked()){
 					unlockFood.setBitmap( new Resources.GRAPHICS[ game.foods.getNextLocked().graphic ]);
 				}else{
 					unlockFood.setBitmap( new Resources.GFX_NO_UNLOCK);
 				}
+				stage.dispatchEvent(new UnlockEvent(UnlockEvent.FOOD));
 			}
 		}
 		
 		private function onHatClick(e:MouseEvent):void
 		{
-			if (game.hats.hasLocked()){
+			if (game.hats.hasLocked()) {
+				var unlockCost:Number = game.hats.getNextLocked().unlockCost;
+				if (game.money < unlockCost) return;
+				game.money -= unlockCost;
+				
 				game.hats.unlockNext();
 				if (game.hats.hasLocked()){
 					unlockHat.setBitmap( new Resources.GRAPHICS[ game.hats.getNextLocked().graphic ]);
@@ -74,6 +84,7 @@ package mutation.ui
 					unlockHat.setBitmap( new Resources.GFX_NO_UNLOCK);
 				}
 			}
+			stage.dispatchEvent(new UnlockEvent(UnlockEvent.HAT));
 		}
 		
 	}
