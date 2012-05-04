@@ -23,8 +23,8 @@ package mutation
 	public class Game extends Sprite
 	{
 		//	Data that will be moved from Locked to Unlocked array when appropriate
-		public var hats:Lockable = new Lockable(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);	//	Hat types that have been unlocked
-		public var foods:Lockable = new Lockable(FoodDescriptor, Resources.getXML(Resources.XML_FOODS).food);	//	Food types that have been unlocked
+		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);	//	Hat types that have been unlocked
+		public var foods:Unlockables = new Unlockables(FoodDescriptor, Resources.getXML(Resources.XML_FOODS).food);	//	Food types that have been unlocked
 		
 		public const BACTERIA_COST:Number = 150;
 		public const FOOD_UPGRADE_COST:Number = 250;

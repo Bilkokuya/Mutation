@@ -23,7 +23,6 @@ package mutation
 
 	import mutation.events.MutationEvent;
 	import mutation.entity.TestTube;
-	import mutation.util.Keys;
 	import mutation.events.ButtonEvent;
 	
 	//	Class: Main extends Sprite
@@ -44,7 +43,6 @@ package mutation
 		//	Initialisation once the stage is created
 		private function onInit(e:Event = null):void 
 		{	
-			Keys.init(stage);
 			Resources.load();
 			
 			game = new Game();

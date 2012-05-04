@@ -24,7 +24,6 @@ package mutation.entity
 	import mutation.ui.BacteriaDisplay;
 	import mutation.ui.NameBacteriaDisplay;
 	import mutation.ui.PopupDisplay;
-	import mutation.util.Keys;
 	import mutation.util.Resources;
 	import mutation.util.Util;
 

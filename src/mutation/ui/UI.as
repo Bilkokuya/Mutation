@@ -25,7 +25,7 @@ package mutation.ui
 		public var collectButton:Button;
 		public var bacteriaButton:Button;
 		public var foodSelector:FoodSelector;
-		public var unlockables:Unlockables;
+		public var unlockablesDisplay:UnlockablesDisplay;
 		
 		public function UI(game:Game) 
 		{
@@ -35,7 +35,7 @@ package mutation.ui
 			collectButton = new Button(275, 20, "COLLECT", 100, 50);
 			bacteriaButton = new Button(50, 20, "BACTERIA", 75, 30);
 			foodSelector = new FoodSelector(game);
-			unlockables = new Unlockables(game);
+			unlockablesDisplay = new UnlockablesDisplay(game);
 			
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -51,9 +51,9 @@ package mutation.ui
 			addChild(collectButton);
 			addChild(collectedOut);
 			addChild(foodSelector);
-			addChild(unlockables);
+			addChild(unlockablesDisplay);
 			
-			unlockables.x = 350;
+			unlockablesDisplay.x = 350;
 			
 			foodSelector.x = 100;
 			foodSelector.y = 25;

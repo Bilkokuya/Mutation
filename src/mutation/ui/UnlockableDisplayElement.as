@@ -4,12 +4,12 @@ package mutation.ui
 	import flash.display.Sprite;
 	import flash.events.Event;
 
-	public class Unlock extends Sprite
+	public class UnlockableDisplayElement extends Sprite
 	{
 		public var bitmap:Bitmap;
 		public var index:int;
 		
-		public function Unlock(bitmap:Bitmap, index:int) 
+		public function UnlockableDisplayElement(bitmap:Bitmap, index:int) 
 		{
 			this.bitmap = bitmap;
 			

@@ -30,6 +30,9 @@ package mutation.util
 		[Embed(source="../../../resources/gfx/grapefruit.jpg")]
 		public static const GFX_FOOD_GRAPEFRUIT:Class;
 		
+		[Embed(source="../../../resources/gfx/bacteria.png")]
+		public static const GFX_NO_UNLOCK:Class;
+		
 		public static const GRAPHICS:Vector.<Class> = new <Class>[
 			GFX_HAT_EXPLORER,
 			GFX_HAT_PIRATE,

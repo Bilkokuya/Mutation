@@ -3,13 +3,13 @@ package mutation
 	import asunit.runner.BaseTestRunner;
 	import mutation.entity.BaseDescriptor;
 
-	public class Lockable 
+	public class Unlockables 
 	{
 		
 		public var unlocked:Vector.<BaseDescriptor> = new Vector.<BaseDescriptor>();
 		public var locked:Vector.<BaseDescriptor> = new Vector.<BaseDescriptor>();
 		
-		public function Lockable(T:Class, xmlList:XMLList) 
+		public function Unlockables(T:Class, xmlList:XMLList) 
 		{
 			for each (var xml:XML in xmlList) {
 				var loadedItem:BaseDescriptor = new T(xml);
@@ -41,7 +41,13 @@ package mutation
 		
 		public function hasUnlocked(index:int):Boolean
 		{
-			return (unlocked.length > index);
+			if ((unlocked.length-1) < index) {
+				return false;
+			}else if (index < 0) {
+				return false
+			}else {
+				return true;
+			}
 		}
 		
 		public function hasLocked():Boolean
