@@ -16,6 +16,7 @@ package mutation.entity
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
+	import mutation.entity.hats.HatDescriptor;
 	import mutation.entity.items.Item;
 	import mutation.entity.levelling.Leveling;
 	import mutation.Game;
@@ -80,7 +81,7 @@ package mutation.entity
 			if (hat != null) {
 				this.hat = hat;
 			}else {
-				this.hat = new Hat(game, Resources.HAT_TYPES[0]);
+				this.hat = new Hat(game, game.hats.getAt(0) as HatDescriptor );
 			}
 			addChild(this.hat);
 			
@@ -119,7 +120,7 @@ package mutation.entity
 			}
 			
 			if (money.isFilled()) {
-				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(game, x,y, Resources.ITEM_TYPES[0], money.amount), true));
+				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(game, x,y, Resources.ITEMS[0], money.amount), true));
 				money.amount = 0;
 			}
 			

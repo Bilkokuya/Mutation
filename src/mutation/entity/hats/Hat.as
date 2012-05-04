@@ -24,9 +24,8 @@ package mutation.entity.hats
 			super();
 			this.type = hatType;
 			
-			
 			//	Setup the bitmap to be visually cetered on the x,y co-ordinates
-			this.bitmap = new Resources.GRAPHICS[type.bitmapIndex];
+			this.bitmap = new Resources.GRAPHICS[type.graphic];
 			addChild(bitmap);
 			bitmap.width = 15;
 			bitmap.height = 15;

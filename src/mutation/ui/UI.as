@@ -55,10 +55,9 @@ package mutation.ui
 			
 			unlockables.x = 350;
 			
-			foodSelector.maxFood = Resources.FOOD_TYPES.length - 1;
 			foodSelector.x = 100;
 			foodSelector.y = 25;
-			game.foodSelection = foodSelector.minFood;
+			game.foodSelection = 1;
 			
 			var format:TextFormat = new TextFormat();
 			format.size = 48;

@@ -12,6 +12,7 @@ package mutation.entity
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
+	import mutation.entity.foods.FoodDescriptor;
 	import mutation.entity.items.Item;
 	import mutation.entity.foods.Food;
 	import mutation.events.ItemEvent;
@@ -212,7 +213,7 @@ package mutation.entity
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
 				if (game.money >= cost){
-					var food:Food = new Food(game, x, y, Resources.FOOD_TYPES[game.selectedFood]);
+					var food:Food = new Food(game, x, y, game.foods.getAt(game.foodSelection) as FoodDescriptor);
 					foods.push(food);
 					addChild(food);
 					game.money -= cost;
@@ -228,7 +229,7 @@ package mutation.entity
 			
 			if (e.food.type.debrisType > -1) {
 				for (var i:int = 0; i < e.food.type.debrisCount; ++i) {
-					var debris:Food = new Food(game, e.food.x, e.food.y, Resources.FOOD_TYPES[e.food.type.debrisType]);
+					var debris:Food = new Food(game, e.food.x, e.food.y, game.foods.getAt(e.food.type.debrisType) as FoodDescriptor );
 					debris.xSpeed = e.food.xSpeed - (Math.random() - 0.5);
 					debris.ySpeed = e.food.ySpeed - 3*(Math.random());
 					foods.push(debris);

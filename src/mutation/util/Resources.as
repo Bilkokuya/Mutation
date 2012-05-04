@@ -5,6 +5,7 @@ package mutation.util
 	import mutation.entity.hats.HatDescriptor;
 	import mutation.entity.items.ItemDescriptor;
 	import mutation.entity.levelling.Level;
+	import mutation.entity.BaseDescriptor;
 
 	
 	//	Holds all data for the game that should not be changed after loading
@@ -70,62 +71,27 @@ package mutation.util
 		//	START OF DYNAMIC/ RUNTIME LOADED DATA
 		//////////////////////////////////////////////////
 		
-		//	Data for the hats etc that have been loaded
-		//	Will not change after the game has been loaded
-		public static var HAT_TYPES:Vector.<HatDescriptor> = new Vector.<HatDescriptor>();
-		public static var FOOD_TYPES:Vector.<FoodDescriptor> = new Vector.<FoodDescriptor>();
-		public static var ITEM_TYPES:Vector.<ItemDescriptor> = new Vector.<ItemDescriptor>();
-		public static var LEVEL_TYPES:Vector.<Level> = new Vector.<Level>();
-		
-		public function Resources();
-		
+		//	Data that does not change after initial loading from the XML
+		public static var ITEMS:Array = new Array();
+		public static var LEVELS:Array = new Array();
+
 		//	Loads in the basic data from the embedded XML
 		//	Easily changed to use external xml
 		public static function load():void
 		{
-			initHats(getXML(XML_HATS));
-			initFoods(getXML(XML_FOODS));
-			initItems(getXML(XML_ITEMS));
-			initLevels(getXML(XML_LEVELS));
+			loadStatic(ItemDescriptor, getXML(XML_ITEMS).item, ITEMS);
+			loadStatic(Level, getXML(XML_LEVELS).level, LEVELS);
 		}
 		
-		//	Loads the Hats data from XML
-		//	Would be more generic, but no template support in AS3
-		private static function initHats(xml:XML):void
+		//	Loads a non-unlockable item from xml, and puts it into the given array
+		private static function loadStatic(T:Class, xmlList:XMLList, array:Array):void
 		{
-			var hatList:XMLList = xml.hat;
-			for each (var hatXML:XML in hatList) {
-				HAT_TYPES.push( new HatDescriptor(hatXML) );
+			for each (var xml:XML in xmlList) {
+				array.push( new T(xml) );
 			}
 		}
 		
-		//	Loads the Food data from XML
-		private static function initFoods(xml:XML):void
-		{
-			var foodList:XMLList = xml.food;
-			for each (var foodXML:XML in foodList) {
-				FOOD_TYPES.push( new FoodDescriptor(foodXML) );
-			}
-		}
-		
-		//	Loads the Items data from XML
-		private static function initItems(xml:XML):void
-		{
-			var itemList:XMLList = xml.item;
-			for each (var itemXML:XML in itemList) {
-				ITEM_TYPES.push( new ItemDescriptor(itemXML) );
-			}
-		}
-		
-		//	Loads the level (experience level) data from XML
-		private static function initLevels(xml:XML):void
-		{
-			var levelList:XMLList = xml.level;
-			for each (var levelXML:XML in levelList) {
-				LEVEL_TYPES.push( new Level(levelXML) );
-			}
-		}
-		
+		public function Resources();
 		
 	}
 

@@ -71,7 +71,7 @@
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		0		</debrisType>
 		<unlock>
-			<unlocked> 		true 	</unlocked>
+			<unlocked> 		false 	</unlocked>
 			<cost>			0		</cost>
 		</unlock>
 	</food>

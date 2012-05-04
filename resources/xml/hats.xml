@@ -84,22 +84,6 @@
 			<cost>			500		</cost>
 		</unlock>
 	</hat>
-	
-	<hat>
-		<id> 				3		</id>
-		<name>				POIPOI	</name>
-		<graphic> 			1 		</graphic>
-		<stats>	
-			<foodRate>		1		</foodRate>	
-			<foodAmount>	1		</foodAmount>
-			<moneyRate>		0.1		</moneyRate>
-			<moneyAmount>	2		</moneyAmount>
-		</stats>
-		<unlock>
-			<unlocked> 		false 	</unlocked>
-			<cost>			1500		</cost>
-		</unlock>
-	</hat>
 
 	
 </data>

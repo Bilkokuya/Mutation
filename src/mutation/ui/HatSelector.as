@@ -24,7 +24,7 @@ package mutation.ui
 			
 			leftArrow = new Arrow(Arrow.LEFT);
 			rightArrow = new Arrow(Arrow.RIGHT);
-			hat = new Hat(game, Resources.HAT_TYPES[selectedHat]);
+			hat = new Hat( game, game.hats.getAt(selectedHat) as HatDescriptor );
 			
 			super();
 			if (stage) onInit();
@@ -33,7 +33,7 @@ package mutation.ui
 		
 		public function getHatDescriptor():HatDescriptor
 		{
-			return Resources.HAT_TYPES[selectedHat];
+			return ( game.hats.getAt(selectedHat) as HatDescriptor );
 		}
 		
 		private function onInit(e:Event = null):void
@@ -54,7 +54,7 @@ package mutation.ui
 		private function draw():void
 		{
 			removeChild(hat);
-			hat = new Hat(game, Resources.HAT_TYPES[selectedHat]);
+			hat = new Hat( game, game.hats.getAt(selectedHat) as HatDescriptor );
 			addChild(hat);
 			hat.x = 60;
 			hat.scaleX = 3;
@@ -71,8 +71,7 @@ package mutation.ui
 		private function onRight(e:MouseEvent):void
 		{
 			selectedHat++;
-			if (selectedHat > (Resources.HAT_TYPES.length - 1)) selectedHat = Resources.HAT_TYPES.length - 1;
-			if (!Resources.HAT_TYPES[selectedHat].isUnlocked) selectedHat--;
+			if (!game.hats.hasUnlocked(selectedHat)) selectedHat--;
 			draw();
 		}
 	}

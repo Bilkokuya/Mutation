@@ -26,6 +26,8 @@ package mutation.ui
 
 			bitmap.width = 50;
 			bitmap.height = 50;
+			
+			draw();
 		}
 		
 		public function setBitmap(bitmap:Bitmap):void
@@ -35,6 +37,13 @@ package mutation.ui
 			addChild(this.bitmap);
 			this.bitmap.width = 50;
 			this.bitmap.height = 50;
+		}
+		
+		private function draw():void
+		{
+			graphics.beginFill(0xFF0000);
+			graphics.drawRect(0, 0, 50, 50);
+			graphics.endFill();
 		}
 	}
 

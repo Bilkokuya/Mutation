@@ -5,6 +5,7 @@ package mutation
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import mutation.entity.Bacteria;
+	import mutation.entity.BaseDescriptor;
 	import mutation.entity.foods.FoodDescriptor;
 	import mutation.entity.hats.HatDescriptor;
 	import mutation.entity.items.Item;
@@ -21,6 +22,10 @@ package mutation
 
 	public class Game extends Sprite
 	{
+		//	Data that will be moved from Locked to Unlocked array when appropriate
+		public var hats:Lockable = new Lockable(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);	//	Hat types that have been unlocked
+		public var foods:Lockable = new Lockable(FoodDescriptor, Resources.getXML(Resources.XML_FOODS).food);	//	Food types that have been unlocked
+		
 		public const BACTERIA_COST:Number = 150;
 		public const FOOD_UPGRADE_COST:Number = 250;
 		
@@ -43,7 +48,7 @@ package mutation
 			ui = new UI(this);
 			
 			testTubes.push( new TestTube(this, 125, 200, 100) );
-		
+					
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -70,12 +75,12 @@ package mutation
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 		}
 		
-		//	Update eac tick
+		//	Update each tick
 		private function onTick(e:MutationEvent):void
 		{
 			
 		}
-		
+
 		//	Used to collect items into the chest, when clicked
 		public function collect(amount:int):void
 		{
@@ -89,7 +94,6 @@ package mutation
 			ui.collectedOut.text = collected + "/ 1000";
 		}
 		
-				
 		//	Called when the new Bacteria button is pressed
 		private function onButton(e:ButtonEvent):void
 		{
@@ -130,16 +134,6 @@ package mutation
 				money += 1000;
 			}
 			ui.moneyOut.text = "$" + money;
-		}
-		
-		public function get selectedFood():int
-		{
-			return foodSelection;
-		}
-		
-		public function set selectedFood(value:int):void
-		{
-			foodSelection = value;
 		}
 		
 	}

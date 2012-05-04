@@ -12,8 +12,6 @@ package mutation.ui
 
 	public class FoodSelector extends Sprite 
 	{
-		public var maxFood:int = 1;
-		public var minFood:int = 1;
 		private var leftArrow:Arrow;
 		private var rightArrow:Arrow;
 		private var foodBMP:Bitmap;
@@ -29,7 +27,6 @@ package mutation.ui
 			foodBMP = new currentFoodGraphic();
 			foodNameOut = new TextField();
 			foodNameOut.selectable = false;
-			
 			
 			super();
 			if (stage) onInit();
@@ -60,22 +57,17 @@ package mutation.ui
 			rightArrow.addEventListener(MouseEvent.CLICK, onRight);
 		}
 		
-		public function getFoodDesc():FoodDescriptor
-		{
-			return Resources.FOOD_TYPES[game.selectedFood];
-		}
-		
 		private function onLeft(e:MouseEvent):void
 		{
-			game.selectedFood--;
-			if (game.selectedFood < minFood) game.selectedFood = minFood;
+			game.foodSelection--;
+			if (game.foodSelection < 1) game.foodSelection = 1;
 			draw();
 		}
 		
 		private function onRight(e:MouseEvent):void
 		{
-			game.selectedFood++;
-			if (game.selectedFood > maxFood) game.selectedFood = maxFood;
+			game.foodSelection++;
+			if (!game.foods.hasUnlocked(game.foodSelection)) game.foodSelection--;
 			draw();
 		}
 		
@@ -93,8 +85,9 @@ package mutation.ui
 		
 		private function get currentFoodDescriptor():FoodDescriptor
 		{
-			return (Resources.FOOD_TYPES[game.selectedFood]);
+			return ( game.foods.getAt(game.foodSelection) as FoodDescriptor);
 		}
+		
 		private function get currentFoodGraphic():Class
 		{
 			return Resources.GRAPHICS[currentFoodDescriptor.graphic];

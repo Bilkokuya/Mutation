@@ -1,18 +1,15 @@
 package mutation.entity.foods 
 {
 	import flash.display.Sprite;
+	import mutation.entity.BaseDescriptor;
 	
-	public class FoodDescriptor
+	public class FoodDescriptor extends BaseDescriptor
 	{
-		public var graphic:int;
 		public var radius:Number;
 		public var foodAmount:int;
 		public var debrisCount:int;
 		public var debrisType:int;
 		public var startingLife:int;
-		public var names:String;
-		public var isUnlocked:Boolean;
-		public var unlockCost:Number;
 		
 		public function FoodDescriptor(xml:XML) 
 		{
