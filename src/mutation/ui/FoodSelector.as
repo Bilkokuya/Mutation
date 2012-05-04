@@ -111,7 +111,7 @@ package mutation.ui
 		
 		private function get currentFoodGraphic():Class
 		{
-			return Resources.GRAPHICS[currentFoodDescriptor.graphic];
+			return Resources.GRAPHICS_FOODS[currentFoodDescriptor.graphic];
 		}
 		
 	}

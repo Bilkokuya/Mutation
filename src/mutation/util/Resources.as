@@ -30,15 +30,24 @@ package mutation.util
 		[Embed(source="../../../resources/gfx/grapefruit.jpg")]
 		public static const GFX_FOOD_GRAPEFRUIT:Class;
 		
-		[Embed(source="../../../resources/gfx/bacteria.png")]
+		[Embed(source="../../../resources/gfx/nounlocks.jpg")]
 		public static const GFX_NO_UNLOCK:Class;
 		
-		public static const GRAPHICS:Vector.<Class> = new <Class>[
+		[Embed(source = "../../../resources/gfx/arrow.png")]
+		public static const GFX_UI_ARROW:Class;
+		
+		public static const GRAPHICS_HATS:Vector.<Class> = new <Class>[
 			GFX_HAT_EXPLORER,
 			GFX_HAT_PIRATE,
 			GFX_HAT_PRETTY,
+		];
+		public static const GRAPHICS_FOODS:Vector.<Class> = new <Class>[
 			GFX_FOOD_GRAPEFRUIT,
 			GFX_FOOD_COOKIE	
+		];
+		public static const GRAPHICS_ITEMS:Vector.<Class> = new <Class>[
+		];
+		public static const GRAPHICS_BACTERIA:Vector.<Class> = new <Class>[
 		];
 		
 		///////////////////////////////////////////////////

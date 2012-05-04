@@ -9,21 +9,9 @@ package mutation
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import flash.events.MouseEvent;
-
 	import flash.ui.Keyboard;
-	import mutation.container.Background;
-	import mutation.entity.Bacteria;
-	import mutation.entity.foods.Food;
-	import mutation.events.BacteriaEvent;
-	import mutation.ui.Button;
-	import mutation.ui.FoodSelector;
-	import mutation.ui.NameBacteriaDisplay;
-	import mutation.util.Resources;
-
 	import mutation.events.MutationEvent;
-	import mutation.entity.TestTube;
-	import mutation.events.ButtonEvent;
+	import mutation.util.Resources;
 	
 	//	Class: Main extends Sprite
 	//	The main game class with main loop
@@ -61,6 +49,7 @@ package mutation
 				//	Dispatch the main game tick event
 				stage.dispatchEvent(new MutationEvent(MutationEvent.TICK, tickCount));
 			}
+					
 		}
 	}
 

@@ -45,7 +45,7 @@ package mutation.ui
 			
 			leftArrow.addEventListener(MouseEvent.CLICK, onLeft);
 			rightArrow.addEventListener(MouseEvent.CLICK, onRight);
-			addEventListener(UnlockEvent.HAT, onUnlock);
+			stage.addEventListener(UnlockEvent.HAT, onUnlock);
 		}
 		
 		//	Redraws the bitmap to show the next hat

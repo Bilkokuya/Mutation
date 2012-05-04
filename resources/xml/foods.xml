@@ -48,7 +48,7 @@
 	<food>
 		<id> 				0		</id>
 		<name>				Single	</name>
-		<graphic>			3 		</graphic>
+		<graphic>			0 		</graphic>
 		<radius>			4		</radius>
 		<life>				4		</life>
 		<foodAmount>		100		</foodAmount>
@@ -64,7 +64,7 @@
 	<food>
 		<id> 				1		</id>
 		<name>				Explodey	</name>
-		<graphic>			4 		</graphic>
+		<graphic>			1 		</graphic>
 		<radius>			5		</radius>
 		<life>				1		</life>
 		<foodAmount>		100		</foodAmount>

@@ -23,15 +23,15 @@ package mutation.ui
 			this.game = game;
 
 			if (game.hats.hasLocked()){
-				unlockHat = new UnlockableDisplayElement(new Resources.GRAPHICS[game.hats.getNextLocked().graphic], 0);
+				unlockHat = new UnlockableDisplayElement(new Resources.GRAPHICS_HATS[game.hats.getNextLocked().graphic], 0);
 			}else {
-				unlockHat = new UnlockableDisplayElement(new Resources.GRAPHICS[0], 0);
+				unlockHat = new UnlockableDisplayElement(new Resources.GRAPHICS_HATS[0], 0);
 			}
 			
 			if (game.foods.hasLocked()){
-				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS[game.foods.getNextLocked().graphic], 0);
+				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS_FOODS[game.foods.getNextLocked().graphic], 0);
 			}else {
-				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS[0], 0);	
+				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS_FOODS[0], 0);	
 			}
 			
 			super();
@@ -62,7 +62,7 @@ package mutation.ui
 				
 				game.foods.unlockNext();
 				if (game.foods.hasLocked()){
-					unlockFood.setBitmap( new Resources.GRAPHICS[ game.foods.getNextLocked().graphic ]);
+					unlockFood.setBitmap( new Resources.GRAPHICS_FOODS[ game.foods.getNextLocked().graphic ]);
 				}else{
 					unlockFood.setBitmap( new Resources.GFX_NO_UNLOCK);
 				}
@@ -79,7 +79,7 @@ package mutation.ui
 				
 				game.hats.unlockNext();
 				if (game.hats.hasLocked()){
-					unlockHat.setBitmap( new Resources.GRAPHICS[ game.hats.getNextLocked().graphic ]);
+					unlockHat.setBitmap( new Resources.GRAPHICS_HATS[ game.hats.getNextLocked().graphic ]);
 				}else{
 					unlockHat.setBitmap( new Resources.GFX_NO_UNLOCK);
 				}

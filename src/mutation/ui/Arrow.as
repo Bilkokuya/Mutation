@@ -1,17 +1,21 @@
 package mutation.ui 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import mutation.util.Resources;
 
 	public class Arrow extends Sprite
 	{
-		public static const LEFT:int = -1;
-		public static const RIGHT:int = 1;
+		public static const LEFT:int = 1;
+		public static const RIGHT:int = -1;
 		public var direction:int;
+		private var bitmap:Bitmap;
 		
 		public function Arrow(direction:int) 
 		{
 			this.direction = direction;
+			bitmap = new Resources.GFX_UI_ARROW;
 			
 			super();
 			if (stage) onInit();
@@ -22,7 +26,9 @@ package mutation.ui
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			draw();
+			addChild(bitmap);
+			bitmap.width = 20;
+			bitmap.height = 20;
 			this.scaleX *= direction;
 		}
 		
@@ -34,13 +40,6 @@ package mutation.ui
 		public function setSelectable():void
 		{
 			alpha = 1;
-		}
-		
-		private function draw():void
-		{
-			graphics.beginFill(0xFFFF00);
-			graphics.drawRect(-10, -20, 20, 40);
-			graphics.endFill();
 		}
 	}
 
