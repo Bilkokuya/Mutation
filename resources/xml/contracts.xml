@@ -37,7 +37,8 @@
 		<boxesNeeded>			100		</boxesNeeded>
 		<payPerBox>				500		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
-		<required>				-1		</required>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
 		<description> 			Zombies are taking over the planet! Help the humans by shipping 50 crates of gold for guns!</description>		
 	</contract>
 	
@@ -47,11 +48,11 @@
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		266		</collectionNeeded>
-		<boxesNeeded>			100		</boxesNeeded>
-		<payPerBox>				500		</payPerBox>
+		<boxesNeeded>			50		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
-		<required>				-1		</required>
+		<required>				0		</required>
 		<description> 			Why can't we live in peace?! Help the zombies by shipping 100 crates of gold so they can buy soy-brain substitute!</description>		
 	</contract>
 	
@@ -61,11 +62,11 @@
 		<name>					SOY		</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		266		</collectionNeeded>
-		<boxesNeeded>			100		</boxesNeeded>
-		<payPerBox>				500		</payPerBox>
+		<boxesNeeded>			20		</boxesNeeded>
+		<payPerBox>				666		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
-		<required>				-1		</required>
+		<required>				0		</required>
 		<description> 			The zombies have evolved! Oh Dear! Collect 50 crates</description>		
 	</contract>
 	

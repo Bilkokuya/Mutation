@@ -1,19 +1,22 @@
-package mutation.ui 
+package mutation.ui.contracts 
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
+	import mutation.Game;
 	import mutation.util.Resources;
 
 	public class ContractChoice extends Sprite
 	{
-		
+		private var game:Game;
 		private var option:Sprite;
 		private var desc:TextField;
 		
-		public function ContractChoice() 
+		
+		public function ContractChoice(game:Game) 
 		{
+			this.game = game;
 			option = new Sprite();
 			desc = new TextField();
 			
@@ -25,7 +28,7 @@ package mutation.ui
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			desc.text = Resources.getXML(Resources.XML_CONTRACTS).contract[0].description;
+			desc.text = game.contract.type.description;
 			desc.autoSize = TextFieldAutoSize.LEFT;
 			desc.x = 10;
 			desc.wordWrap = true;

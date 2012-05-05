@@ -18,8 +18,9 @@ package mutation
 	import mutation.events.ButtonEvent;
 	import mutation.events.MoneyEvent;
 	import mutation.events.MutationEvent;
-	import mutation.ui.Contract;
-	import mutation.ui.ContractChoice;
+	import mutation.ui.contracts.Contract;
+	import mutation.ui.contracts.ContractChoice;
+	import mutation.ui.contracts.ContractDescriptor;
 	import mutation.ui.FoodSelector;
 	import mutation.ui.NameBacteriaDisplay;
 	import mutation.ui.PauseMenu;
@@ -32,6 +33,9 @@ package mutation
 		
 		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);				//	Hat types that have been unlocked
 		public var foods:Unlockables = new Unlockables(FoodDescriptor, Resources.getXML(Resources.XML_FOODS).food);	//	Food types that have been unlocked
+		
+		//	Abuse of Unlockables type for contracts, but it shares so much functionality it is worth it. Can be refactored later
+		public var contracts:Unlockables = new Unlockables(ContractDescriptor, Resources.getXML(Resources.XML_CONTRACTS).contract);
 		
 		public var ui:UI;	//	UI overlay, handles all upgrades etc, passes info back to the game
 
@@ -68,8 +72,9 @@ package mutation
 			
 			popup = new NameBacteriaDisplay(this, stage.stageWidth / 2, stage.stageHeight / 2);
 			
-			contractSelector = new ContractChoice();
-			contract = new Contract(stage, Resources.getXML(Resources.XML_CONTRACTS).contract[0]);
+			
+			contract = new Contract(stage, contracts.getAt(1) as ContractDescriptor);
+			contractSelector = new ContractChoice(this);
 			
 			addChild(testTubes[0]);
 			addChild(ui);
@@ -134,7 +139,7 @@ package mutation
 		{
 			if (contract.isFilled()) {
 				contract.collected =  0;
-				money += contract.payPerBox;
+				money += contract.type.payPerBox;
 			}
 		}
 		

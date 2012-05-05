@@ -1,7 +1,7 @@
 package mutation.events 
 {
 	import flash.events.Event;
-	import mutation.ui.Contract;
+	import mutation.ui.contracts.Contract;
 	
 	public class ContractEvent extends Event
 	{

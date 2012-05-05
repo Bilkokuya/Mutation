@@ -80,7 +80,7 @@ package mutation.ui
 			collectedOut.selectable = false;	
 			
 			moneyOut.text = "$" + game.money;
-			collectedOut.text = game.contract. collected + "/" + game.contract.collectionNeeded;
+			collectedOut.text = game.contract. collected + "/" + game.contract.type.collectionNeeded;
 			
 			stage.addEventListener(MoneyEvent.CHANGED, onMoney);
 			stage.addEventListener(ContractEvent.CHANGED, onContract);
@@ -106,7 +106,7 @@ package mutation.ui
 		
 		private function onContract(e:ContractEvent):void
 		{
-			collectedOut.text = e.contract.collected + "/" + e.contract.collectionNeeded;
+			collectedOut.text = e.contract.collected + "/" + e.contract.type.collectionNeeded;
 		}
 	}
 
