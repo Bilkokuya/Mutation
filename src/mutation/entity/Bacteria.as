@@ -32,37 +32,38 @@ package mutation.entity
 	import mutation.util.Util;
 	
 	
-	//	Class: bacteria
+	//	A single bacteria that resides in the test tubes
 	public class Bacteria extends Sprite
 	{
-		private const DIRECTION_RATE:Number = 1 / (2 * 30);
-		private const HUNGRY_SPEED:Number = 2.5;
-		private const HUNGER_LEVEL:Number = 80;
-		private const SPEED:Number = 1.5;
+		private const DIRECTION_RATE:Number = 1 / (2 * 30);	//	Frequency it will change direction
+		private const HUNGER_LEVEL:Number = 80;					//	Level of food before it becomes "hungry"
+		private const HUNGRY_SPEED:Number = 2.5;					//	Factor of speed it moves at when hungry
+		private const SPEED:Number = 1.5;										//	Base speed for movement
 		
-		public var flagIsClicked:Boolean = false;
-		public var flagIsAlive:Boolean = true;
-		public var flagIsHungry:Boolean= false;
-		private var canMove:Boolean;
-		public var hat:Hat;
-		private var game:Game;
+		private var game:Game;														//	Reference back to the game this is being run within
 		
-		public var radius:Number;
+		public var flagIsAlive:Boolean = true;								//	True if it hasn't been Killed yet
+		public var flagIsHungry:Boolean= false;							//	True if it is seeking food
+		private var canMove:Boolean;											//	Stops it moving when the player hovers over it
+		
+		public var radius:Number;			//	Radius for collisions and drawing
 		public var xSpeed:Number;		//	Current speed in the x Direction
 		public var ySpeed:Number;		//	Current speed in the y Direction
 		
-		public var nameString:String;
-		public var food:Resource;
-		public var money:Resource;
-		public var level:Leveling = new Leveling(Resources.getXML(Resources.XML_LEVELS));
-		public var moneyType:Class;
+		public var nameString:String;	//	Name of this bacteria, given by the player
+		public var food:Resource;			//	Food keeps it alive, and decreases over time
+		public var money:Resource;		//	Produced by the bacteria; released as an "Item" when it reaches the limit
+		public var moneyType:Class;	//	Type of money that it will produce
 
-		public var target:Sprite;
-		private var popOut:BacteriaDisplay;
+		public var target:Sprite;							//	Current object it is moving towards to eat
+		private var popOut:BacteriaDisplay;	//	onHover display for showing the basic stats
+		public var hat:Hat;										//	Current hat it is wearing
+		
+		public var level:Leveling = new Leveling();			//	Levelling system, keeps track of it's exp etc
 		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(game:Game,x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
-			//	Set values from parameters
+		public function Bacteria(game:Game, x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
+			
 			this.game = game;
 			
 			this.x = x;
@@ -70,7 +71,6 @@ package mutation.entity
 			this.radius = radius;
 			
 			
-			//	Initialise basic stats
 			target = null;
 			canMove = true;
 
@@ -96,7 +96,7 @@ package mutation.entity
 		//	Initialisation after stage
 		public function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			stage.addEventListener(MutationEvent.TICK, onTick);
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 			
@@ -179,7 +179,7 @@ package mutation.entity
 		public function kill():void {
 			flagIsAlive = false;
 			if (stage){
-				stage.removeEventListener(MutationEvent.TICK, onTick);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
 				dispatchEvent(new BacteriaEvent(BacteriaEvent.DEATH, this, true));
 			}
 		}

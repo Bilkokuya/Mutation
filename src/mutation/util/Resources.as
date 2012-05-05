@@ -65,6 +65,9 @@ package mutation.util
 		[Embed(source="../../../resources/xml/items.xml", mimeType="application/octet-stream")]
 		public static const XML_ITEMS:Class;
 		
+		[Embed(source="../../../resources/xml/contracts.xml", mimeType="application/octet-stream")]
+		public static const XML_CONTRACTS:Class;
+		
 		//	Returns the XML from an embedded octet-stream (XML).
 		//	This is a workaround to a bug in the AS3 compiler, that tries to compile XML files.
 		public static function getXML(embeddedXML:Class):XML

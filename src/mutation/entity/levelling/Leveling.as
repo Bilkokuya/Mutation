@@ -11,9 +11,7 @@ package mutation.entity.levelling
 		private var hasLevelledThisTick:Boolean = false;		//	True if it has levelled in this tick
 		
 		//	Base class constructor
-		public function Leveling(xml:XML) 
-		{
-		}
+		public function Leveling();
 		
 		//	Updates the levelling system with the given amount of exp
 		public function update(exp:Number):void

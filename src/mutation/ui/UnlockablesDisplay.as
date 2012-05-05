@@ -53,6 +53,12 @@ package mutation.ui
 			unlockHat.addEventListener(MouseEvent.CLICK, onHatClick);
 		}
 		
+		public function kill():void
+		{
+			unlockFood.removeEventListener(MouseEvent.CLICK, onFoodClick);
+			unlockHat.removeEventListener(MouseEvent.CLICK, onHatClick);
+		}
+		
 		private function onFoodClick(e:MouseEvent):void
 		{
 			if (game.foods.hasLocked()) {
@@ -66,7 +72,9 @@ package mutation.ui
 				}else{
 					unlockFood.setBitmap( new Resources.GFX_NO_UNLOCK);
 				}
-				stage.dispatchEvent(new UnlockEvent(UnlockEvent.FOOD));
+				if (stage){
+					stage.dispatchEvent(new UnlockEvent(UnlockEvent.FOOD));
+				}
 			}
 		}
 		
@@ -84,7 +92,9 @@ package mutation.ui
 					unlockHat.setBitmap( new Resources.GFX_NO_UNLOCK);
 				}
 			}
-			stage.dispatchEvent(new UnlockEvent(UnlockEvent.HAT));
+			if (stage){
+				stage.dispatchEvent(new UnlockEvent(UnlockEvent.HAT));
+			}
 		}
 		
 	}

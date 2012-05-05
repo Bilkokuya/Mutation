@@ -30,6 +30,8 @@ package mutation.ui
 		
 		private function onInit(e:Event = null):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
 			addChild(nameField);
 			addChild(foodField);
 			addChild(productionField);
@@ -50,8 +52,6 @@ package mutation.ui
 			
 			productionField.x = arrowWidth_;
 			productionField.y = (-boxHeight_/2) + 32;
-			
-			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
 		public function update(names:String, food:Number, production:Number):void

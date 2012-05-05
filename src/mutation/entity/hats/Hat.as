@@ -12,9 +12,10 @@ package mutation.entity.hats
 	//	Extends Sprite so it can be drawn to the stage
 	public class Hat extends Sprite
 	{
-		private var type:HatDescriptor;	//	The base type this instance takes functionality from
-		private var bitmap:Bitmap;		//	The visual element of this instance
-		private var game:Game;
+		private var game:Game;					//	Reference to the game being run
+		
+		private var type:HatDescriptor;		//	The base type this instance takes functionality from
+		private var bitmap:Bitmap;				//	The visual element of this instance
 		
 		//	Constructor takes an existig HatDescriptor
 		public function Hat(game:Game, hatType:HatDescriptor) 

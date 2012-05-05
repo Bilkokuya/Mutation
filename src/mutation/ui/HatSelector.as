@@ -34,6 +34,7 @@ package mutation.ui
 		
 		private function onInit(e:Event = null):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			addChild(leftArrow);
 			addChild(rightArrow);
 			addChild(hat);
@@ -46,6 +47,15 @@ package mutation.ui
 			leftArrow.addEventListener(MouseEvent.CLICK, onLeft);
 			rightArrow.addEventListener(MouseEvent.CLICK, onRight);
 			stage.addEventListener(UnlockEvent.HAT, onUnlock);
+		}
+		
+		public function kill():void
+		{
+			leftArrow.removeEventListener(MouseEvent.CLICK, onLeft);
+			rightArrow.removeEventListener(MouseEvent.CLICK, onRight);
+			if (stage){
+				stage.removeEventListener(UnlockEvent.HAT, onUnlock);
+			}
 		}
 		
 		//	Redraws the bitmap to show the next hat

@@ -73,7 +73,7 @@ package mutation.entity
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			stage.addEventListener(MouseEvent.CLICK, onClick);
-			stage.addEventListener(MutationEvent.TICK, onTick);
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 			
 			addChild(selector);
 			
@@ -89,6 +89,22 @@ package mutation.entity
 			updateItems();
 			updateFood();
 			updateBacteria();
+		}
+		
+		public function kill():void
+		{
+			removeEventListener(FoodEvent.DEATH, onFoodDeath);
+			removeEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
+			removeEventListener(ItemEvent.DEATH, onItemDeath);
+			removeEventListener(ItemEvent.PRODUCE, onBacteriaProduce);
+			if (stage){
+				stage.removeEventListener(MouseEvent.CLICK, onClick);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
+			}
+			
+			for each (var b:Bacteria in bacterias) b.kill();
+			for each (var i:Item in items) i.kill();
+			for each (var f:Food in foods) f.kill();
 		}
 
 		//	Updates all the items in the testtube
@@ -196,7 +212,9 @@ package mutation.entity
 				//	If an item was clicked - collect it
 				if (closestItem) {
 					selector.graphics.clear();
-					game.collect(closestItem.getMoney());
+					if (stage){
+						stage.dispatchEvent(new ItemEvent(ItemEvent.COLLECTED, closestItem) );
+					}
 					closestItem.kill();
 				//	Otherwise it was the test-tube, so spawn food
 				}else {

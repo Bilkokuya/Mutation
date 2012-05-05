@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	//////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////	This File	//////////////////////////////////
+	XML data for the foods; embedded into the SWF file; but could be loaded at runtime with few tweaks
+	Allows easy changes to each type of food, and addition of new types by simply listing them here
+	Uncomplete data will corrupt the program, as will bad syntax - there is no eror checking on this
+
+	///////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////	Data Layout	//////////////////////////////////
+	<food>
+		<id> 				0		</id>			
+		<name>				BASIC	</name>			//	Name of this Food presented to the player
+		<graphic>			0 		</graphic>		//	Graphic to use from Resources.as
+		<radius>			4		</radius>		//	Size as a radius to be drawn, and for collisions
+		<life>				4		</life>			//	Time in seconds it will remain, before it dissapears
+		<foodAmount>		100		</foodAmount>	//	Amount of food it provides when eaten
+		<debrisCount>		3		</debrisCount>	//	Number of pieces of debris poduced when eaten
+		<debrisType>		0		</debrisType>	//	Type of debris (by food ID) produced when eaten
+	</food>
+	
+	NB: Any food ID can be utilised for the debrisType, but it is recommended that a new specific
+			food is created as a debris; otherwise each particle will in turn, create debris
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+-->
+
+<!-- Start of Actual File Data -->
+<data>
+	
+	<!-- Basic Debris -->
+	<contract>
+		<id> 					0		</id>
+		<name>					ZUMBEES	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		266		</collectionNeeded>
+		<boxesNeeded>			100		</boxesNeeded>
+		<payPerBox>				500		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<required>				-1		</required>
+		<description> 			Zombies are taking over the planet! Help the humans by shipping 50 crates of gold for guns!</description>		
+	</contract>
+	
+	<!-- Basic Debris -->
+	<contract>
+		<id> 					0		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		266		</collectionNeeded>
+		<boxesNeeded>			100		</boxesNeeded>
+		<payPerBox>				500		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				-1		</required>
+		<description> 			Why can't we live in peace?! Help the zombies by shipping 100 crates of gold so they can buy soy-brain substitute!</description>		
+	</contract>
+	
+	<!-- Basic Debris -->
+	<contract>
+		<id> 					0		</id>
+		<name>					SOY		</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		266		</collectionNeeded>
+		<boxesNeeded>			100		</boxesNeeded>
+		<payPerBox>				500		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				-1		</required>
+		<description> 			The zombies have evolved! Oh Dear! Collect 50 crates</description>		
+	</contract>
+	
+</data>

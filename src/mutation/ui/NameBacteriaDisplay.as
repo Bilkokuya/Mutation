@@ -60,13 +60,22 @@ package mutation.ui
 		
 		public function onInit(e:Event = null):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
 			addChild(infoOut);
 			addChild(nameInput);
 			addChild(hatSelector);
 			
-			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			nameInput.addEventListener(FocusEvent.FOCUS_IN, onFocus);
 			nameInput.addEventListener(KeyboardEvent.KEY_UP, onEnter);
+		}
+		
+		public function kill():void
+		{
+			nameInput.removeEventListener(FocusEvent.FOCUS_IN, onFocus);
+			nameInput.removeEventListener(KeyboardEvent.KEY_UP, onEnter);
+			
+			hatSelector.kill();
 		}
 		
 		private function onFocus(e:FocusEvent):void

@@ -5,11 +5,13 @@ package mutation.events
 	
 	public class ItemEvent extends Event 
 	{
-		public static const DEATH:String = "ITEM_DEATH";
-		public static const PRODUCE:String = "ITEM_PRODUCED";
+		public static const DEATH:String				= "ITEM_DEATH";
+		public static const PRODUCE:String 		= "ITEM_PRODUCED";
+		public static const COLLECTED:String	= "ITEM_COLLECTED";
+		
 		public var item:Item;
 		
-		public function ItemEvent(type:String, item:Item, bubbles:Boolean=false, cancelable:Boolean=false) 
+		public function ItemEvent(type:String, item:Item, bubbles:Boolean=true, cancelable:Boolean=false) 
 		{ 
 			this.item = item;
 			super(type, bubbles, cancelable);

@@ -11,7 +11,9 @@ package mutation.ui
 	import flash.text.TextFieldType;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.ButtonEvent;
+	import mutation.events.ContractEvent;
 	import mutation.events.MutationEvent;
+	import mutation.events.MoneyEvent;
 	import mutation.Game;
 	import mutation.util.Resources;
 	
@@ -78,16 +80,34 @@ package mutation.ui
 			collectedOut.selectable = false;	
 			
 			moneyOut.text = "$" + game.money;
-			collectedOut.text = game.collected + "/ 1000";
+			collectedOut.text = game.contract. collected + "/" + game.contract.collectionNeeded;
 			
-			stage.addEventListener(MutationEvent.TICK, onTick);
+			stage.addEventListener(MoneyEvent.CHANGED, onMoney);
+			stage.addEventListener(ContractEvent.CHANGED, onContract);
 		}
 		
-		private function onTick(e:MutationEvent):void
+		public function kill():void
 		{
-			moneyOut.text = "$" + game.money;
+			if (stage){
+				stage.removeEventListener(MoneyEvent.CHANGED, onMoney);
+				stage.removeEventListener(ContractEvent.CHANGED, onContract);
+			}
+			
+			collectButton.kill();
+			bacteriaButton.kill();
+			foodSelector.kill();
+			unlockablesDisplay.kill();
 		}
 		
+		private function onMoney(e:MoneyEvent):void
+		{
+			moneyOut.text = "$" + e.money;
+		}
+		
+		private function onContract(e:ContractEvent):void
+		{
+			collectedOut.text = e.contract.collected + "/" + e.contract.collectionNeeded;
+		}
 	}
 
 }

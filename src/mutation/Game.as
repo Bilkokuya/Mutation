@@ -1,5 +1,6 @@
 package mutation 
 {
+	import flash.display.InteractiveObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -12,40 +13,46 @@ package mutation
 	import mutation.entity.items.ItemDescriptor;
 	import mutation.entity.levelling.Level;
 	import mutation.entity.TestTube;
+	import mutation.entity.Unlockables;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.ButtonEvent;
+	import mutation.events.MoneyEvent;
 	import mutation.events.MutationEvent;
+	import mutation.ui.Contract;
+	import mutation.ui.ContractChoice;
 	import mutation.ui.FoodSelector;
 	import mutation.ui.NameBacteriaDisplay;
+	import mutation.ui.PauseMenu;
 	import mutation.ui.UI;
 	import mutation.util.Resources;
 
 	public class Game extends Sprite
 	{
-		//	Data that will be moved from Locked to Unlocked array when appropriate
-		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);	//	Hat types that have been unlocked
+		public const BACTERIA_COST:Number = 150;	//	Cost of buying a new bacteria
+		
+		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);				//	Hat types that have been unlocked
 		public var foods:Unlockables = new Unlockables(FoodDescriptor, Resources.getXML(Resources.XML_FOODS).food);	//	Food types that have been unlocked
 		
-		public const BACTERIA_COST:Number = 150;
-		public const FOOD_UPGRADE_COST:Number = 250;
+		public var ui:UI;	//	UI overlay, handles all upgrades etc, passes info back to the game
+
+		public var money_:int = 250;								//	Money for buying food  and upgrades
 		
-		public var background:Background;	//	Visual background of the game
-		public var ui:UI;					//	UI overlay, handles all upgrades etc, passes info back to the game
+		public var contractSelector:ContractChoice;
+		public var contract:Contract;
 		
-		public var money:int = 250;
-		public var collected:int = 0;
-		
-		public var testTubes:Vector.<TestTube>;
-		public var foodSelection:int;
-		private var popup:NameBacteriaDisplay;
+		public var testTubes:Vector.<TestTube>;		//	Test Tubes that hold the individual bacteria
+		public var foodSelection:int;							//	Current food selected
+		private var popup:NameBacteriaDisplay;	//	Popup that appears when a bacteria is spawned
+		private var pauseMenu:PauseMenu;
 		
 		public function Game()
 		{
 			foodSelection = 1;
 			
-			testTubes = new Vector.<TestTube>();
-			background = new Background();
 			ui = new UI(this);
+			
+			testTubes = new Vector.<TestTube>();
+			pauseMenu = new PauseMenu();
 			
 			testTubes.push( new TestTube(this, 125, 200, 100) );
 					
@@ -54,44 +61,49 @@ package mutation
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
+		//	Initialisation after Stage
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
 			popup = new NameBacteriaDisplay(this, stage.stageWidth / 2, stage.stageHeight / 2);
-					
-			addChild(testTubes[0]);
 			
+			contractSelector = new ContractChoice();
+			contract = new Contract(stage, Resources.getXML(Resources.XML_CONTRACTS).contract[0]);
+			
+			addChild(testTubes[0]);
 			addChild(ui);
 			addChild(popup);
+			addChild(contractSelector);
+			addChild(pauseMenu);
+			pauseMenu.visible = false;
 			
 			popup.display(new Bacteria(this, 0, 0, 5));
 			Main.isPaused = true;
 			
-			stage.addEventListener(MutationEvent.TICK, onTick);
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 			ui.collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 		}
 		
-		//	Update each tick
-		private function onTick(e:MutationEvent):void
+		//	Recursively kills itself and then everything it holds
+		public function kill():void
 		{
-			
-		}
-
-		//	Used to collect items into the chest, when clicked
-		public function collect(amount:int):void
-		{
-			collected += amount;
-			
-			if (collected < 0) {
-				collected = 0;
-			}else if (collected > 1000) {
-				collected = 1000;
+			if (stage){
+				stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 			}
-			ui.collectedOut.text = collected + "/ 1000";
+			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
+			ui.collectButton.removeEventListener(ButtonEvent.CLICKED, onCollected);
+			ui.bacteriaButton.removeEventListener(ButtonEvent.CLICKED, onButton);
+
+			ui.kill();
+			for each (var testTube:TestTube in testTubes) {
+				testTube.kill();
+			}
+			pauseMenu.kill();
+			popup.kill();
+			contract.kill();
 		}
 		
 		//	Called when the new Bacteria button is pressed
@@ -116,14 +128,14 @@ package mutation
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
+		
 		//	Called when the collection is emptied (clicked on)
 		private function onCollected(e:ButtonEvent):void
 		{
-			if (collected >= 1000) {
-				collected = 0;
-				money += 500;
+			if (contract.isFilled()) {
+				contract.collected =  0;
+				money += contract.payPerBox;
 			}
-			ui.collectedOut.text = collected + "/ 1000";
 		}
 		
 		//	Debug/Cheat code button - MUST REMOVE BEFORE HAND-IN
@@ -132,8 +144,28 @@ package mutation
 		{
 			if (e.keyCode == Keyboard.SPACE) {
 				money += 1000;
+			}else if (e.keyCode == Keyboard.ESCAPE) {
+				if (Main.isPaused) {
+					Main.isPaused = false;
+					pauseMenu.visible = false;
+				}else{
+					pauseMenu.visible = true;
+					Main.isPaused = true;
+				}
 			}
-			ui.moneyOut.text = "$" + money;
+		}
+
+		//	Setter for money, dispatches the change in case UI cares
+		public function set money(amount:int):void
+		{
+			money_ = amount;
+			stage.dispatchEvent(new MoneyEvent(MoneyEvent.CHANGED, money_));
+		}
+		
+		//	Getter for money
+		public function get money():int
+		{
+			return money_;
 		}
 		
 	}

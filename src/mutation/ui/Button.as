@@ -50,10 +50,11 @@ package mutation.ui
 			}
 		}
 		
-		//	Function: onInit
 		//	Initialises the button after the stage has been created
 		private function onInit(e:Event = null):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
 			text = new TextField();
 			
 			draw(0xFF6600);
@@ -65,7 +66,6 @@ package mutation.ui
 			text.autoSize = TextFieldAutoSize.LEFT;
 			text.selectable = false;
 			
-			
 			addEventListener(MouseEvent.CLICK, onClick);
 			addEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			addEventListener(MouseEvent.MOUSE_UP, onRelease);
@@ -73,7 +73,15 @@ package mutation.ui
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 		}
 		
-		//	Function: init (int, int, String)
+		public function kill():void
+		{
+			removeEventListener(MouseEvent.CLICK, onClick);
+			removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			removeEventListener(MouseEvent.MOUSE_UP, onRelease);
+			removeEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			removeEventListener(MouseEvent.ROLL_OUT, onRollOut);
+		}
+		
 		//	Initialises the position after creation
 		//		Prevents issues with long constructors that might fail
 		public function init(x:int, y:int, name:String = null):void
@@ -86,7 +94,6 @@ package mutation.ui
 			this.y = y;
 		}
 		
-		//	Listener: onClick
 		//	When clicked, this will dispatch an event to change the type of item held
 		private function onClick(e:Event):void
 		{

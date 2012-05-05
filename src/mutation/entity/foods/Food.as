@@ -20,15 +20,16 @@ package mutation.entity.foods
 	{	
 		private const yAccel:Number = 0.07;	//	y Acceleration downwards
 		
-		public var xSpeed:Number;
-		public var ySpeed:Number;
+		private var game:Game;				//	Reference to the current game
 		
-		public var type:FoodDescriptor;
+		public var xSpeed:Number;			//	Speed horizontally
+		public var ySpeed:Number;			//	Speed vertically downwards
+		public var type:FoodDescriptor;	//	Type of this food
 		
-		public var life:Number;
-		public var flagIsMoving:Boolean = true;
-		public var flagIsAlive:Boolean = true;
-		private var game:Game;
+		public var life:Number;									//	Dies when life is 0
+		public var flagIsMoving:Boolean = true;	//	Avoids movement when speed has reached a low threshhold
+		public var flagIsAlive:Boolean = true;		//	Prevents updates when killed and still being removed from the game
+		
 		private var bitmap:Bitmap;
 		
 		//	Constructor: default
@@ -61,7 +62,7 @@ package mutation.entity.foods
 			//bitmap.width = type.radius;
 			//bitmap.height = type.radius;
 			
-			stage.addEventListener(MutationEvent.TICK, onTick);
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 		}
 		
 		//	OnTick Updates
@@ -87,7 +88,7 @@ package mutation.entity.foods
 			flagIsAlive = false;
 			flagIsMoving = false;
 			if (stage){
-				stage.removeEventListener(MutationEvent.TICK, onTick);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
 				dispatchEvent(new FoodEvent(FoodEvent.DEATH, this, true));
 			}
 		}

@@ -37,6 +37,8 @@ package mutation.ui
 		
 		private function onInit(e:Event = null):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
 			addChild(leftArrow);
 			addChild(rightArrow);
 			addChild(foodBMP);
@@ -56,10 +58,18 @@ package mutation.ui
 			
 			draw();
 			
-			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			leftArrow.addEventListener(MouseEvent.CLICK, onLeft);
 			rightArrow.addEventListener(MouseEvent.CLICK, onRight);
 			stage.addEventListener(UnlockEvent.FOOD, onUnlock);
+		}
+		
+		public function kill():void
+		{
+			leftArrow.removeEventListener(MouseEvent.CLICK, onLeft);
+			rightArrow.removeEventListener(MouseEvent.CLICK, onRight);
+			if (stage){
+				stage.removeEventListener(UnlockEvent.HAT, onUnlock);
+			}
 		}
 		
 		private function onLeft(e:MouseEvent):void

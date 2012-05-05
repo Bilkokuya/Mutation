@@ -10,19 +10,19 @@ package mutation.entity.items
 
 	public class Item extends Sprite
 	{
+		private var game:Game;							//	Reference to the game it's run in
 		
-		private const yAccel:Number = -0.07;	//	y Acceleration downwards
-		public var xSpeed:Number;
-		public var ySpeed:Number;
-		private var game:Game;
+		private const yAccel:Number = -0.07;	//	y Acceleration downwards (effectively gravity value for this)
+		public var xSpeed:Number;						//	Current speed horizontally
+		public var ySpeed:Number;						//	Current speed vertically (positive is down)
 		
-		public var life:Number;
-		public var amount:Number = 0;
+		public var life:Number;								//	Dies when life is 0
+		public var amount:Number = 0;				//	Amount of money to provide the player when clicked (in addition to the base money from 'type')
 		
-		public var type:ItemDescriptor;
+		public var type:ItemDescriptor;				//	Type of item this is
 		
-		public var flagIsMoving:Boolean = true;
-		public var flagIsAlive:Boolean = true;
+		public var flagIsMoving:Boolean = true;	//	Stops it moving when speed has decreased to a certain level
+		public var flagIsAlive:Boolean = true;		//	Avoids further updates once killed (while being removed from the game)
 		
 		//	Constructor: default
 		public function Item(game:Game, x:Number, y:Number, itemType:ItemDescriptor, money:Number = 0 )
@@ -47,13 +47,15 @@ package mutation.entity.items
 			
 			draw();
 			
-			stage.addEventListener(MutationEvent.TICK, onTick);
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 		}
 		
+		//	Returns the amount of money this will provide
 		public function getMoney():Number
 		{
 			return (type.money + amount);
 		}
+		
 		//	OnTick Updates
 		public function onTick(e:MutationEvent):void {
 			
@@ -77,9 +79,14 @@ package mutation.entity.items
 			flagIsAlive = false;
 			flagIsMoving = false;
 			if (stage) {
-				stage.removeEventListener(MutationEvent.TICK, onTick);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
 				dispatchEvent(new ItemEvent(ItemEvent.DEATH, this, true));
 			}
+		}
+		
+		public function getAmount():Number
+		{
+			return (amount + type.money);
 		}
 		
 		//	Draw the graphics representation
