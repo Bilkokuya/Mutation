@@ -27,7 +27,7 @@ package mutation.ui
 			
 			addChild(menu);
 			menu.x = 175;
-			menu.y = 75;
+			menu.y = 50;
 			
 			menu.addChild(playButton);
 			draw();
@@ -44,7 +44,7 @@ package mutation.ui
 		private function draw():void
 		{
 			graphics.clear();
-			graphics.beginFill(0xAAAAFF, 1);
+			graphics.beginFill(0x111122, 0.85);
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			graphics.endFill();
 			

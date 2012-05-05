@@ -58,7 +58,20 @@
 	
 	<!-- Basic Debris -->
 	<contract>
-		<id> 					0		</id>
+		<id> 					1		</id>
+		<name>					SOY		</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		266		</collectionNeeded>
+		<boxesNeeded>			20		</boxesNeeded>
+		<payPerBox>				666		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				0		</required>
+		<description> 			The zombies have evolved! Oh Dear! Collect 50 crates</description>		
+	</contract>
+	
+	<contract>
+		<id> 					1		</id>
 		<name>					SOY		</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		266		</collectionNeeded>
@@ -66,8 +79,8 @@
 		<payPerBox>				666		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
-		<description> 			The zombies have evolved! Oh Dear! Collect 50 crates</description>		
+		<required>				1		</required>
+		<description> 			The SHEEP CAME HOME</description>		
 	</contract>
 	
 </data>

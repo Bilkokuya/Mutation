@@ -64,7 +64,7 @@ package mutation.ui
 		//	Draw the basic shapes
 		private function draw():void
 		{
-			graphics.beginFill(0x000000, 0.1);
+			graphics.beginFill(0x111122, 0.85);
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			graphics.endFill();
 			
