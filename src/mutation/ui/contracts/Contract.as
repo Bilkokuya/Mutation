@@ -45,6 +45,15 @@ package mutation.ui.contracts
 			}
 		}
 		
+		public function ship():void
+		{
+			collected = 0;
+			boxesShipped++;
+			if (boxesShipped > type.boxesNeeded) {
+				stage.dispatchEvent(new ContractEvent( ContractEvent.COMPLETED, this) );
+			}
+		}
+		
 		//	Returns true if it is filled
 		public function isFilled():Boolean
 		{

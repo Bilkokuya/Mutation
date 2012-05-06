@@ -16,6 +16,7 @@ package mutation
 	import mutation.entity.Unlockables;
 	import mutation.events.BacteriaEvent;
 	import mutation.events.ButtonEvent;
+	import mutation.events.ContractEvent;
 	import mutation.events.MoneyEvent;
 	import mutation.events.MutationEvent;
 	import mutation.ui.contracts.Contract;
@@ -72,8 +73,6 @@ package mutation
 			
 			popup = new NameBacteriaDisplay(this, stage.stageWidth / 2, stage.stageHeight / 2);
 			
-			
-			contract = new Contract(stage, contracts.getAt(1) as ContractDescriptor);
 			contractSelector = new ContractChoice(this);
 			
 			addChild(testTubes[0]);
@@ -90,6 +89,8 @@ package mutation
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 			ui.collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
+			contractSelector.addEventListener(ContractEvent.SELECTED, onContract);
+			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
 		}
 		
 		//	Recursively kills itself and then everything it holds
@@ -109,6 +110,18 @@ package mutation
 			pauseMenu.kill();
 			popup.kill();
 			contract.kill();
+		}
+		
+		private function onContract(e:ContractEvent):void
+		{
+			contract = e.contract;
+			Main.isPaused = false;
+			stage.dispatchEvent(new ContractEvent( ContractEvent.CHANGED, contract) );
+		}
+		
+		private function onContractComplete(e:ContractEvent):void
+		{
+			money += e.contract.type.bonus;
 		}
 		
 		//	Called when the new Bacteria button is pressed
@@ -138,8 +151,8 @@ package mutation
 		private function onCollected(e:ButtonEvent):void
 		{
 			if (contract.isFilled()) {
-				contract.collected =  0;
 				money += contract.type.payPerBox;
+				contract.ship();
 			}
 		}
 		

@@ -5,7 +5,10 @@ package mutation.ui.contracts
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import mutation.entity.BaseDescriptor;
+	import mutation.events.ButtonEvent;
+	import mutation.events.ContractEvent;
 	import mutation.Game;
+	import mutation.Main;
 	import mutation.util.Resources;
 
 	public class ContractChoice extends Sprite
@@ -28,29 +31,88 @@ package mutation.ui.contracts
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			var i:int = 0;
-			for each (var cb:BaseDescriptor in game.contracts.unlocked) {
-				var c:ContractDescriptor = cb as ContractDescriptor;
-				if (i >= 3) break;
+			updateContracts(false);
+			draw();
+			
+			for each (var o:ContractOption in options){
+				o.addEventListener(ContractEvent.SELECTED, onSelected);
+			}
+			
+			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
+		}
+		
+		public function kill():void
+		{
+			
+		}
+
+		private function onSelected(e:ContractEvent):void
+		{
+			dispatchEvent(new ContractEvent(ContractEvent.SELECTED, e.contract));
+			this.visible = false;
+		}
+		
+		private function draw():void
+		{
+			graphics.clear();
+			graphics.beginFill(0x111122, 0.85);
+			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			graphics.endFill();
+		}
+		
+		public function updateContracts(initialised:Boolean):void
+		{
+			var loaded:int = 0;
+			
+			//	Clear the previous list, to ensure "old" elements aren't left accidentally
+			if (initialised) {
+					for each (var o:ContractOption in options){
+						o.removeEventListener(ContractEvent.SELECTED, onSelected);
+						removeChild(o);
+					}
+					for each (var o:ContractOption in options){
+						options.pop();
+					}
+			}
+			
+			//	Gather the next set of valid contracts (3 at most)	
+			for (var i:int = 1; i < game.contracts.unlocked.length; ++i) {
+				if (loaded >= 3) break;
+				
+				var c:ContractDescriptor = game.contracts.getAt(i) as ContractDescriptor;
 				if (c.group < group) continue;
 				if (c.hasRequirement) {
 					if (!(game.contracts.getAt(c.requirement) as ContractDescriptor).isComplete) continue;
 				}
-				options[i]		= new ContractOption(game, c ) ;
-				options[i].x 	= i * ((stage.stageWidth - 60) / 3) + 40;
-				options[i].y	= 50;
-				addChild(options[i]);
-				i++;
+				
+				options[loaded]		= new ContractOption(game, c ) ;
+				addChild(options[loaded]);
+				options[loaded].addEventListener(ContractEvent.SELECTED, onSelected);
+				loaded++;
 			}
 			
-			draw();
+			//	if nothing was loaded - game is empty of content - add a continuous contract
+			if (loaded < 1) {
+				options[0]		= new ContractOption(game, game.contracts.getAt(0) as ContractDescriptor) ;
+				addChild(options[0]);
+				options[0].addEventListener(ContractEvent.SELECTED, onSelected);
+				loaded++;
+			}
+			
+			//	layout the options evenly across the screen evenly across the center
+			for (var i:int = 0; i < loaded; ++i) {
+				options[i].x = (stage.stageWidth / 2 ) - (loaded* 155 / 2) + (i * 155);
+				options[i].y = 50;
+			}
 		}
-
-		private function draw():void
+		
+		private function onContractComplete(e:ContractEvent):void
 		{
-			graphics.beginFill(0x111122, 0.85);
-			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			graphics.endFill();
+			Main.isPaused = true;
+			visible = true;
+			group = e.contract.type.group + 1;
+			e.contract.type.isComplete = true;
+			updateContracts(true);
 		}
 		
 	}

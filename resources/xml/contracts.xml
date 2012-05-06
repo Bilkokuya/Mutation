@@ -28,59 +28,141 @@
 <!-- Start of Actual File Data -->
 <data>
 	
-	<!-- Basic Debris -->
+	<!-- "Game Complete" repeating task -->
 	<contract>
 		<id> 					0		</id>
-		<name>					ZUMBEES	</name>
+		<name>					Complete</name>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		266		</collectionNeeded>
-		<boxesNeeded>			100		</boxesNeeded>
-		<payPerBox>				500		</payPerBox>
+		<collectionNeeded>		100  	</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				5000	</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
-		<description> 			Zombies are taking over the planet! Help the humans by shipping 50 crates of gold for guns!</description>		
+		<description> 			Congratulations Scientist! &#10; You've completed the game, but you can keep re-doing this task as many times as you wish!</description>		
 	</contract>
 	
-	<!-- Basic Debris -->
+	<!-- Kill Zombies 1 -->
 	<contract>
-		<id> 					0		</id>
+		<id> 					1		</id>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		266		</collectionNeeded>
-		<boxesNeeded>			50		</boxesNeeded>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
 		<payPerBox>				333		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
-		<description> 			Why can't we live in peace?! Help the zombies by shipping 100 crates of gold so they can buy soy-brain substitute!</description>		
+		<description> 			Kill Da Zombees!!</description>		
 	</contract>
 	
-	<!-- Basic Debris -->
+	<!-- Help Zombies 1 -->
 	<contract>
 		<id> 					1		</id>
-		<name>					SOY		</name>
+		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		266		</collectionNeeded>
-		<boxesNeeded>			20		</boxesNeeded>
-		<payPerBox>				666		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		true	</hasRequirement>
-		<required>				0		</required>
-		<description> 			The zombies have evolved! Oh Dear! Collect 50 crates</description>		
-	</contract>
-	
-	<contract>
-		<id> 					1		</id>
-		<name>					SOY		</name>
-		<graphic>				0		</graphic>
-		<collectionNeeded>		266		</collectionNeeded>
-		<boxesNeeded>			20		</boxesNeeded>
-		<payPerBox>				666		</payPerBox>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
+		<description> 			Help Da Zumbees!!</description>		
+	</contract>
+	
+	<!-- Research Bananas 1 -->
+	<contract>
+		<id> 					1		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
+		<description> 			BONOONNAAAS!!</description>		
+	</contract>
+	
+	<!-- Kill Zombies 2 -->
+	<contract>
+		<id> 					2		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
 		<required>				1		</required>
-		<description> 			The SHEEP CAME HOME</description>		
+		<description> 			Kill Da Zombees2!!</description>		
+	</contract>
+	
+	<!-- Help Zombies 2 -->
+	<contract>
+		<id> 					2		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				2		</required>
+		<description> 			Help Da Zumbees2!!</description>		
+	</contract>
+	
+	<!-- Research Bananas 2 -->
+	<contract>
+		<id> 					2		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				3		</required>
+		<description> 			BONOONNAAAS2!!</description>		
+	</contract>
+	
+	<contract>
+		<id> 					3		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
+		<description> 			Bonues1!!</description>		
+	</contract>
+	
+	<contract>
+		<id> 					4		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
+		<description> 			Bonues2!!</description>		
+	</contract>
+	
+	<contract>
+		<id> 					5		</id>
+		<name>					HUUMANS	</name>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		400		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				333		</payPerBox>
+		<bonusPay> 				1000	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
+		<description> 			Bonues3!!</description>		
 	</contract>
 	
 </data>

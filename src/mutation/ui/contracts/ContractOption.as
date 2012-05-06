@@ -2,8 +2,10 @@ package mutation.ui.contracts
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
+	import mutation.events.ContractEvent;
 	import mutation.Game;
 
 	public class ContractOption extends Sprite
@@ -40,13 +42,21 @@ package mutation.ui.contracts
 			option.addChild(desc);
 			
 			draw();
+			
+			addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
 		private function draw():void
-		{		
+		{	
+			option.graphics.clear();
 			option.graphics.beginFill(0xFFFFFF);
 			option.graphics.drawRect(0, 0, 150, 250);
 			option.graphics.endFill();
+		}
+		
+		private function onClick(e:MouseEvent):void
+		{
+			dispatchEvent(new ContractEvent(ContractEvent.SELECTED, new Contract(stage, type))) ;
 		}
 		
 	}
