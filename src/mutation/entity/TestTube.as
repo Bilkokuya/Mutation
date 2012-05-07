@@ -8,6 +8,7 @@
 package mutation.entity 
 {
 	import flash.display.DisplayObject;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -46,6 +47,10 @@ package mutation.entity
 		private var selector:Sprite;
 		private var closestItem:Item = null;
 		private var closestRange:Number = ITEM_CLICK_RANGE;
+		private var selected:Boolean = false;
+		
+		private var visual:Sprite;
+		private var windowVisual:Sprite;
 		
 		//	Constructor: default
 		public function TestTube(game:Game, x:Number = 200, y:Number = 200, radius:int = 50) {
@@ -57,6 +62,7 @@ package mutation.entity
 			closestItem = null;
 			
 
+			windowVisual = new Sprite();
 			bacterias = new Array();
 			foods = new Array();
 			items = new Array();
@@ -72,17 +78,40 @@ package mutation.entity
 		//	Initialisation once the stage has been created
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
+			
+			addChild(windowVisual);
+			addChild(selector);
+			
+			windowVisual.visible = false;
+			
+			
 			stage.addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
-			
-			addChild(selector);
 			
 			addEventListener(FoodEvent.DEATH, onFoodDeath);
 			addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			addEventListener(ItemEvent.DEATH, onItemDeath);
 			addEventListener(ItemEvent.PRODUCE, onBacteriaProduce);
+			
+			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 		}
 		
+		private function onRollOver(e:MouseEvent):void
+		{
+			windowVisual.visible = true;
+			scaleX = 1.5;
+			scaleY = 1.5;
+			parent.addChildAt(this, parent.numChildren - 1);
+			selected = true;
+		}
+		private function onRollOut(e:MouseEvent):void
+		{
+			windowVisual.visible = false;
+			scaleX = 1;
+			scaleY = 1;
+			selected = false;
+		}
 		
 		//	Every frame, process the actions of this TestTube
 		private function onTick(e:MutationEvent):void {
@@ -192,7 +221,7 @@ package mutation.entity
 		private function onBacteriaProduce(e:ItemEvent):void
 		{
 			items.push(e.item);
-			addChild(e.item);
+			windowVisual.addChild(e.item);
 		}
 		
 		public function spawnBacteria(bacteria:Bacteria):void
@@ -201,12 +230,13 @@ package mutation.entity
 			bacteriaCount++;
 			
 			bacterias.push(bacteria);
-			addChild(bacteria);
+			windowVisual.addChild(bacteria);
 		}
 		
 		//	Feeds the bacteria when the testTube is clicked on
 		private function onClick(e:MouseEvent):void
 		{	
+			if (!selected) return;
 			if (Main.isPaused) return;
 			if (Util.inRadius(mouseX, mouseY, radius)) {
 				//	If an item was clicked - collect it
@@ -226,13 +256,14 @@ package mutation.entity
 		//	Spawns a new item of food at the specified position
 		private function spawnFood(x:Number, y:Number, cost:int = 10):void
 		{
+			
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
 				if (game.money >= cost){
 					var food:Food = new Food(game, x, y, game.foods.getAt(game.foodSelection) as FoodDescriptor);
 					foods.push(food);
-					addChild(food);
+					windowVisual.addChild(food);
 					game.money -= cost;
 				}
 			}
@@ -241,7 +272,7 @@ package mutation.entity
 		//	Called whenever a piece of food dies
 		private function onFoodDeath(e:FoodEvent):void
 		{
-			removeChild(e.food);
+			windowVisual.removeChild(e.food);
 			foods.splice(foods.indexOf(e.food), 1);
 			
 			if (e.food.type.debrisType > -1) {
@@ -250,7 +281,7 @@ package mutation.entity
 					debris.xSpeed = e.food.xSpeed - (Math.random() - 0.5);
 					debris.ySpeed = e.food.ySpeed - 3*(Math.random());
 					foods.push(debris);
-					addChild(debris);
+					windowVisual.addChild(debris);
 				}
 			}
 		}
@@ -258,7 +289,7 @@ package mutation.entity
 		//	Called whenever a bacteria dies
 		private function onBacteriaDeath(e:BacteriaEvent):void
 		{
-			removeChild(e.bacteria);
+			windowVisual.removeChild(e.bacteria);
 			bacterias.splice(bacterias.indexOf(e.bacteria), 1);
 			bacteriaCount--;
 		}
@@ -266,15 +297,20 @@ package mutation.entity
 		//	Called when an item dies and needs removed
 		private function onItemDeath(e:ItemEvent):void 
 		{
-			removeChild(e.item);
+			windowVisual.removeChild(e.item);
 			items.splice(items.indexOf(e.item), 1);
 		}
 		
 		//	Draws the graphics of the testTube
 		private function draw():void {
-			graphics.beginFill(0x777777, 0.5);
-			graphics.drawCircle(0, 0, radius+10);
+			
+			graphics.beginFill(0x7777FF, 1);
+			graphics.drawRect(-25, -110, 50, 220);
 			graphics.endFill();
+			
+			windowVisual.graphics.beginFill(0x777777, 1);
+			windowVisual.graphics.drawCircle(0, 0, radius+10);
+			windowVisual.graphics.endFill();
 		}
 		
 	}

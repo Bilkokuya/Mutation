@@ -97,6 +97,9 @@ package mutation.ui
 			show();
 			nameInput.text = "Name...";
 			this.bacteria = bacteria;
+			if (stage){
+				parent.addChildAt(this, parent.numChildren - 1);
+			}
 		}
 	}
 

@@ -30,6 +30,7 @@ package mutation
 
 	public class Game extends Sprite
 	{
+		public const NUM_TUBES:Number = 4;
 		public const BACTERIA_COST:Number = 150;	//	Cost of buying a new bacteria
 		
 		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);				//	Hat types that have been unlocked
@@ -59,7 +60,7 @@ package mutation
 			testTubes = new Vector.<TestTube>();
 			pauseMenu = new PauseMenu();
 			
-			testTubes.push( new TestTube(this, 125, 200, 100) );
+			
 					
 			super();
 			if (stage) onInit();
@@ -75,7 +76,11 @@ package mutation
 			
 			contractSelector = new ContractChoice(this);
 			
-			addChild(testTubes[0]);
+			for (var i:int = 0; i < NUM_TUBES; ++i){
+				testTubes.push( new TestTube(this, ((stage.stageWidth - (NUM_TUBES * 75)) / 2)  + (i * 100), 200, 60) );
+				addChild(testTubes[i]);
+			}
+			
 			addChild(ui);
 			addChild(popup);
 			addChild(contractSelector);

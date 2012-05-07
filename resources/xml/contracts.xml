@@ -29,8 +29,10 @@
 <data>
 	
 	<!-- "Game Complete" repeating task -->
+	<!-- Is hardcoded to be used when no other valid tasks can be found -->
 	<contract>
 		<id> 					0		</id>
+		<next>					10		</next>
 		<name>					Complete</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		100  	</collectionNeeded>
@@ -45,6 +47,7 @@
 	<!-- Kill Zombies 1 -->
 	<contract>
 		<id> 					1		</id>
+		<next>					2		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -59,6 +62,7 @@
 	<!-- Help Zombies 1 -->
 	<contract>
 		<id> 					1		</id>
+		<next>					2		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -73,6 +77,7 @@
 	<!-- Research Bananas 1 -->
 	<contract>
 		<id> 					1		</id>
+		<next>					2		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -87,6 +92,7 @@
 	<!-- Kill Zombies 2 -->
 	<contract>
 		<id> 					2		</id>
+		<next>					3		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -101,6 +107,7 @@
 	<!-- Help Zombies 2 -->
 	<contract>
 		<id> 					2		</id>
+		<next>					3		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -115,6 +122,7 @@
 	<!-- Research Bananas 2 -->
 	<contract>
 		<id> 					2		</id>
+		<next>					3		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -128,6 +136,7 @@
 	
 	<contract>
 		<id> 					3		</id>
+		<next>					4		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -141,6 +150,7 @@
 	
 	<contract>
 		<id> 					4		</id>
+		<next>					5		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -154,6 +164,7 @@
 	
 	<contract>
 		<id> 					5		</id>
+		<next>					6		</next>
 		<name>					HUUMANS	</name>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>

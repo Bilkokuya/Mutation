@@ -93,6 +93,9 @@ package mutation.ui
 		private function onPause(e:MutationEvent):void
 		{
 			visible = true;
+			if (stage){
+				parent.addChildAt(this, parent.numChildren - 1);
+			}
 		}
 		
 		//	Disappear when the game is unpaused

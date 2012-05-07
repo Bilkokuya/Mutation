@@ -40,6 +40,9 @@ package mutation.ui
 		public function show():void
 		{
 			visible = true;
+			if (stage){
+				parent.addChildAt(this, parent.numChildren - 1);
+			}
 		}
 		public function hide():void
 		{

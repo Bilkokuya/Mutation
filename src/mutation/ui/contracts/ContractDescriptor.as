@@ -16,6 +16,7 @@ package mutation.ui.contracts
 		public var description:String;				//	Text description for use visually when selecting the contract
 		public var hasRequirement:Boolean;
 		public var requirement:int;
+		public var next:int;
 		public var isComplete:Boolean;
 		
 		//	Loads the contract descriptor from the given contract node
@@ -23,12 +24,13 @@ package mutation.ui.contracts
 		{
 			super();
 			
-			this.group 							=	xml.id;
-			this.collectionNeeded 	= xml.collectionNeeded;
-			this.boxesNeeded 			= xml.boxesNeeded;
-			this.payPerBox 					= xml.payPerBox;
+			this.group 							= xml.id;
+			this.collectionNeeded 				= xml.collectionNeeded;
+			this.boxesNeeded 					= xml.boxesNeeded;
+			this.payPerBox 						= xml.payPerBox;
 			this.bonus 							= xml.bonusPay;
-			this.description 					=	xml.description;
+			this.description 					= xml.description;
+			this.next							= xml.next;
 			
 			(xml.hasRequirement == "true") ? hasRequirement = true : hasRequirement = false;
 			this.requirement 				=	xml.required;

@@ -38,6 +38,9 @@ package mutation.ui.contracts
 				o.addEventListener(ContractEvent.SELECTED, onSelected);
 			}
 			
+			if (stage){
+				parent.addChildAt(this, parent.numChildren - 1);
+			}
 			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
 		}
 		
@@ -70,6 +73,7 @@ package mutation.ui.contracts
 						o.removeEventListener(ContractEvent.SELECTED, onSelected);
 						removeChild(o);
 					}
+					//	Remove all entries from the option array
 					for each (var o:ContractOption in options){
 						options.pop();
 					}
@@ -110,7 +114,10 @@ package mutation.ui.contracts
 		{
 			Main.isPaused = true;
 			visible = true;
-			group = e.contract.type.group + 1;
+			if (stage){
+				parent.addChildAt(this, parent.numChildren - 1);
+			}
+			group = e.contract.type.next;
 			e.contract.type.isComplete = true;
 			updateContracts(true);
 		}
