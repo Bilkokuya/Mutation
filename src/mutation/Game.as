@@ -85,8 +85,8 @@ package mutation
 			addChild(contractSelector);
 			addChild(pauseMenu);
 			pauseMenu.visible = false;
-			
-			Main.isPaused = true;
+			contractSelector.visible = false;
+			popup.hide();
 			
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
@@ -94,8 +94,19 @@ package mutation
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 			contractSelector.addEventListener(ContractEvent.SELECTED, onContract);
 			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
-			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
+			
 			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
+		}
+		
+		public function start():void
+		{
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
+			if (!contract) {
+				Main.isPaused = true;
+				contractSelector.visible = true;
+			}
+			ui.update();
+			
 		}
 		
 		private function onTick(e:MutationEvent):void
@@ -120,7 +131,6 @@ package mutation
 			ui.bacteriaButton.removeEventListener(ButtonEvent.CLICKED, onButton);
 			contractSelector.removeEventListener(ContractEvent.SELECTED, onContract);
 			
-
 			ui.kill();
 			for each (var testTube:TestTube in testTubes) {
 				testTube.kill();
@@ -244,6 +254,7 @@ package mutation
 			for (var foodCount:int = foods.numUnlocked; foodCount < token.hatsUnlocked; ++foodCount ) {
 				foods.unlockNext();
 			}
+			
 		}
 		
 	}

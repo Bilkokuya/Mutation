@@ -73,6 +73,7 @@ package mutation
 			game = new Game();
 			addChild(game);
 			game.buildFromToken(save.data.gamedata);
+			game.start();
 		}
 		
 		//	Stars the game
@@ -82,6 +83,7 @@ package mutation
 			save.clear();
 			game = new Game();
 			addChild(game);
+			game.start();
 		}
 		
 		//	Opens the main menu

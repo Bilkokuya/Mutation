@@ -104,6 +104,12 @@ package mutation.ui
 			moneyOut.text = "$" + e.money;
 		}
 		
+		public function update():void
+		{
+			foodSelector.update();
+			unlockablesDisplay.update();
+		}
+		
 		private function onContract(e:ContractEvent):void
 		{
 			collectedOut.text = e.contract.collected + "/" + e.contract.type.collectionNeeded;

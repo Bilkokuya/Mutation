@@ -255,6 +255,7 @@ package mutation.entity
 			token.hat						=	hat.type.arrayListing;
 			token.x							=	x;
 			token.y							=	y;
+			token.radius				= radius;
 			
 			return token;
 		}
@@ -264,6 +265,7 @@ package mutation.entity
 			nameString = token.nameString;
 			x						=	token.x;
 			y						=	token.y;
+			radius			=	token.radius;
 			money.buildFromToken(token.money);
 			setHat(new Hat(game, game.hats.getAt(token.hatindex) as HatDescriptor));
 		}

@@ -265,6 +265,7 @@ package mutation.entity
 					foods.push(food);
 					windowVisual.addChild(food);
 					game.money -= cost;
+					game.bacteriaCount++;
 				}
 			}
 		}
@@ -339,7 +340,6 @@ package mutation.entity
 			}
 			
 			draw();
-			
 		}
 		
 	}

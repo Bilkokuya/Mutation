@@ -43,8 +43,10 @@ package mutation.entity
 		//	Unlocks the next item in the locked list -> sending it to the unlocks
 		public function unlockNext():void
 		{
-			if (locked.length > 0)
+			if (locked.length > 0){
 				unlocked.push( locked.pop() );
+				numUnlocked++;
+			}
 		}
 		
 		//	Checks if the index given exists as an unlocked item

@@ -86,6 +86,11 @@ package mutation.ui
 			draw();
 		}
 		
+		public function update():void
+		{
+			draw();
+		}
+
 		private function draw():void
 		{
 			removeChild(foodBMP);

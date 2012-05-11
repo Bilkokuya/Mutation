@@ -39,6 +39,21 @@ package mutation.ui
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
+		public function update():void
+		{
+			if (game.hats.hasLocked()){
+				unlockHat.setBitmap( new Resources.GRAPHICS_HATS[ game.hats.getNextLocked().graphic ]);
+			}else{
+				unlockHat.setBitmap( new Resources.GFX_NO_UNLOCK);
+			}
+				
+			if (game.foods.hasLocked()){
+				unlockFood.setBitmap( new Resources.GRAPHICS_FOODS[ game.foods.getNextLocked().graphic ]);
+			}else{
+				unlockFood.setBitmap( new Resources.GFX_NO_UNLOCK);
+			}
+		}
+		
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
