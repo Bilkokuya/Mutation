@@ -59,7 +59,7 @@ package mutation
 			ui = new UI(this);
 			
 			testTubes = new Vector.<TestTube>();
-			pauseMenu = new PauseMenu();
+			pauseMenu = new PauseMenu(this);
 			
 			super();
 			if (stage) onInit();
@@ -111,10 +111,15 @@ package mutation
 		{
 			if (stage){
 				stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
+				stage.removeEventListener(ContractEvent.COMPLETED, onContractComplete);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
+				stage.removeEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			}
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			ui.collectButton.removeEventListener(ButtonEvent.CLICKED, onCollected);
 			ui.bacteriaButton.removeEventListener(ButtonEvent.CLICKED, onButton);
+			contractSelector.removeEventListener(ContractEvent.SELECTED, onContract);
+			
 
 			ui.kill();
 			for each (var testTube:TestTube in testTubes) {
@@ -122,7 +127,9 @@ package mutation
 			}
 			pauseMenu.kill();
 			popup.kill();
-			contract.kill();
+			if (contract){
+				contract.kill();
+			}
 		}
 		
 		private function onContract(e:ContractEvent):void
@@ -180,13 +187,11 @@ package mutation
 		{
 			if (e.keyCode == Keyboard.SPACE) {
 				money += 1000;
-			}else if (e.keyCode == Keyboard.ESCAPE) {
+			}else if ((e.keyCode == Keyboard.ESCAPE)  ||(e.keyCode == Keyboard.END)){
 				if (Main.isPaused) {
-					Main.isPaused = false;
-					pauseMenu.visible = false;
-				}else{
-					pauseMenu.visible = true;
-					Main.isPaused = true;
+					stage.dispatchEvent(new MutationEvent(MutationEvent.UNPAUSE));
+				}else {
+					stage.dispatchEvent(new MutationEvent(MutationEvent.PAUSE));
 				}
 			}
 		}
@@ -202,6 +207,43 @@ package mutation
 		public function get money():int
 		{
 			return money_;
+		}
+		
+		public function getToken():Object
+		{
+			var testtubesTokens:Array		=	new Array();
+			for (var i:int = 0; i < NUM_TUBES; ++i) {
+				testtubesTokens.push(testTubes[i].getToken());
+			}
+			var token:Object 			= new Object();
+			token.hatsUnlocked 	= hats.numUnlocked;
+			token.foodUnlocked 	= foods.numUnlocked;
+			token.money					= money;
+			token.contract				=	contract.type.arrayListing;
+			token.boxesShipped 	= contract.boxesShipped;
+			token.collected		 	= contract.collected;
+			
+			token.testtubes				= testtubesTokens;
+			
+			return token;
+		}
+		
+		public function buildFromToken(token:Object):void
+		{
+			this.money = token.money;
+			this.contract = new Contract(stage, contracts.getAt(token.contract) as ContractDescriptor);
+			this.contract.boxesShipped = token.boxesShipped;
+			this.contract.collected = token.collected;
+			
+			for (var i:int = 0; i < NUM_TUBES; ++i) {
+				testTubes[i].buildFromToken(token.testtubes[i]);
+			}
+			for (var hatCount:int = hats.numUnlocked; hatCount < token.hatsUnlocked; ++hatCount ) {
+				hats.unlockNext();
+			}
+			for (var foodCount:int = foods.numUnlocked; foodCount < token.hatsUnlocked; ++foodCount ) {
+				foods.unlockNext();
+			}
 		}
 		
 	}

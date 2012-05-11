@@ -41,6 +41,9 @@ package mutation.util
 		[Embed(source="../../../resources/gfx/contractselectionbox.png")]
 		public static const GFX_UI_CONTRACT_SELECTION:Class;
 		
+		[Embed(source="../../../resources/gfx/introscreenmenu.png")]
+		public static const GFX_UI_MENU:Class;
+		
 		public static const GRAPHICS_HATS:Vector.<Class> = new <Class>[
 			GFX_HAT_EXPLORER,
 			GFX_HAT_PIRATE,
@@ -107,6 +110,7 @@ package mutation.util
 		//	TEXT FORMATS AND FONTS
 		/////////////////////////////////////////////////////
 		public static var FORMAT_H1:TextFormat;
+		public static var FORMAT_H2:TextFormat;
 		
 		
 		
@@ -130,6 +134,13 @@ package mutation.util
 			FORMAT_H1.align 	= TextFormatAlign.CENTER;
 			FORMAT_H1.color	= 0x6699CC;
 			FORMAT_H1.size	 	= 72;
+			
+			FORMAT_H2 			= new TextFormat();
+			FORMAT_H2.font 	= "Century Gothic";
+			FORMAT_H2.bold	= true;
+			FORMAT_H2.align 	= TextFormatAlign.CENTER;
+			FORMAT_H2.color	= 0xFFFFFF;
+			FORMAT_H2.size	 	= 36;
 		}
 	}
 

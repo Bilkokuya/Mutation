@@ -6,6 +6,8 @@ package mutation.entity
 	//		NB: Could be refactored into an interface, but that involves duplication of these shared variables and the getters/setters for them
 	public class BaseDescriptor 
 	{
+
+		public var arrayListing:int				=  0;
 		public var graphic:int						=	0;			//	Where the bitmap for this will be found in the Resources graphics array
 		public var isUnlocked:Boolean	=	true;		//	True if it is unlocked/useable by default
 		public var unlockCost:Number	=	0;			//	Cost to unlock it (if it is not unlocked)

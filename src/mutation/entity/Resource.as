@@ -63,6 +63,21 @@ package mutation.entity
 			rate_ *= rateScale;
 			limit_ *= limitScale;
 		}
+		
+		public function getToken():Object
+		{
+			var token:Object = new Object();
+			token.amount		=	amount;
+			token.rate				=	rate_;
+			token.limit				=	limit_;
+			
+			return token;
+		}
+		
+		public function buildFromToken(token:Object):void
+		{
+			setup(token.amount, token.rate, token.limit);
+		}
 	}
 
 }

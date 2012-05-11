@@ -9,6 +9,7 @@ package mutation
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.net.SharedObject;
 	import flash.ui.Keyboard;
 	import mutation.events.MutationEvent;
 	import mutation.ui.screens.IntroScreen;
@@ -45,6 +46,7 @@ package mutation
 			stage.addEventListener(MutationEvent.PAUSE, onPause);
 			stage.addEventListener(MutationEvent.UNPAUSE, onUnpause);
 			stage.addEventListener(MutationEvent.GAME, onGame);
+			stage.addEventListener(MutationEvent.NEWGAME, onNewGame);
 			stage.addEventListener(MutationEvent.MENU, onMenu);
 		}
 		
@@ -56,7 +58,7 @@ package mutation
 			stage.dispatchEvent(new MutationEvent(MutationEvent.TICK, tickCount));
 			
 			//	Send out the main game or menu ticks if it is paused
-			if (!isPaused){
+			if (!isPaused) {
 				stage.dispatchEvent(new MutationEvent(MutationEvent.TICK_MAIN, tickCount));
 			}else {
 				stage.dispatchEvent(new MutationEvent(MutationEvent.TICK_MENU, tickCount));
@@ -66,7 +68,18 @@ package mutation
 		//	Stars the game
 		private function onGame(e:MutationEvent):void
 		{
-			menu.visible = false;
+			var save:SharedObject = SharedObject.getLocal("MutationGDM" );
+			
+			game = new Game();
+			addChild(game);
+			game.buildFromToken(save.data.gamedata);
+		}
+		
+		//	Stars the game
+		private function onNewGame(e:MutationEvent):void
+		{
+			var save:SharedObject = SharedObject.getLocal("MutationGDM" );
+			save.clear();
 			game = new Game();
 			addChild(game);
 		}
@@ -76,7 +89,6 @@ package mutation
 		{
 			game.kill();
 			removeChild(game);
-			menu.visible = true;
 		}
 		
 		//	Pause the main game

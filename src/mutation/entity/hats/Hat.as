@@ -14,7 +14,7 @@ package mutation.entity.hats
 	{
 		private var game:Game;					//	Reference to the game being run
 		
-		private var type:HatDescriptor;		//	The base type this instance takes functionality from
+		public var type:HatDescriptor;		//	The base type this instance takes functionality from
 		private var bitmap:Bitmap;				//	The visual element of this instance
 		
 		//	Constructor takes an existig HatDescriptor
@@ -57,6 +57,7 @@ package mutation.entity.hats
 		{
 			return type.moneyRateScale;
 		}
+		
 	}
 
 }

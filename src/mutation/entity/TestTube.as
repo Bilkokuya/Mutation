@@ -313,6 +313,35 @@ package mutation.entity
 			windowVisual.graphics.endFill();
 		}
 		
+		public function getToken():Object
+		{
+			var token:Object 	= new Object();
+			var bacteriasTokens:Array = new Array();
+			for each (var b:Bacteria in bacterias) {
+				bacteriasTokens.push(b.getToken());
+			}
+			
+			token.radius 			=	radius;
+			token.bacterias 	= bacteriasTokens;
+			token.count			=	bacteriaCount;
+			
+			return token;
+		}
+		
+		public function buildFromToken(token:Object):void
+		{
+			radius = token.radius;
+			
+			for (var i:int = 0; i < token.count; ++i) {
+				var b:Bacteria = new Bacteria(game);
+				b.buildFromToken(token.bacterias[i]);
+				spawnBacteria(b);
+			}
+			
+			draw();
+			
+		}
+		
 	}
 
 }

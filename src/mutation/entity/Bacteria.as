@@ -65,11 +65,11 @@ package mutation.entity
 		public function Bacteria(game:Game, x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
 			
 			this.game = game;
+			nameString = new String();
 			
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
-			
 			
 			target = null;
 			canMove = true;
@@ -104,7 +104,8 @@ package mutation.entity
 		}
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
-		public function onTick(e:MutationEvent):void {
+		public function onTick(e:MutationEvent):void
+		{
 			processHungerState();
 			
 			food.update();
@@ -244,6 +245,27 @@ package mutation.entity
 			
 			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
 			money = new Resource(Math.random() * 50, 1*this.hat.moneyRateScale, 100*this.hat.moneyAmountScale);
+		}
+		
+		public function getToken():Object
+		{
+			var token:Object = new Object();
+			token.nameString		=	nameString;
+			token.money				=	money.getToken();
+			token.hat						=	hat.type.arrayListing;
+			token.x							=	x;
+			token.y							=	y;
+			
+			return token;
+		}
+		
+		public function buildFromToken(token:Object):void
+		{
+			nameString = token.nameString;
+			x						=	token.x;
+			y						=	token.y;
+			money.buildFromToken(token.money);
+			setHat(new Hat(game, game.hats.getAt(token.hatindex) as HatDescriptor));
 		}
 	}
 }

@@ -3,7 +3,9 @@ package mutation.ui.screens
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.net.SharedObject;
 	import mutation.events.MutationEvent;
+	import mutation.Game;
 	import mutation.ui.Button;
 
 	public class PauseMenu extends Sprite
@@ -12,12 +14,14 @@ package mutation.ui.screens
 		private const HEIGHT:int = 250;
 		private const MARGIN:int = 10;
 		
+		private var game:Game;
 		private var menu:Sprite;
 		private var continueButton:Button;
 		private var quitButton:Button;
 		
-		public function PauseMenu() 
+		public function PauseMenu(game:Game) 
 		{
+			this.game = game;
 			menu = new Sprite();
 			continueButton = new Button(MARGIN + 50, 50, "CONTINUE");
 			quitButton = new Button(MARGIN + 50, 125, "QUIT");
@@ -85,7 +89,14 @@ package mutation.ui.screens
 		//	Quit the game
 		private function onQuit(e:MouseEvent):void
 		{
-			if (stage){
+			var save:SharedObject = SharedObject.getLocal("MutationGDM");
+			
+			save.data.isSaved = true;
+			save.data.gamedata = game.getToken();
+			save.flush();
+			
+			if (stage) {
+				stage.dispatchEvent(new MutationEvent(MutationEvent.UNPAUSE) );
 				stage.dispatchEvent(new MutationEvent(MutationEvent.MENU) );
 			}
 		}

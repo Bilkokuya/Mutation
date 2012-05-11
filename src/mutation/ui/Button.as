@@ -14,6 +14,7 @@ package mutation.ui
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import mutation.events.ButtonEvent;
+	import mutation.util.Resources;
 
 	//	Class: Button extends Sprite
 	//	A button that registers clicks and fires events of the specified type.
@@ -21,28 +22,23 @@ package mutation.ui
 	{
 		
 		public var buttonName:String;
-		private var text:TextField;
+		private var textOut:TextField;
 		private var trueWidth:Number;
 		private var trueHeight:Number;
-		private var selectedTube:Number;
-		private var shapes:Array;
-		
-		public function Button(x:Number, y:Number, name:String, width:Number = 100, height:Number = 50) 
+		private var colourNormal:int;
+		private var colourHover:int;
+
+		public function Button(x:Number, y:Number, name:String, width:Number = 100, height:Number = 50, colour:int = 0xAAAAAA, colour2:int = 0xDDDDDD) 
 		{
-			shapes = new Array();
-			for (var i:int = 4; i < 4; ++i) {
-				var shape:Shape = new Shape();
-				shape.x = i * ((width / 4) - 10);
-				shape.y = 0;
-				
-			}
-			
 			super();
 			this.x = x;
 			this.y = y;
 			trueWidth = width;
 			trueHeight = height;
 			this.buttonName = name;
+			this.colourNormal = colour;
+			this.colourHover = colour2;
+			
 			if (stage) {
 				onInit();
 			}else {
@@ -55,16 +51,17 @@ package mutation.ui
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			text = new TextField();
+			textOut = new TextField();
+
+			addChild(textOut);
+			textOut.defaultTextFormat = Resources.FORMAT_H2;
+			textOut.text = buttonName;
+			textOut.x = 0;
+			textOut.y = 0;
+			textOut.autoSize = TextFieldAutoSize.CENTER;
+			textOut.selectable = false;
 			
-			draw(0xFF6600);
-			
-			addChild(text);
-			text.text = buttonName;
-			text.x = ( -trueWidth / 2) + 5;
-			text.y = ( -trueHeight / 2) + 5;
-			text.autoSize = TextFieldAutoSize.LEFT;
-			text.selectable = false;
+			draw(colourNormal);
 			
 			addEventListener(MouseEvent.CLICK, onClick);
 			addEventListener(MouseEvent.MOUSE_DOWN, onDown);
@@ -102,28 +99,38 @@ package mutation.ui
 		
 		private function onDown(e:MouseEvent):void
 		{
-			draw(0xCC5500);
+			draw(colourHover,2,2);
 		}
 		private function onRelease(e:MouseEvent):void
 		{
-			draw(0xFF9900);
+			draw(colourHover, 0,0);
 		}
 		
 		private function onRollOver(e:MouseEvent):void
 		{
-			draw(0xFF9900);
+			draw(colourHover);
 		}
 		private function onRollOut(e:MouseEvent):void
 		{
-			draw(0xFF6600);
+			draw(colourNormal);
 		}
 		
-		private function draw(colour:int):void
+		private function draw(colour:int, dx:int = 0, dy:int = 0 ):void
 		{
 			graphics.clear();
-			graphics.beginFill(colour);
-			graphics.drawRect( -trueWidth/2, -trueHeight/2, trueWidth, trueHeight);
+			
+			//	Draw the thin "shadow" (it's not a shadow, but semi-border)
+			graphics.beginFill(0x838383);
+			graphics.drawRect(1, 1, trueWidth, trueHeight);
 			graphics.endFill();
+			
+			//	Draw the main box
+			graphics.beginFill(colour);
+			graphics.drawRect( dx, dy, trueWidth, trueHeight);
+			graphics.endFill();
+			
+			textOut.x = dx;
+			textOut.y = dy;
 		}
 	}
 

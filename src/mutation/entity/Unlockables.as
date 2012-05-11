@@ -8,6 +8,7 @@ package mutation.entity
 		
 		public var unlocked:Vector.<BaseDescriptor> = new Vector.<BaseDescriptor>();	//	Contains the currently unlocked items
 		public var locked:Vector.<BaseDescriptor> = new Vector.<BaseDescriptor>();		//	Contains all of the currently locked items
+		public var numUnlocked:int = 0;
 		
 		//	Constructs using fake Template <T> and an xmlList of the objects to instantiate
 		public function Unlockables(T:Class, xmlList:XMLList) 
@@ -18,6 +19,7 @@ package mutation.entity
 				
 				if (loadedItem.isUnlocked) {
 					unlocked.push(loadedItem);
+					numUnlocked++;
 				}else {
 					locked.push(loadedItem);
 				}
