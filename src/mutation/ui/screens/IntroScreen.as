@@ -36,13 +36,14 @@ package mutation.ui.screens
 			
 			menu = new Sprite();
 			menuBacking = new Resources.GFX_UI_MENU;
-			playButton = new Button(15, 15, "PLAY", 140, 50, 0x97b9f3, 0xc0d4f8);
+			playButton = new Button(15, 15, "NEW GAME", 140, 50, 0x97b9f3, 0xc0d4f8);
 			
 			var save:SharedObject = SharedObject.getLocal("MutationGDM" );
 			if (save.data.isSaved){
-				continueButton = new Button(15, 80, "CONTINUE", 140, 50, 0xb4b4b4, 0xd4d4d4);
+				continueButton = new Button(15, 80, "CONTINUE..", 140, 50, 0xb4b4b4, 0xd4d4d4);
 			}else {
-				continueButton = new Button(15, 80, "CONT..", 140, 50, 0x141414, 0x141414);
+				continueButton = new Button(15, 80, "CONTINUE..", 140, 50, 0x444444, 0x444444);
+				continueButton.alpha = 0.3;
 			}
 			if (save.data.isSaved){
 				continueButton.addEventListener(ButtonEvent.CLICKED, onContinue);
@@ -122,7 +123,8 @@ package mutation.ui.screens
 			if (save.data.isSaved){
 				continueButton = new Button(15, 80, "CONTINUE", 140, 50, 0xb4b4b4, 0xd4d4d4);
 			}else {
-				continueButton = new Button(15, 80, "CONT..", 140, 50, 0x141414, 0x141414);
+				continueButton = new Button(15, 80, "CONTINUE..", 140, 50, 0x444444, 0x444444);
+				continueButton.alpha = 0.3;
 			}
 			
 			menu.addChild(continueButton);

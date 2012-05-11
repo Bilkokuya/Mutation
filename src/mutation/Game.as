@@ -106,7 +106,8 @@ package mutation
 				contractSelector.visible = true;
 			}
 			ui.update();
-			
+			ui.collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
+			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 		}
 		
 		private function onTick(e:MutationEvent):void
@@ -251,7 +252,7 @@ package mutation
 			for (var hatCount:int = hats.numUnlocked; hatCount < token.hatsUnlocked; ++hatCount ) {
 				hats.unlockNext();
 			}
-			for (var foodCount:int = foods.numUnlocked; foodCount < token.hatsUnlocked; ++foodCount ) {
+			for (var foodCount:int = foods.numUnlocked; foodCount < token.foodUnlocked; ++foodCount ) {
 				foods.unlockNext();
 			}
 			

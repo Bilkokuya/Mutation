@@ -140,7 +140,7 @@ package mutation.util
 			FORMAT_H2.bold	= true;
 			FORMAT_H2.align 	= TextFormatAlign.CENTER;
 			FORMAT_H2.color	= 0xFFFFFF;
-			FORMAT_H2.size	 	= 36;
+			FORMAT_H2.size	 	= 24;
 		}
 	}
 

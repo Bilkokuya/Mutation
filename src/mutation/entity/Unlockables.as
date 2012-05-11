@@ -18,7 +18,7 @@ package mutation.entity
 				var loadedItem:BaseDescriptor = new T(xml);
 				
 				if (loadedItem.isUnlocked) {
-					unlocked.push(loadedItem);
+					loadedItem.arrayListing = unlocked.push(loadedItem) - 1;
 					numUnlocked++;
 				}else {
 					locked.push(loadedItem);
@@ -44,7 +44,8 @@ package mutation.entity
 		public function unlockNext():void
 		{
 			if (locked.length > 0){
-				unlocked.push( locked.pop() );
+				var index:int = unlocked.push( locked.pop() ) - 1;
+				unlocked[index].arrayListing = index;
 				numUnlocked++;
 			}
 		}
