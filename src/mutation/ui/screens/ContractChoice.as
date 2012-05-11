@@ -1,5 +1,6 @@
-package mutation.ui.contracts 
+package mutation.ui.screens 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -9,19 +10,21 @@ package mutation.ui.contracts
 	import mutation.events.ContractEvent;
 	import mutation.Game;
 	import mutation.Main;
+	import mutation.ui.contracts.ContractDescriptor;
+	import mutation.ui.contracts.ContractOption;
 	import mutation.util.Resources;
 
 	public class ContractChoice extends Sprite
 	{
 		private var game:Game;
-
+		
 		private var group:int = 0;
 		private var options:Vector.<ContractOption> = new Vector.<ContractOption>();
 		
 		public function ContractChoice(game:Game) 
 		{			
 			this.game = game;
-			
+
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -58,7 +61,7 @@ package mutation.ui.contracts
 		private function draw():void
 		{
 			graphics.clear();
-			graphics.beginFill(0x111122, 0.85);
+			graphics.beginFill(0x111122, 0.8);
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			graphics.endFill();
 		}
@@ -105,7 +108,7 @@ package mutation.ui.contracts
 			
 			//	layout the options evenly across the screen evenly across the center
 			for (var i:int = 0; i < loaded; ++i) {
-				options[i].x = (stage.stageWidth / 2 ) - (loaded* 155 / 2) + (i * 155);
+				options[i].x = (stage.stageWidth / 2 ) - (loaded* 180 / 2) + (i * 180);
 				options[i].y = 50;
 			}
 		}

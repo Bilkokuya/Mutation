@@ -20,18 +20,19 @@ package mutation
 	import mutation.events.MoneyEvent;
 	import mutation.events.MutationEvent;
 	import mutation.ui.contracts.Contract;
-	import mutation.ui.contracts.ContractChoice;
+	import mutation.ui.screens.ContractChoice;
 	import mutation.ui.contracts.ContractDescriptor;
 	import mutation.ui.FoodSelector;
 	import mutation.ui.NameBacteriaDisplay;
-	import mutation.ui.PauseMenu;
+	import mutation.ui.screens.PauseMenu;
 	import mutation.ui.UI;
 	import mutation.util.Resources;
 
 	public class Game extends Sprite
 	{
 		public const NUM_TUBES:Number = 4;
-		public const BACTERIA_COST:Number = 150;	//	Cost of buying a new bacteria
+		public var BACTERIA_COST:Number = 250;	//	Cost of buying a new bacteria
+		public var bacteriaCount:int = 0;
 		
 		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);				//	Hat types that have been unlocked
 		public var foods:Unlockables = new Unlockables(FoodDescriptor, Resources.getXML(Resources.XML_FOODS).food);	//	Food types that have been unlocked
@@ -41,7 +42,7 @@ package mutation
 		
 		public var ui:UI;	//	UI overlay, handles all upgrades etc, passes info back to the game
 
-		public var money_:int = 250;								//	Money for buying food  and upgrades
+		public var money_:int = 50;								//	Money for buying food  and upgrades
 		
 		public var contractSelector:ContractChoice;
 		public var contract:Contract;
@@ -60,8 +61,6 @@ package mutation
 			testTubes = new Vector.<TestTube>();
 			pauseMenu = new PauseMenu();
 			
-			
-					
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -87,7 +86,6 @@ package mutation
 			addChild(pauseMenu);
 			pauseMenu.visible = false;
 			
-			popup.display(new Bacteria(this, 0, 0, 5));
 			Main.isPaused = true;
 			
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
@@ -96,6 +94,16 @@ package mutation
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 			contractSelector.addEventListener(ContractEvent.SELECTED, onContract);
 			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
+			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
+		}
+		
+		private function onTick(e:MutationEvent):void
+		{
+			if ( (money < BACTERIA_COST) && (bacteriaCount < 1) ) {
+				Main.isPaused = true;
+				popup.display(new Bacteria(this, 0, 0, 5));
+			}
 		}
 		
 		//	Recursively kills itself and then everything it holds
@@ -132,10 +140,10 @@ package mutation
 		//	Called when the new Bacteria button is pressed
 		private function onButton(e:ButtonEvent):void
 		{
-			if (money < BACTERIA_COST) {
-				return;
+			if (money > (BACTERIA_COST * (bacteriaCount*bacteriaCount))) {
+				money -= (BACTERIA_COST * (bacteriaCount*bacteriaCount)) ;
 			}else {
-				money -= BACTERIA_COST;
+				return;
 			}
 			popup.display(new Bacteria(this, 0,0,5));
 			Main.isPaused = true;
@@ -145,12 +153,17 @@ package mutation
 		//	Called when a bacteria has been given a name
 		private function onBacteriaNamed(e:BacteriaEvent):void
 		{
+			bacteriaCount++;
 			popup.hide();
 			Main.isPaused = false;
 			testTubes[0].spawnBacteria(e.bacteria);
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
+		private function onBacteriaDeath(e:BacteriaEvent):void
+		{
+			bacteriaCount--;
+		}
 		
 		//	Called when the collection is emptied (clicked on)
 		private function onCollected(e:ButtonEvent):void

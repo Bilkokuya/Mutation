@@ -1,5 +1,6 @@
 package mutation.ui.contracts 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -7,12 +8,16 @@ package mutation.ui.contracts
 	import flash.text.TextFieldAutoSize;
 	import mutation.events.ContractEvent;
 	import mutation.Game;
+	import mutation.util.Resources;
 
 	public class ContractOption extends Sprite
 	{
 		private var game:Game;
-		private var option:Sprite;
-		private var desc:TextField;
+		private var option:Bitmap;
+		
+		private var titleOut:TextField;
+		private var descOut:TextField;
+		
 		private var type:ContractDescriptor;
 		
 		public function ContractOption(game:Game, descriptor:ContractDescriptor) 
@@ -21,8 +26,9 @@ package mutation.ui.contracts
 			
 			this.type = descriptor;
 			
-			desc = new TextField();
-			option = new Sprite();
+			titleOut = new TextField();
+			descOut = new TextField();
+			option  = new Resources.GFX_UI_CONTRACT_SELECTION;
 			
 			super();
 			if (stage) onInit();
@@ -32,28 +38,28 @@ package mutation.ui.contracts
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			desc.text = type.description;
-			desc.autoSize = TextFieldAutoSize.LEFT;
-			desc.x = 10;
-			desc.wordWrap = true;
-			desc.width = 130;
+			
+			titleOut.text = type.title;
+			titleOut.autoSize = TextFieldAutoSize.LEFT;
+			titleOut.x = 25;
+			titleOut.y = 20;
+			titleOut.wordWrap = true;
+			titleOut.width = 100;
+			
+			descOut.text = type.description;
+			descOut.autoSize = TextFieldAutoSize.LEFT;
+			descOut.x = 25;
+			descOut.y  = 40;
+			descOut.wordWrap = true;
+			descOut.width = 100;
 			
 			addChild(option);
-			option.addChild(desc);
-			
-			draw();
+			addChild(titleOut);
+			addChild(descOut);
 			
 			addEventListener(MouseEvent.CLICK, onClick);
 		}
-		
-		private function draw():void
-		{	
-			option.graphics.clear();
-			option.graphics.beginFill(0xFFFFFF);
-			option.graphics.drawRect(0, 0, 150, 250);
-			option.graphics.endFill();
-		}
-		
+
 		private function onClick(e:MouseEvent):void
 		{
 			dispatchEvent(new ContractEvent(ContractEvent.SELECTED, new Contract(stage, type))) ;

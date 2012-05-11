@@ -33,7 +33,7 @@
 	<contract>
 		<id> 					0		</id>
 		<next>					10		</next>
-		<name>					Complete</name>
+		<title>					BONUS!</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		100  	</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -48,7 +48,7 @@
 	<contract>
 		<id> 					1		</id>
 		<next>					2		</next>
-		<name>					HUUMANS	</name>
+		<title>					PLAGUE!	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -63,7 +63,7 @@
 	<contract>
 		<id> 					1		</id>
 		<next>					2		</next>
-		<name>					HUUMANS	</name>
+		<title>					RABBITS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -78,7 +78,7 @@
 	<contract>
 		<id> 					1		</id>
 		<next>					2		</next>
-		<name>					HUUMANS	</name>
+		<title>					HERPES	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -93,7 +93,7 @@
 	<contract>
 		<id> 					2		</id>
 		<next>					3		</next>
-		<name>					HUUMANS	</name>
+		<title>					HUUMANS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -108,7 +108,7 @@
 	<contract>
 		<id> 					2		</id>
 		<next>					3		</next>
-		<name>					HUUMANS	</name>
+		<title>					HUUMANS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -123,7 +123,7 @@
 	<contract>
 		<id> 					2		</id>
 		<next>					3		</next>
-		<name>					HUUMANS	</name>
+		<title>					HUUMANS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -137,7 +137,7 @@
 	<contract>
 		<id> 					3		</id>
 		<next>					4		</next>
-		<name>					HUUMANS	</name>
+		<title>					HUUMANS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -151,7 +151,7 @@
 	<contract>
 		<id> 					4		</id>
 		<next>					5		</next>
-		<name>					HUUMANS	</name>
+		<title>					HUUMANS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -165,7 +165,7 @@
 	<contract>
 		<id> 					5		</id>
 		<next>					6		</next>
-		<name>					HUUMANS	</name>
+		<title>					HUUMANS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>

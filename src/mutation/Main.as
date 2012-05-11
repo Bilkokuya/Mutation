@@ -11,7 +11,7 @@ package mutation
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import mutation.events.MutationEvent;
-	import mutation.ui.IntroScreen;
+	import mutation.ui.screens.IntroScreen;
 	import mutation.util.Resources;
 	
 	//	Class: Main extends Sprite

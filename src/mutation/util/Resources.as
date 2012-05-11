@@ -1,5 +1,7 @@
 package mutation.util 
 {
+	import flash.text.TextFormat;
+	import flash.text.TextFormatAlign;
 	import flash.utils.ByteArray;
 	import mutation.entity.foods.FoodDescriptor;
 	import mutation.entity.hats.HatDescriptor;
@@ -35,6 +37,9 @@ package mutation.util
 		
 		[Embed(source = "../../../resources/gfx/arrow.png")]
 		public static const GFX_UI_ARROW:Class;
+		
+		[Embed(source="../../../resources/gfx/contractselectionbox.png")]
+		public static const GFX_UI_CONTRACT_SELECTION:Class;
 		
 		public static const GRAPHICS_HATS:Vector.<Class> = new <Class>[
 			GFX_HAT_EXPLORER,
@@ -89,14 +94,6 @@ package mutation.util
 		//	Data that does not change after initial loading from the XML
 		public static var ITEMS:Array = new Array();
 		public static var LEVELS:Array = new Array();
-
-		//	Loads in the basic data from the embedded XML
-		//	Easily changed to use external xml
-		public static function load():void
-		{
-			loadStatic(ItemDescriptor, getXML(XML_ITEMS).item, ITEMS);
-			loadStatic(Level, getXML(XML_LEVELS).level, LEVELS);
-		}
 		
 		//	Loads a non-unlockable item from xml, and puts it into the given array
 		private static function loadStatic(T:Class, xmlList:XMLList, array:Array):void
@@ -106,8 +103,34 @@ package mutation.util
 			}
 		}
 		
+		//////////////////////////////////////////////////////
+		//	TEXT FORMATS AND FONTS
+		/////////////////////////////////////////////////////
+		public static var FORMAT_H1:TextFormat;
+		
+		
+		
 		public function Resources();
 		
+		//	Loads the resources that need set up
+		//	Easily changed to use external xml
+		public static function load():void
+		{
+			loadStatic(ItemDescriptor, getXML(XML_ITEMS).item, ITEMS);
+			loadStatic(Level, getXML(XML_LEVELS).level, LEVELS);
+			
+			loadFormats();
+		}
+		
+		public static function loadFormats():void
+		{
+			FORMAT_H1 			= new TextFormat();
+			FORMAT_H1.font 	= "Century Gothic";
+			FORMAT_H1.bold	= true;
+			FORMAT_H1.align 	= TextFormatAlign.CENTER;
+			FORMAT_H1.color	= 0x6699CC;
+			FORMAT_H1.size	 	= 72;
+		}
 	}
 
 }

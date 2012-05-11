@@ -1,9 +1,10 @@
-package mutation.ui 
+package mutation.ui.screens 
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import mutation.events.MutationEvent;
+	import mutation.ui.Button;
 
 	public class PauseMenu extends Sprite
 	{
