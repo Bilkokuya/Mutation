@@ -252,10 +252,10 @@ package mutation.entity
 			var token:Object = new Object();
 			token.nameString		=	nameString;
 			token.money				=	money.getToken();
-			token.hat						=	hat.type.arrayListing;
-			token.x							=	x;
-			token.y							=	y;
-			token.radius				= radius;
+			token.hat				=	hat.type.arrayListing;
+			token.x					=	x;
+			token.y					=	y;
+			token.radius			= radius;
 			
 			return token;
 		}

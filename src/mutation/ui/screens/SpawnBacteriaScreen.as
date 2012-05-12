@@ -37,11 +37,11 @@ package mutation.ui.screens
 			hatSelector		= new HatSelector(game);
 			bacteria		= new Bacteria(game, 0, 0, 5);
 			hatSelector.x	= 15;
-			hatSelector.y	= 30;
+			hatSelector.y	= 50;
 			
 			
 			infoOut.text = "Spawn New Bacteria";
-			infoOut.y = 50;
+			infoOut.y = 80;
 			infoOut.x = 20;
 			infoOut.width = 150;
 			infoOut.multiline = true;
@@ -51,7 +51,7 @@ package mutation.ui.screens
 			nameInput.type = TextFieldType.INPUT;
 			nameInput.text = "Name...";
 			nameInput.border = true;
-			nameInput.y = 80;
+			nameInput.y = 120;
 			nameInput.x = 25;
 			nameInput.multiline = false;
 			nameInput.background = true;
@@ -76,12 +76,9 @@ package mutation.ui.screens
 			menu.addChild(nameInput);
 			menu.addChild(hatSelector);
 			
-			
 			menu.x = 225;
 			menu.y = 50;
-			
-			draw();
-			
+
 			nameInput.addEventListener(FocusEvent.FOCUS_IN, onFocus);
 			nameInput.addEventListener(KeyboardEvent.KEY_UP, onEnter);
 		}
@@ -116,10 +113,6 @@ package mutation.ui.screens
 			if (stage){
 				parent.addChildAt(this, parent.numChildren - 1);
 			}
-		}
-		
-		private function draw():void
-		{
 		}
 		
 	}
