@@ -79,6 +79,15 @@ package mutation.ui.screens
 		{
 			playButton.removeEventListener(ButtonEvent.CLICKED, onPlay);
 			playButton.kill();
+			
+			continueButton.removeEventListener(ButtonEvent.CLICKED, onContinue);
+			continueButton.kill();
+			
+			if(stage){
+				stage.removeEventListener(MutationEvent.MENU, onMenu);
+				stage.removeEventListener(MutationEvent.GAME, onGame);
+				stage.removeEventListener(MutationEvent.NEWGAME, onGame);
+			}
 		}
 		
 		private function draw():void

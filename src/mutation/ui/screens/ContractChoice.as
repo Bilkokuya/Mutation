@@ -23,14 +23,16 @@ package mutation.ui.screens
 		private var group:int = 0;
 		private var options:Vector.<ContractOption> = new Vector.<ContractOption>();
 		
+		
 		public function ContractChoice(game:Game) 
-		{			
+		{	
 			this.game = game;
 
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
+		
 		
 		private function onInit(e:Event = null):void
 		{
@@ -49,16 +51,26 @@ package mutation.ui.screens
 			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
 		}
 		
+		
 		public function kill():void
-		{
+		{	
+			if(stage){
+				stage.removeEventListener(ContractEvent.COMPLETED, onContractComplete);
+			}
+			for each (var o:ContractOption in options) {
+				o.kill();
+				o.removeEventListener(ContractEvent.SELECTED, onSelected);
+			}
 			
 		}
 
+		
 		private function onSelected(e:ContractEvent):void
 		{
 			dispatchEvent(new ContractEvent(ContractEvent.SELECTED, e.contract));
 			this.visible = false;
 		}
+		
 		
 		private function draw():void
 		{
@@ -77,6 +89,7 @@ package mutation.ui.screens
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			graphics.endFill();
 		}
+		
 		
 		public function updateContracts(initialised:Boolean):void
 		{
@@ -124,6 +137,7 @@ package mutation.ui.screens
 				options[i].y = 50;
 			}
 		}
+		
 		
 		private function onContractComplete(e:ContractEvent):void
 		{

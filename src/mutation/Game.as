@@ -88,14 +88,14 @@ package mutation
 			contractSelector.visible = false;
 			popup.hide();
 			
-			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
+			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
+			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			ui.collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
+			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			contractSelector.addEventListener(ContractEvent.SELECTED, onContract);
-			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
 			
-			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 		}
 		
 		public function start():void
@@ -105,6 +105,7 @@ package mutation
 				Main.isPaused = true;
 				contractSelector.visible = true;
 			}
+			
 			ui.update();
 			ui.collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
@@ -138,6 +139,7 @@ package mutation
 			}
 			pauseMenu.kill();
 			popup.kill();
+			contractSelector.kill();
 			if (contract){
 				contract.kill();
 			}
@@ -229,12 +231,12 @@ package mutation
 			var token:Object 			= new Object();
 			token.hatsUnlocked 	= hats.numUnlocked;
 			token.foodUnlocked 	= foods.numUnlocked;
-			token.money					= money;
-			token.contract				=	contract.type.arrayListing;
+			token.money			= money;
+			token.contract		= contract.type.arrayListing;
 			token.boxesShipped 	= contract.boxesShipped;
-			token.collected		 	= contract.collected;
-			
-			token.testtubes				= testtubesTokens;
+			token.collected		= contract.collected;
+	
+			token.testtubes		= testtubesTokens;
 			
 			return token;
 		}

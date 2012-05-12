@@ -60,6 +60,11 @@ package mutation.ui.contracts
 			addEventListener(MouseEvent.CLICK, onClick);
 		}
 
+		public function kill():void
+		{
+			removeEventListener(MouseEvent.CLICK, onClick);
+		}
+		
 		private function onClick(e:MouseEvent):void
 		{
 			dispatchEvent(new ContractEvent(ContractEvent.SELECTED, new Contract(stage, type))) ;

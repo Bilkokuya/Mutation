@@ -50,7 +50,9 @@ package mutation.ui.contracts
 			collected = 0;
 			boxesShipped++;
 			if (boxesShipped > type.boxesNeeded) {
-				stage.dispatchEvent(new ContractEvent( ContractEvent.COMPLETED, this) );
+				if (stage){
+					stage.dispatchEvent(new ContractEvent( ContractEvent.COMPLETED, this) );
+				}
 			}
 		}
 		
