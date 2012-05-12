@@ -20,13 +20,13 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>\\vmwfil03\students$\1107505\Media_Production_for_Games\Flash\Mutation\src</path-element>
-      <path-element>\\vmwfil03\students$\1107505\Media_Production_for_Games\Flash\as3\src</path-element>
+      <path-element>M:\Media_Production_for_Games\Flash\Mutation\src</path-element>
+      <path-element>M:\Media_Production_for_Games\Flash\as3\src</path-element>
       <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>\\vmwfil03\students$\1107505\Media_Production_for_Games\Flash\Mutation\src\mutation\Main.as</path-element>
+    <path-element>M:\Media_Production_for_Games\Flash\Mutation\src\mutation\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

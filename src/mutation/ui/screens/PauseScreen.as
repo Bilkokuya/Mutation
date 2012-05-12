@@ -8,7 +8,7 @@ package mutation.ui.screens
 	import mutation.Game;
 	import mutation.ui.Button;
 
-	public class PauseMenu extends Sprite
+	public class PauseScreen extends Screen
 	{
 		private const WIDTH:int = 150;
 		private const HEIGHT:int = 250;
@@ -19,7 +19,7 @@ package mutation.ui.screens
 		private var continueButton:Button;
 		private var quitButton:Button;
 		
-		public function PauseMenu(game:Game) 
+		public function PauseScreen(game:Game) 
 		{
 			this.game = game;
 			menu = new Sprite();
@@ -69,10 +69,7 @@ package mutation.ui.screens
 		//	Draw the basic shapes
 		private function draw():void
 		{
-			graphics.beginFill(0x111122, 0.85);
-			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			graphics.endFill();
-			
+			menu.graphics.clear();
 			menu.graphics.beginFill(0xFFFFFF, 1);
 			menu.graphics.drawRect(0, 0, 150, 250);
 			menu.graphics.endFill();

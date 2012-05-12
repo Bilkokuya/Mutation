@@ -15,7 +15,7 @@ package mutation.ui.screens
 	import mutation.ui.Button;
 	import mutation.util.Resources;
 
-	public class IntroScreen extends Sprite
+	public class IntroScreen extends Screen
 	{
 		private var menu:Sprite;
 		private var menuBacking:Bitmap;
@@ -92,16 +92,6 @@ package mutation.ui.screens
 		
 		private function draw():void
 		{
-			var colours:Array = [0x597DA5, 0x325EB8,  0x87AAEA, 0x6699CC];
-			var alphas:Array  = [0.25, 0.25, 0.25, 0.25];
-			var ratios:Array  = [180 , 200 , 201 , 255];
-			var matrix:Matrix = new Matrix();
-			matrix.createGradientBox(stage.stageWidth, stage.stageHeight, 90*(Math.PI/180), 0 , 0);
-			
-			graphics.beginGradientFill(GradientType.LINEAR, colours, alphas, ratios, matrix);
-			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			graphics.endFill();
-			
 			// go faster stripes
 			graphics.beginFill(0x6699CC);
 			graphics.drawRect(0, 180, 250, 5);

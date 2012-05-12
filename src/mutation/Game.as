@@ -20,19 +20,18 @@ package mutation
 	import mutation.events.MoneyEvent;
 	import mutation.events.MutationEvent;
 	import mutation.ui.contracts.Contract;
-	import mutation.ui.screens.ContractChoice;
 	import mutation.ui.contracts.ContractDescriptor;
 	import mutation.ui.FoodSelector;
-	import mutation.ui.NameBacteriaDisplay;
-	import mutation.ui.screens.PauseMenu;
+	import mutation.ui.screens.ContractScreen;
+	import mutation.ui.screens.PauseScreen;
+	import mutation.ui.screens.SpawnBacteriaScreen;
 	import mutation.ui.UI;
 	import mutation.util.Resources;
 
 	public class Game extends Sprite
 	{
-		public const NUM_TUBES:Number = 4;
-		public var BACTERIA_COST:Number = 250;	//	Cost of buying a new bacteria
-		public var bacteriaCount:int = 0;
+		public const NUM_TUBES:Number = 4;				//	Number of test tubes allowed in game
+		private const BACTERIA_BASE_COST:Number = 250;	//	Cost of buying a new bacteria
 		
 		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);				//	Hat types that have been unlocked
 		public var foods:Unlockables = new Unlockables(FoodDescriptor, Resources.getXML(Resources.XML_FOODS).food);	//	Food types that have been unlocked
@@ -40,18 +39,19 @@ package mutation
 		//	Abuse of Unlockables type for contracts, but it shares so much functionality it is worth it. Can be refactored later
 		public var contracts:Unlockables = new Unlockables(ContractDescriptor, Resources.getXML(Resources.XML_CONTRACTS).contract);
 		
-		public var ui:UI;	//	UI overlay, handles all upgrades etc, passes info back to the game
-
-		public var money_:int = 50;								//	Money for buying food  and upgrades
-		
-		public var contractSelector:ContractChoice;
-		public var contract:Contract;
-		
+		public var ui:UI;							//	UI overlay, handles all upgrades etc, passes info back to the game
+		public var money_:int = 50;					//	Money for buying food  and upgrades
+	
+		public var contract:Contract;				//	Current contract for collecting items
+		public var foodSelection:int;				//	Current food selected
 		public var testTubes:Vector.<TestTube>;		//	Test Tubes that hold the individual bacteria
-		public var foodSelection:int;							//	Current food selected
-		private var popup:NameBacteriaDisplay;	//	Popup that appears when a bacteria is spawned
-		private var pauseMenu:PauseMenu;
 		
+		private var popup:SpawnBacteriaScreen;		//	Popup that appears when a bacteria is spawned
+		private var pauseMenu:PauseScreen;			//	Pause menu that appears over the game
+		public var contractSelector:ContractScreen;	//	Contract selection screen when a new contract is needed
+		
+		//	Simple constructor
+		//	use buildFromToken() to load existing game, once instantiated
 		public function Game()
 		{
 			foodSelection = 1;
@@ -59,7 +59,7 @@ package mutation
 			ui = new UI(this);
 			
 			testTubes = new Vector.<TestTube>();
-			pauseMenu = new PauseMenu(this);
+			pauseMenu = new PauseScreen(this);
 			
 			super();
 			if (stage) onInit();
@@ -71,9 +71,9 @@ package mutation
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			popup = new NameBacteriaDisplay(this, stage.stageWidth / 2, stage.stageHeight / 2);
+			popup = new SpawnBacteriaScreen(this);
 			
-			contractSelector = new ContractChoice(this);
+			contractSelector = new ContractScreen(this);
 			
 			for (var i:int = 0; i < NUM_TUBES; ++i){
 				testTubes.push( new TestTube(this, ((stage.stageWidth - (NUM_TUBES * 75)) / 2)  + (i * 100), 200, 60) );
@@ -86,18 +86,17 @@ package mutation
 			addChild(pauseMenu);
 			pauseMenu.visible = false;
 			contractSelector.visible = false;
-			popup.hide();
+			popup.visible = false;
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
-			stage.addEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			ui.collectButton.addEventListener(ButtonEvent.CLICKED, onCollected);
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			contractSelector.addEventListener(ContractEvent.SELECTED, onContract);
-			
 		}
 		
+		//	Starts the game - allows for game to be built from load, before main ticks start
 		public function start():void
 		{
 			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
@@ -111,9 +110,10 @@ package mutation
 			ui.bacteriaButton.addEventListener(ButtonEvent.CLICKED, onButton);
 		}
 		
+		//	Main update loop
 		private function onTick(e:MutationEvent):void
 		{
-			if ( (money < BACTERIA_COST) && (bacteriaCount < 1) ) {
+			if ( (money < bacteriaCost) && (bacteriaCount < 1) ) {
 				Main.isPaused = true;
 				popup.display(new Bacteria(this, 0, 0, 5));
 			}
@@ -126,7 +126,6 @@ package mutation
 				stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 				stage.removeEventListener(ContractEvent.COMPLETED, onContractComplete);
 				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
-				stage.removeEventListener(BacteriaEvent.DEATH, onBacteriaDeath);
 			}
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			ui.collectButton.removeEventListener(ButtonEvent.CLICKED, onCollected);
@@ -160,8 +159,8 @@ package mutation
 		//	Called when the new Bacteria button is pressed
 		private function onButton(e:ButtonEvent):void
 		{
-			if (money > (BACTERIA_COST * (bacteriaCount*bacteriaCount))) {
-				money -= (BACTERIA_COST * (bacteriaCount*bacteriaCount)) ;
+			if (money > bacteriaCost) {
+				money -= bacteriaCost;
 			}else {
 				return;
 			}
@@ -170,19 +169,18 @@ package mutation
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
+		private function get bacteriaCost():int
+		{
+			return (BACTERIA_BASE_COST * ((bacteriaCount * bacteriaCount)/2 + 1));
+		}
+		
 		//	Called when a bacteria has been given a name
 		private function onBacteriaNamed(e:BacteriaEvent):void
 		{
-			bacteriaCount++;
-			popup.hide();
+			popup.visible = false;
 			Main.isPaused = false;
 			testTubes[0].spawnBacteria(e.bacteria);
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
-		}
-		
-		private function onBacteriaDeath(e:BacteriaEvent):void
-		{
-			bacteriaCount--;
 		}
 		
 		//	Called when the collection is emptied (clicked on)
@@ -220,6 +218,15 @@ package mutation
 		public function get money():int
 		{
 			return money_;
+		}
+		
+		private function get bacteriaCount():int
+		{
+			var count:int = 0;
+			for each (var t:TestTube in testTubes) {
+				count += t.bacteriaCount;
+			}
+			return count;
 		}
 		
 		public function getToken():Object

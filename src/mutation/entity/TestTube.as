@@ -23,7 +23,6 @@ package mutation.entity
 	import mutation.Game;
 	import mutation.Main;
 	import mutation.ui.BacteriaDisplay;
-	import mutation.ui.NameBacteriaDisplay;
 	import mutation.ui.PopupDisplay;
 	import mutation.util.Resources;
 	import mutation.util.Util;
@@ -32,19 +31,20 @@ package mutation.entity
 	//	Represents a single TestTube of bacteria
 	public class TestTube extends Sprite
 	{
-		//	TEMPORARY
-		public var bacteriaCount:int = 0;
-		public const MAX_BACTERIA:int = 50;
-		private const ITEM_CLICK_RANGE:int = 50;
+		public const MAX_BACTERIA:int = 6;		//	Maximum number of bacteria that can be kept in one tube
+		private const ITEM_CLICK_RANGE:int = 35;//	Maximum range the item selector will work at
 		
-		private var bacterias:Array;	//	Array of Bacteria
-		private var foods:Array;		//	Array of Food
-		private var items:Array;
-		private var radius:int;			//	Radius of movement for the testtube
+						//	Reference to the current game
+		public var bacteriaCount:int = 0;		//	Number of bacteria it contains
 		
-		private var flagIsClicked:Boolean = false;
 		private var game:Game;
-		private var selector:Sprite;
+		private var radius:int;					//	Radius of movement for the testtube
+		
+		private var bacterias:Array;			//	Array of Bacteria
+		private var foods:Array;				//	Array of Food
+		private var items:Array;				//	Array of Item
+		
+		private var selector:Sprite;			//	Item selector
 		private var closestItem:Item = null;
 		private var closestRange:Number = ITEM_CLICK_RANGE;
 		private var selected:Boolean = false;
@@ -105,11 +105,13 @@ package mutation.entity
 			parent.addChildAt(this, parent.numChildren - 1);
 			selected = true;
 		}
+		
 		private function onRollOut(e:MouseEvent):void
 		{
 			windowVisual.visible = false;
 			scaleX = 1;
 			scaleY = 1;
+			
 			selected = false;
 		}
 		
@@ -161,7 +163,7 @@ package mutation.entity
 			
 			selector.graphics.clear();
 			if (closestItem) {
-				selector.graphics.lineStyle(10, 0xFF6600,0.2);
+				selector.graphics.lineStyle(8, 0xFF6600,0.2);
 				selector.graphics.moveTo(mouseX, mouseY);
 				selector.graphics.lineTo(closestItem.x, closestItem.y);
 			}
@@ -265,7 +267,6 @@ package mutation.entity
 					foods.push(food);
 					windowVisual.addChild(food);
 					game.money -= cost;
-					game.bacteriaCount++;
 				}
 			}
 		}

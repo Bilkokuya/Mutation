@@ -33,7 +33,7 @@
 		<id> 				0		</id>
 		<name>				DEBRIS	</name>
 		<graphic>			0 		</graphic>
-		<radius>			2		</radius>
+		<radius>			1		</radius>
 		<life>				2		</life>
 		<foodAmount>		50		</foodAmount>
 		<debrisCount>		0		</debrisCount>
@@ -49,7 +49,7 @@
 		<id> 				0		</id>
 		<name>				Single	</name>
 		<graphic>			0 		</graphic>
-		<radius>			4		</radius>
+		<radius>			2		</radius>
 		<life>				4		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		3		</debrisCount>
@@ -65,7 +65,7 @@
 		<id> 				1		</id>
 		<name>				Explodey	</name>
 		<graphic>			1 		</graphic>
-		<radius>			5		</radius>
+		<radius>			3		</radius>
 		<life>				1		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>

@@ -16,7 +16,7 @@ package mutation.ui.screens
 	import mutation.ui.contracts.ContractOption;
 	import mutation.util.Resources;
 
-	public class ContractChoice extends Sprite
+	public class ContractScreen extends Screen
 	{
 		private var game:Game;
 		
@@ -24,7 +24,7 @@ package mutation.ui.screens
 		private var options:Vector.<ContractOption> = new Vector.<ContractOption>();
 		
 		
-		public function ContractChoice(game:Game) 
+		public function ContractScreen(game:Game) 
 		{	
 			this.game = game;
 
@@ -39,7 +39,6 @@ package mutation.ui.screens
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
 			updateContracts(false);
-			draw();
 			
 			for each (var o:ContractOption in options){
 				o.addEventListener(ContractEvent.SELECTED, onSelected);
@@ -72,38 +71,16 @@ package mutation.ui.screens
 		}
 		
 		
-		private function draw():void
-		{
-			graphics.clear();
-			graphics.beginFill(0xFFFFFF, 0.25);
-			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			graphics.endFill();
-			
-			var colours:Array = [0x597DA5, 0x325EB8,  0x87AAEA, 0x6699CC];
-			var alphas:Array  = [0.25, 0.25, 0.25, 1];
-			var ratios:Array  = [180 , 200 , 201 , 255];
-			var matrix:Matrix = new Matrix();
-			matrix.createGradientBox(stage.stageWidth, stage.stageHeight, 90*(Math.PI/180), 0 , 0);
-			
-			graphics.beginGradientFill(GradientType.LINEAR, colours, alphas, ratios, matrix);
-			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			graphics.endFill();
-		}
-		
-		
 		public function updateContracts(initialised:Boolean):void
 		{
 			var loaded:int = 0;
 			
 			//	Clear the previous list, to ensure "old" elements aren't left accidentally
 			if (initialised) {
-					for each (var o:ContractOption in options){
+					for (var i:int = 0; i < options.length; --i) {
+						var o:ContractOption = options.pop();
 						o.removeEventListener(ContractEvent.SELECTED, onSelected);
 						removeChild(o);
-					}
-					//	Remove all entries from the option array
-					for each (var o:ContractOption in options){
-						options.pop();
 					}
 			}
 			
