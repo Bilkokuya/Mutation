@@ -59,6 +59,11 @@ package mutation.entity
 		private var popOut:BacteriaDisplay;	//	onHover display for showing the basic stats
 		public var hat:Hat;										//	Current hat it is wearing
 		
+		private var lastFrame:Boolean = false; 
+		private var bitmapBase:Bitmap;
+		private var bitmapEyes:Bitmap;
+		private var blinkStart:int =( Math.random() * 15);
+		
 		public var level:Leveling = new Leveling();			//	Levelling system, keeps track of it's exp etc
 		
 		//	Constructor: (int, int, int, int)
@@ -67,14 +72,25 @@ package mutation.entity
 			this.game = game;
 			nameString = new String();
 			
+			bitmapBase = new Resources.GFX_BACTERIA();
+			bitmapEyes = new Resources.GFX_EYES_OPEN();
+			
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
 			
+			bitmapEyes.width = 2* radius;
+			bitmapEyes.height = 2* radius;
+			bitmapEyes.x =-radius;
+			bitmapEyes.y = -radius;
+			
+			bitmapBase.width = 2* radius;
+			bitmapBase.height = 2* radius;
+			bitmapBase.x = -radius;
+			bitmapBase.y = -radius;
+			
 			target = null;
 			canMove = true;
-
-			draw(0x0066FF);
 			
 			popOut = new BacteriaDisplay(game,radius, 0, 100, 50, 20, 20);
 			
@@ -83,6 +99,9 @@ package mutation.entity
 			}else {
 				this.hat = new Hat(game, game.hats.getAt(0) as HatDescriptor );
 			}
+			
+			addChild(bitmapBase);
+			addChild(bitmapEyes);
 			addChild(this.hat);
 			
 			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
@@ -114,10 +133,32 @@ package mutation.entity
 				money.update();
 			}
 			
+			// temporary and terrible - please refactor
+			//	will require change of flagIsHungry to an event. makes more sense
 			if (flagIsHungry) {
-				draw(0x006611);
+				if (!lastFrame){
+					removeChild(bitmapBase);
+					bitmapBase = new Resources.GFX_BACTERIA_HUNGRY();
+					addChildAt(bitmapBase,0);
+					bitmapBase.width = 2*radius;
+					bitmapBase.height = 2 * radius;
+					bitmapBase.x = -radius;
+					bitmapBase.y = -radius;
+			
+					lastFrame = flagIsHungry;
+				}
 			}else {
-				draw(0x0066FF);
+				if (lastFrame){
+					removeChild(bitmapBase);
+					bitmapBase = new Resources.GFX_BACTERIA();
+					addChildAt(bitmapBase, 0);
+					bitmapBase.width = 2*radius;
+					bitmapBase.height = 2*radius;
+					bitmapBase.x = -radius;
+					bitmapBase.y = -radius;
+					
+					lastFrame = flagIsHungry;
+				}
 			}
 			
 			if (money.isFilled()) {
@@ -125,6 +166,7 @@ package mutation.entity
 				money.amount = 0;
 			}
 			
+			//	Change to an event
 			if (level.hasLevelledUp()) {
 				onLevelUp();
 			}
@@ -226,15 +268,6 @@ package mutation.entity
 			}
 		}
 		
-		//	Draws the bacteria's vector image
-		private function draw(colour:Number):void
-		{
-			graphics.clear();
-			graphics.beginFill(colour);
-			graphics.drawCircle(0, 0, radius);
-			graphics.endFill();
-		}
-		
 		public function setHat(hat:Hat):void
 		{
 			removeChild(this.hat);
@@ -252,11 +285,11 @@ package mutation.entity
 			var token:Object = new Object();
 			token.nameString		=	nameString;
 			token.money				=	money.getToken();
-			token.hat				=	hat.type.arrayListing;
-			token.x					=	x;
-			token.y					=	y;
-			token.radius			= radius;
-			
+			token.hat						=	hat.type.arrayListing;
+			token.x							=	x;
+			token.y							=	y;
+			token.radius				= radius;
+
 			return token;
 		}
 		
@@ -267,7 +300,7 @@ package mutation.entity
 			y						=	token.y;
 			radius			=	token.radius;
 			money.buildFromToken(token.money);
-			setHat(new Hat(game, game.hats.getAt(token.hatindex) as HatDescriptor));
+			setHat(new Hat(game, game.hats.getAt(token.hat) as HatDescriptor));
 		}
 	}
 }

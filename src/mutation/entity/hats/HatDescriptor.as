@@ -28,7 +28,6 @@ package mutation.entity.hats
 			moneyAmountScale	= stats.moneyAmount;
 			moneyRateScale 		= stats.moneyRate;
 			
-			
 			(xml.unlock.unlocked == "true") ? isUnlocked = true : isUnlocked = false;
 			unlockCost 			= xml.unlock.cost;
 		}

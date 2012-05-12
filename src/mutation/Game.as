@@ -255,14 +255,14 @@ package mutation
 			this.contract.boxesShipped = token.boxesShipped;
 			this.contract.collected = token.collected;
 			
-			for (var i:int = 0; i < NUM_TUBES; ++i) {
-				testTubes[i].buildFromToken(token.testtubes[i]);
-			}
 			for (var hatCount:int = hats.numUnlocked; hatCount < token.hatsUnlocked; ++hatCount ) {
 				hats.unlockNext();
 			}
 			for (var foodCount:int = foods.numUnlocked; foodCount < token.foodUnlocked; ++foodCount ) {
 				foods.unlockNext();
+			}
+			for (var i:int = 0; i < NUM_TUBES; ++i) {
+				testTubes[i].buildFromToken(token.testtubes[i]);
 			}
 			
 		}

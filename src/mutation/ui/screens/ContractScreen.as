@@ -77,7 +77,7 @@ package mutation.ui.screens
 			
 			//	Clear the previous list, to ensure "old" elements aren't left accidentally
 			if (initialised) {
-					for (var i:int = 0; i < options.length; --i) {
+					for (var i:int = 0; i < options.length; ++i) {
 						var o:ContractOption = options.pop();
 						o.removeEventListener(ContractEvent.SELECTED, onSelected);
 						removeChild(o);

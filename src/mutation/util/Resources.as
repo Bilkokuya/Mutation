@@ -17,6 +17,21 @@ package mutation.util
 		//////////////////////////////////////////////////////
 		//	GRAPHICS EMBEDDING
 		///////////////////////////////////////////////////////
+		[Embed(source = "../../../resources/gfx/bacteria.png")]
+		public static const GFX_BACTERIA:Class;
+		
+		[Embed(source = "../../../resources/gfx/bacteriagold.png")]
+		public static const GFX_BACTERIA_GOLD:Class;
+		
+		[Embed(source = "../../../resources/gfx/bacteriahungry.png")]
+		public static const GFX_BACTERIA_HUNGRY:Class;
+		
+		[Embed(source = "../../../resources/gfx/eyes.png")]
+		public static const GFX_EYES_OPEN:Class;
+		
+		[Embed(source = "../../../resources/gfx/eyesblinked.png")]
+		public static const GFX_EYES_BLINKED:Class;
+		
 		[Embed(source="../../../resources/gfx/explorerhat.png")]
 		public static const GFX_HAT_EXPLORER:Class;
 		
