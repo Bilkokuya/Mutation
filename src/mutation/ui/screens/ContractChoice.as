@@ -1,8 +1,10 @@
 package mutation.ui.screens 
 {
 	import flash.display.Bitmap;
+	import flash.display.GradientType;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Matrix;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import mutation.entity.BaseDescriptor;
@@ -61,7 +63,17 @@ package mutation.ui.screens
 		private function draw():void
 		{
 			graphics.clear();
-			graphics.beginFill(0x111122, 0.8);
+			graphics.beginFill(0xFFFFFF, 0.25);
+			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			graphics.endFill();
+			
+			var colours:Array = [0x597DA5, 0x325EB8,  0x87AAEA, 0x6699CC];
+			var alphas:Array  = [0.25, 0.25, 0.25, 1];
+			var ratios:Array  = [180 , 200 , 201 , 255];
+			var matrix:Matrix = new Matrix();
+			matrix.createGradientBox(stage.stageWidth, stage.stageHeight, 90*(Math.PI/180), 0 , 0);
+			
+			graphics.beginGradientFill(GradientType.LINEAR, colours, alphas, ratios, matrix);
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			graphics.endFill();
 		}

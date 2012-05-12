@@ -28,7 +28,7 @@ package mutation.ui.contracts
 			
 			titleOut = new TextField();
 			descOut = new TextField();
-			option  = new Resources.GFX_UI_CONTRACT_SELECTION;
+			option  = new Resources.GFX_UI_MENU;
 			
 			super();
 			if (stage) onInit();
