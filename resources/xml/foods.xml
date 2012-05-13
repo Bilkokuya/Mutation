@@ -33,47 +33,48 @@
 		<id> 				0		</id>
 		<name>				DEBRIS	</name>
 		<graphic>			0 		</graphic>
-		<radius>			2		</radius>
+		<radius>			1		</radius>
 		<life>				2		</life>
 		<foodAmount>		50		</foodAmount>
 		<debrisCount>		0		</debrisCount>
 		<debrisType>		0		</debrisType>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</food>
 	
 	<!-- Starter Food -->
 	<food>
 		<id> 				0		</id>
-		<name>				BASIC	</name>
+		<name>				Single	</name>
 		<graphic>			0 		</graphic>
-		<radius>			4		</radius>
+		<radius>			2		</radius>
 		<life>				4		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		3		</debrisCount>
 		<debrisType>		0		</debrisType>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		true 	</unlocked>
+			<cost>			0		</cost>
 		</unlock>
 	</food>
 	
 	<!-- High Explosive Food -->
 	<food>
 		<id> 				1		</id>
-		<name>				DOUBLE	</name>
-		<graphic>			0 		</graphic>
-		<radius>			6		</radius>
-		<life>				0.5		</life>
+		<name>				Explodey	</name>
+		<graphic>			1 		</graphic>
+		<radius>			3		</radius>
+		<life>				1		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		0		</debrisType>
 		<unlock>
-			<unlocked> 		1 	</unlocked>
-			<cost>			0	</cost>
+			<unlocked> 		false 	</unlocked>
+			<cost>			750		</cost>
 		</unlock>
 	</food>
+	
 	
 </data>

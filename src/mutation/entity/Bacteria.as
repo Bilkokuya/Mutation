@@ -16,6 +16,7 @@ package mutation.entity
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.ui.Mouse;
+	import mutation.entity.hats.HatDescriptor;
 	import mutation.entity.items.Item;
 	import mutation.entity.levelling.Leveling;
 	import mutation.Game;
@@ -31,53 +32,76 @@ package mutation.entity
 	import mutation.util.Util;
 	
 	
-	//	Class: bacteria
+	//	A single bacteria that resides in the test tubes
 	public class Bacteria extends Sprite
 	{
-		private const DIRECTION_RATE:Number = 1 / (2 * 30);
-		private const HUNGRY_SPEED:Number = 2.5;
-		private const HUNGER_LEVEL:Number = 80;
-		private const SPEED:Number = 1.5;
+		private const DIRECTION_RATE:Number = 1 / (2 * 30);	//	Frequency it will change direction
+		private const HUNGER_LEVEL:Number = 80;					//	Level of food before it becomes "hungry"
+		private const HUNGRY_SPEED:Number = 2.5;					//	Factor of speed it moves at when hungry
+		private const SPEED:Number = 1.5;										//	Base speed for movement
 		
-		public var flagIsClicked:Boolean = false;
-		public var flagIsAlive:Boolean = true;
-		public var flagIsHungry:Boolean= false;
-		private var canMove:Boolean;
-		public var hat:Hat;
+		private var game:Game;														//	Reference back to the game this is being run within
 		
-		public var radius:Number;
+		public var flagIsAlive:Boolean = true;								//	True if it hasn't been Killed yet
+		public var flagIsHungry:Boolean= false;							//	True if it is seeking food
+		private var canMove:Boolean;											//	Stops it moving when the player hovers over it
+		
+		public var radius:Number;			//	Radius for collisions and drawing
 		public var xSpeed:Number;		//	Current speed in the x Direction
 		public var ySpeed:Number;		//	Current speed in the y Direction
 		
-		public var nameString:String;
-		public var food:Resource;
-		public var money:Resource;
-		public var level:Leveling = new Leveling(Resources.getXML(Resources.XML_LEVELS));
-		public var moneyType:Class;
+		public var nameString:String;	//	Name of this bacteria, given by the player
+		public var food:Resource;			//	Food keeps it alive, and decreases over time
+		public var money:Resource;		//	Produced by the bacteria; released as an "Item" when it reaches the limit
+		public var moneyType:Class;	//	Type of money that it will produce
 
-		public var target:Sprite;
-		private var popOut:BacteriaDisplay;
+		public var target:Sprite;							//	Current object it is moving towards to eat
+		private var popOut:BacteriaDisplay;	//	onHover display for showing the basic stats
+		public var hat:Hat;										//	Current hat it is wearing
+		
+		private var lastFrame:Boolean = false; 
+		private var bitmapBase:Bitmap;
+		private var bitmapEyes:Bitmap;
+		private var blinkStart:int =( Math.random() * 15);
+		
+		public var level:Leveling = new Leveling();			//	Levelling system, keeps track of it's exp etc
 		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
-			//	Set values from parameters
+		public function Bacteria(game:Game, x:int = 0, y:int = 0, hat:Hat = null) {	
+			
+			this.game = game;
+			nameString = new String();
+			
+			bitmapBase = new Resources.GFX_BACTERIA();
+			bitmapEyes = new Resources.GFX_EYES_OPEN();
+			
 			this.x = x;
 			this.y = y;
-			this.radius = radius;
+			this.radius = 7;
 			
-			//	Initialise basic stats
+			bitmapEyes.width = 2* radius;
+			bitmapEyes.height = 2* radius;
+			bitmapEyes.x = -radius;
+			bitmapEyes.y = -radius;
+			
+			bitmapBase.width = 2* radius;
+			bitmapBase.height = 2* radius;
+			bitmapBase.x = -radius;
+			bitmapBase.y = -radius;
+			
 			target = null;
 			canMove = true;
-
-			draw(0x0066FF);
 			
-			popOut = new BacteriaDisplay(radius, 0, 100, 50, 20, 20);
+			popOut = new BacteriaDisplay(game,radius, 0, 100, 50, 20, 20);
 			
 			if (hat != null) {
 				this.hat = hat;
 			}else {
-				this.hat = new Hat(Game.hats[0]);
+				this.hat = new Hat(game, game.hats.getAt(0) as HatDescriptor );
 			}
+			
+			addChild(bitmapBase);
+			addChild(bitmapEyes);
 			addChild(this.hat);
 			
 			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
@@ -91,7 +115,7 @@ package mutation.entity
 		//	Initialisation after stage
 		public function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			stage.addEventListener(MutationEvent.TICK, onTick);
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 			
@@ -99,7 +123,8 @@ package mutation.entity
 		}
 		
 		//	Updates the logic of this each frame, needs to be called by it's container
-		public function onTick(e:MutationEvent):void {
+		public function onTick(e:MutationEvent):void
+		{
 			processHungerState();
 			
 			food.update();
@@ -108,17 +133,56 @@ package mutation.entity
 				money.update();
 			}
 			
+			// temporary and terrible - please refactor
+			//	will require change of flagIsHungry to an event. makes more sense
 			if (flagIsHungry) {
-				draw(0x006611);
+				if (!lastFrame){
+					removeChild(bitmapBase);
+					bitmapBase = new Resources.GFX_BACTERIA_HUNGRY();
+					addChildAt(bitmapBase,0);
+					bitmapBase.width = 2*radius;
+					bitmapBase.height = 2 * radius;
+					bitmapBase.x = -radius;
+					bitmapBase.y = -radius;
+			
+					lastFrame = flagIsHungry;
+				}
 			}else {
-				draw(0x0066FF);
+				if (lastFrame){
+					removeChild(bitmapBase);
+					bitmapBase = new Resources.GFX_BACTERIA();
+					addChildAt(bitmapBase, 0);
+					bitmapBase.width = 2*radius;
+					bitmapBase.height = 2*radius;
+					bitmapBase.x = -radius;
+					bitmapBase.y = -radius;
+					
+					lastFrame = flagIsHungry;
+				}
+			}
+			
+			if (xSpeed > 0) {
+				bitmapEyes.scaleX = Math.abs(bitmapEyes.scaleX);
+				bitmapEyes.x = -radius;
+			}else {
+				bitmapEyes.scaleX = -1 * Math.abs(bitmapEyes.scaleX);
+				bitmapEyes.x = radius;
+			}
+			
+			if (ySpeed < 0) {
+				bitmapEyes.scaleY = Math.abs(bitmapEyes.scaleY);
+				bitmapEyes.y= -radius-1;
+			}else {
+				bitmapEyes.scaleY = -1 * Math.abs(bitmapEyes.scaleY);
+				bitmapEyes.y = radius + 2;
 			}
 			
 			if (money.isFilled()) {
-				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(x,y, Game.items[0], money.amount), true));
+				dispatchEvent(new ItemEvent(ItemEvent.PRODUCE, new Item(game, x,y, Resources.ITEMS[0], money.amount), true));
 				money.amount = 0;
 			}
 			
+			//	Change to an event
 			if (level.hasLevelledUp()) {
 				onLevelUp();
 			}
@@ -174,7 +238,7 @@ package mutation.entity
 		public function kill():void {
 			flagIsAlive = false;
 			if (stage){
-				stage.removeEventListener(MutationEvent.TICK, onTick);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
 				dispatchEvent(new BacteriaEvent(BacteriaEvent.DEATH, this, true));
 			}
 		}
@@ -220,15 +284,6 @@ package mutation.entity
 			}
 		}
 		
-		//	Draws the bacteria's vector image
-		private function draw(colour:Number):void
-		{
-			graphics.clear();
-			graphics.beginFill(colour);
-			graphics.drawCircle(0, 0, radius);
-			graphics.endFill();
-		}
-		
 		public function setHat(hat:Hat):void
 		{
 			removeChild(this.hat);
@@ -239,6 +294,29 @@ package mutation.entity
 			
 			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
 			money = new Resource(Math.random() * 50, 1*this.hat.moneyRateScale, 100*this.hat.moneyAmountScale);
+		}
+		
+		public function getToken():Object
+		{
+			var token:Object = new Object();
+			token.nameString		=	nameString;
+			token.money				=	money.getToken();
+			token.hat						=	hat.type.arrayListing;
+			token.x							=	x;
+			token.y							=	y;
+			token.radius				= radius;
+
+			return token;
+		}
+		
+		public function buildFromToken(token:Object):void
+		{
+			nameString = token.nameString;
+			x						=	token.x;
+			y						=	token.y;
+			radius			=	token.radius;
+			money.buildFromToken(token.money);
+			setHat(new Hat(game, game.hats.getAt(token.hat) as HatDescriptor));
 		}
 	}
 }
