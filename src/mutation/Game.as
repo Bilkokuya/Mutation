@@ -33,6 +33,7 @@ package mutation
 	public class Game extends Sprite
 	{
 		public const NUM_TUBES:Number = 4;				//	Number of test tubes allowed in game
+		public const MAX_BACTERIA:Number = 4 * 5;
 		private const BACTERIA_BASE_COST:Number = 250;	//	Cost of buying a new bacteria
 		
 		public var hats:Unlockables = new Unlockables(HatDescriptor, Resources.getXML(Resources.XML_HATS).hat);				//	Hat types that have been unlocked
@@ -247,7 +248,7 @@ package mutation
 			graphics.endFill();
 		}
 		
-		private function get bacteriaCount():int
+		public function get bacteriaCount():int
 		{
 			var count:int = 0;
 			for each (var t:TestTube in testTubes) {

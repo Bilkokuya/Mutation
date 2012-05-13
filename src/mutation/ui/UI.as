@@ -80,6 +80,13 @@ package mutation.ui
 			
 			stage.addEventListener(MoneyEvent.CHANGED, onMoney);
 			stage.addEventListener(ContractEvent.CHANGED, onContract);
+			stage.addEventListener(MutationEvent.TICK, onTick);
+		}
+		
+		private function onTick(e:MutationEvent):void
+		{
+			if (game.bacteriaCount >= game.MAX_BACTERIA) bacteriaButton.disable();
+			else if (game.money >= game.bacteriaCost) bacteriaButton.enable();
 		}
 		
 		public function kill():void
@@ -87,6 +94,7 @@ package mutation.ui
 			if (stage){
 				stage.removeEventListener(MoneyEvent.CHANGED, onMoney);
 				stage.removeEventListener(ContractEvent.CHANGED, onContract);
+				stage.addEventListener(MutationEvent.TICK, onTick);
 			}
 			
 			collectButton.kill();

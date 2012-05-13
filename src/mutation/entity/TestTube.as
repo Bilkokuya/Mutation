@@ -31,7 +31,7 @@ package mutation.entity
 	//	Represents a single TestTube of bacteria
 	public class TestTube extends Sprite
 	{
-		public const MAX_BACTERIA:int = 6;		//	Maximum number of bacteria that can be kept in one tube
+		public const MAX_BACTERIA:int = 5;		//	Maximum number of bacteria that can be kept in one tube
 		private const ITEM_CLICK_RANGE:int = 35;//	Maximum range the item selector will work at
 		
 						//	Reference to the current game

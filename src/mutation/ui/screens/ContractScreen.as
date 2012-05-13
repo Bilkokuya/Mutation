@@ -77,11 +77,16 @@ package mutation.ui.screens
 			
 			//	Clear the previous list, to ensure "old" elements aren't left accidentally
 			if (initialised) {
-					for (var i:int = 0; i < options.length; ++i) {
+				trace("starting removals: " + options.length);
+					for (var i:int = options.length; i > 0 ; i--) {
 						var o:ContractOption = options.pop();
 						o.removeEventListener(ContractEvent.SELECTED, onSelected);
 						removeChild(o);
+						trace("removed option");
 					}
+					trace("options removed");
+			}else {
+				trace("no removal, not initialised");
 			}
 			
 			//	Gather the next set of valid contracts (3 at most)	
