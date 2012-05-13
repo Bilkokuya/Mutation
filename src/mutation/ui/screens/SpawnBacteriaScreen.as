@@ -35,7 +35,7 @@ package mutation.ui.screens
 			infoOut			= new TextField();
 			nameInput		= new TextField();
 			hatSelector		= new HatSelector(game);
-			bacteria		= new Bacteria(game, 0, 0, 5);
+			bacteria		= new Bacteria(game, 0, 0);
 			hatSelector.x	= 15;
 			hatSelector.y	= 50;
 			

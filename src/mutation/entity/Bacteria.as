@@ -67,7 +67,7 @@ package mutation.entity
 		public var level:Leveling = new Leveling();			//	Levelling system, keeps track of it's exp etc
 		
 		//	Constructor: (int, int, int, int)
-		public function Bacteria(game:Game, x:int = 0, y:int = 0, radius:Number = 10, hat:Hat = null) {	
+		public function Bacteria(game:Game, x:int = 0, y:int = 0, hat:Hat = null) {	
 			
 			this.game = game;
 			nameString = new String();
@@ -77,11 +77,11 @@ package mutation.entity
 			
 			this.x = x;
 			this.y = y;
-			this.radius = radius;
+			this.radius = 7;
 			
 			bitmapEyes.width = 2* radius;
 			bitmapEyes.height = 2* radius;
-			bitmapEyes.x =-radius;
+			bitmapEyes.x = -radius;
 			bitmapEyes.y = -radius;
 			
 			bitmapBase.width = 2* radius;
@@ -159,6 +159,22 @@ package mutation.entity
 					
 					lastFrame = flagIsHungry;
 				}
+			}
+			
+			if (xSpeed > 0) {
+				bitmapEyes.scaleX = Math.abs(bitmapEyes.scaleX);
+				bitmapEyes.x = -radius;
+			}else {
+				bitmapEyes.scaleX = -1 * Math.abs(bitmapEyes.scaleX);
+				bitmapEyes.x = radius;
+			}
+			
+			if (ySpeed < 0) {
+				bitmapEyes.scaleY = Math.abs(bitmapEyes.scaleY);
+				bitmapEyes.y= -radius-1;
+			}else {
+				bitmapEyes.scaleY = -1 * Math.abs(bitmapEyes.scaleY);
+				bitmapEyes.y = radius + 2;
 			}
 			
 			if (money.isFilled()) {

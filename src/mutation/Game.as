@@ -115,7 +115,7 @@ package mutation
 		{
 			if ( (money < bacteriaCost) && (bacteriaCount < 1) ) {
 				Main.isPaused = true;
-				popup.display(new Bacteria(this, 0, 0, 5));
+				popup.display(new Bacteria(this, 0, 0));
 			}
 		}
 		
@@ -164,7 +164,7 @@ package mutation
 			}else {
 				return;
 			}
-			popup.display(new Bacteria(this, 0,0,5));
+			popup.display(new Bacteria(this, 0,0));
 			Main.isPaused = true;
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
