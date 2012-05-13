@@ -4,6 +4,7 @@ package mutation.entity.hats
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.ByteArray;
+	import mutation.Game;
 	import mutation.util.Resources;
 	
 	//	An instace of the hat itself; used by the bacteria visually and functionaly
@@ -11,17 +12,21 @@ package mutation.entity.hats
 	//	Extends Sprite so it can be drawn to the stage
 	public class Hat extends Sprite
 	{
-		private var type:HatDescriptor;	//	The base type this instance takes functionality from
-		private var bitmap:Bitmap;		//	The visual element of this instance
+		private var game:Game;					//	Reference to the game being run
+		
+		public var type:HatDescriptor;		//	The base type this instance takes functionality from
+		private var bitmap:Bitmap;				//	The visual element of this instance
 		
 		//	Constructor takes an existig HatDescriptor
-		public function Hat(hatType:HatDescriptor) 
+		public function Hat(game:Game, hatType:HatDescriptor) 
 		{
+			this.game = game;
+			
 			super();
 			this.type = hatType;
 			
 			//	Setup the bitmap to be visually cetered on the x,y co-ordinates
-			this.bitmap = new Resources.GRAPHICS[type.bitmapIndex];
+			this.bitmap = new Resources.GRAPHICS_HATS[type.graphic];
 			addChild(bitmap);
 			bitmap.width = 15;
 			bitmap.height = 15;
@@ -52,6 +57,7 @@ package mutation.entity.hats
 		{
 			return type.moneyRateScale;
 		}
+		
 	}
 
 }

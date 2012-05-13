@@ -6,10 +6,13 @@
 
 package mutation.entity.foods 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import mutation.events.FoodEvent;
 	import mutation.events.MutationEvent;
+	import mutation.Game;
+	import mutation.util.Resources;
 	import mutation.util.Util;
 
 	//	Class: Food
@@ -17,20 +20,24 @@ package mutation.entity.foods
 	{	
 		private const yAccel:Number = 0.07;	//	y Acceleration downwards
 		
-		public var xSpeed:Number;
-		public var ySpeed:Number;
+		private var game:Game;				//	Reference to the current game
 		
-		public var type:FoodDescriptor;
+		public var xSpeed:Number;			//	Speed horizontally
+		public var ySpeed:Number;			//	Speed vertically downwards
+		public var type:FoodDescriptor;	//	Type of this food
 		
-		public var life:Number;
-		public var flagIsMoving:Boolean = true;
-		public var flagIsAlive:Boolean = true;
+		public var life:Number;									//	Dies when life is 0
+		public var flagIsMoving:Boolean = true;	//	Avoids movement when speed has reached a low threshhold
+		public var flagIsAlive:Boolean = true;		//	Prevents updates when killed and still being removed from the game
+		
+		private var bitmap:Bitmap;
 		
 		//	Constructor: default
-		public function Food(x:Number, y:Number, foodType:FoodDescriptor)
+		public function Food(game:Game, x:Number, y:Number, foodType:FoodDescriptor)
 		{
-			super();
+			this.game = game;
 			
+			super();
 			type = foodType;
 			this.x = x;
 			this.y = y;
@@ -38,8 +45,9 @@ package mutation.entity.foods
 			ySpeed = 0;
 			life = type.startingLife * 30;
 			flagIsMoving = true;
-
 			
+			//bitmap = new (Resources.GRAPHICS[type.graphic])();
+
 			draw();
 			
 			if (stage) onInit();
@@ -49,7 +57,12 @@ package mutation.entity.foods
 		//	Initialisation after Stage
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			stage.addEventListener(MutationEvent.TICK, onTick);
+			
+			//addChild(bitmap);
+			//bitmap.width = type.radius;
+			//bitmap.height = type.radius;
+			
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 		}
 		
 		//	OnTick Updates
@@ -75,14 +88,14 @@ package mutation.entity.foods
 			flagIsAlive = false;
 			flagIsMoving = false;
 			if (stage){
-				stage.removeEventListener(MutationEvent.TICK, onTick);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
 				dispatchEvent(new FoodEvent(FoodEvent.DEATH, this, true));
 			}
 		}
 		
 		//	Draw the graphics representation
 		private function draw():void {
-			graphics.beginFill(0xFF6600);
+		graphics.beginFill(0xFF6600);
 			graphics.drawCircle(0, 0, type.radius);
 			graphics.endFill();
 		}

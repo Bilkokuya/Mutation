@@ -5,8 +5,8 @@ package mutation.entity
 	public class Resource 
 	{
 		private var amount_:Number;	//	Actual amount of this resource held
-		private var rate_:Number;	//	Rate of change per tick
-		private var limit_:Number;	//	Largest amount that can be stored
+		private var rate_:Number;		//	Rate of change per tick
+		private var limit_:Number;		//	Largest amount that can be stored
 		
 		//	Once set up, the rate and limit will not change
 		public function Resource(amount:Number = 0, rate:Number = 1, limit:Number = 100 ) 
@@ -48,7 +48,7 @@ package mutation.entity
 			limit_ = limit;
 		}
 		
-		//	Alters the values by te given amout
+		//	Alters the values by the given amout
 		public function alter(amountChange:Number, rateChange:Number, limitChange:Number):void
 		{
 			amount_ += amountChange;
@@ -62,6 +62,21 @@ package mutation.entity
 			amount_ *= amountScale;
 			rate_ *= rateScale;
 			limit_ *= limitScale;
+		}
+		
+		public function getToken():Object
+		{
+			var token:Object = new Object();
+			token.amount		=	amount;
+			token.rate				=	rate_;
+			token.limit				=	limit_;
+			
+			return token;
+		}
+		
+		public function buildFromToken(token:Object):void
+		{
+			setup(token.amount, token.rate, token.limit);
 		}
 	}
 

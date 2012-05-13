@@ -5,27 +5,30 @@ package mutation.entity.items
 	import flash.events.MouseEvent;
 	import mutation.events.ItemEvent;
 	import mutation.events.MutationEvent;
+	import mutation.Game;
 	import mutation.Main;
 
 	public class Item extends Sprite
 	{
+		private var game:Game;							//	Reference to the game it's run in
 		
-		private const yAccel:Number = -0.07;	//	y Acceleration downwards
-		public var xSpeed:Number;
-		public var ySpeed:Number;
+		private const yAccel:Number = -0.07;	//	y Acceleration downwards (effectively gravity value for this)
+		public var xSpeed:Number;						//	Current speed horizontally
+		public var ySpeed:Number;						//	Current speed vertically (positive is down)
 		
-		public var life:Number;
-		public var amount:Number = 0;
+		public var life:Number;								//	Dies when life is 0
+		public var amount:Number = 0;				//	Amount of money to provide the player when clicked (in addition to the base money from 'type')
 		
-		public var type:ItemDescriptor;
+		public var type:ItemDescriptor;				//	Type of item this is
 		
-		public var flagIsMoving:Boolean = true;
-		public var flagIsClicked:Boolean = false;
-		public var flagIsAlive:Boolean = true;
+		public var flagIsMoving:Boolean = true;	//	Stops it moving when speed has decreased to a certain level
+		public var flagIsAlive:Boolean = true;		//	Avoids further updates once killed (while being removed from the game)
 		
 		//	Constructor: default
-		public function Item(x:Number, y:Number, itemType:ItemDescriptor, money:Number = 0 )
+		public function Item(game:Game, x:Number, y:Number, itemType:ItemDescriptor, money:Number = 0 )
 		{
+			this.game = game;
+			
 			type = itemType;
 			this.x = x;
 			this.y = y;
@@ -33,8 +36,6 @@ package mutation.entity.items
 			ySpeed = 0;
 			life = type.startingLife *  30;
 			this.amount = money;
-
-			draw();
 			
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -43,14 +44,18 @@ package mutation.entity.items
 		//	Initialisation after Stage
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			stage.addEventListener(MutationEvent.TICK, onTick);
-			addEventListener(MouseEvent.CLICK, onClick);
+			
+			draw();
+			
+			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 		}
 		
+		//	Returns the amount of money this will provide
 		public function getMoney():Number
 		{
 			return (type.money + amount);
 		}
+		
 		//	OnTick Updates
 		public function onTick(e:MutationEvent):void {
 			
@@ -68,21 +73,20 @@ package mutation.entity.items
 			}
 		}
 		
-		private function onClick(e:MouseEvent):void
-		{
-			flagIsClicked = true;
-		}
-		
 		//	Kills this peice of food from the game
 		public function kill():void
 		{
 			flagIsAlive = false;
 			flagIsMoving = false;
 			if (stage) {
-				stage.removeEventListener(MutationEvent.TICK, onTick);
-				removeEventListener(MouseEvent.CLICK, onClick);
+				stage.removeEventListener(MutationEvent.TICK_MAIN, onTick);
 				dispatchEvent(new ItemEvent(ItemEvent.DEATH, this, true));
 			}
+		}
+		
+		public function getAmount():Number
+		{
+			return (amount + type.money);
 		}
 		
 		//	Draw the graphics representation
