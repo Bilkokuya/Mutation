@@ -161,14 +161,19 @@ package mutation.entity
 				}
 			}
 			
+			//	visual change when going a different direction
+			//	includes quick-fix to ensure popOut menu is always on the right hand side
 			if (xSpeed > 0) {
-				bitmapEyes.scaleX = Math.abs(bitmapEyes.scaleX);
-				bitmapEyes.x = -radius;
+				scaleX = 1;
+				popOut.scaleX = 1;
+				popOut.x = radius;
 			}else {
-				bitmapEyes.scaleX = -1 * Math.abs(bitmapEyes.scaleX);
-				bitmapEyes.x = radius;
+				scaleX = -1;
+				popOut.scaleX = -1;
+				popOut.x = -radius;
 			}
 			
+			//	visul change when moving up or down, alters the eyes
 			if (ySpeed < 0) {
 				bitmapEyes.scaleY = Math.abs(bitmapEyes.scaleY);
 				bitmapEyes.y= -radius-1;
@@ -288,7 +293,7 @@ package mutation.entity
 		{
 			removeChild(this.hat);
 			this.hat = hat;
-			this.hat.y = -radius;
+			this.hat.y = -radius + 2;
 			this.hat.x = 0;
 			addChild(hat);
 			
