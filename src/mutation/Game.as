@@ -173,9 +173,13 @@ package mutation
 			popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 		}
 		
-		private function get bacteriaCost():int
+		public function get bacteriaCost():int
 		{
-			return (BACTERIA_BASE_COST * ((bacteriaCount * bacteriaCount)/2 + 1));
+			var cost:Number =  (BACTERIA_BASE_COST * ((bacteriaCount * bacteriaCount) / 5 + 1));
+			if (cost > 15000) {
+				cost  = 15000;
+			}
+			return cost;
 		}
 		
 		//	Called when a bacteria has been given a name
@@ -185,6 +189,7 @@ package mutation
 			Main.isPaused = false;
 			testTubes[0].spawnBacteria(e.bacteria);
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
+			ui.bacteriaButtonOut.text = "菌" + bacteriaCost;
 		}
 		
 		//	Called when the collection is emptied (clicked on)

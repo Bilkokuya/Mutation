@@ -59,6 +59,12 @@ package mutation.util
 		[Embed(source="../../../resources/gfx/introscreenmenu.png")]
 		public static const GFX_UI_MENU:Class;
 		
+		[Embed(source = "../../../resources/gfx/button_base.png")]
+		public static const GFX_UI_BUTTON_BASE:Class;
+		
+		[Embed(source = "../../../resources/gfx/button_spawnbacteria.png")]
+		public static const GFX_UI_BUTTON_BACTERIA:Class;
+		
 		public static const GRAPHICS_HATS:Vector.<Class> = new <Class>[
 			GFX_HAT_EXPLORER,
 			GFX_HAT_PIRATE,

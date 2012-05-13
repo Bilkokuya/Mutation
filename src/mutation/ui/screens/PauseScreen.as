@@ -1,5 +1,6 @@
 package mutation.ui.screens 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -7,24 +8,24 @@ package mutation.ui.screens
 	import mutation.events.MutationEvent;
 	import mutation.Game;
 	import mutation.ui.Button;
+	import mutation.util.Resources;
 
 	public class PauseScreen extends Screen
-	{
-		private const WIDTH:int = 150;
-		private const HEIGHT:int = 250;
-		private const MARGIN:int = 10;
-		
+	{	
 		private var game:Game;
 		private var menu:Sprite;
+		private var menuBack:Bitmap;
 		private var continueButton:Button;
 		private var quitButton:Button;
 		
 		public function PauseScreen(game:Game) 
 		{
 			this.game = game;
-			menu = new Sprite();
-			continueButton = new Button(MARGIN + 50, 50, "CONTINUE");
-			quitButton = new Button(MARGIN + 50, 125, "QUIT");
+			
+			menu 					= new Sprite();
+			menuBack 			= new Resources.GFX_UI_MENU();
+			continueButton = new Button(15, 15, "CONTINUE"	, 140, 50, 0x97b9f3, 0xc0d4f8);
+			quitButton 			= new Button(15, 80, "QUIT"			, 140, 50, 0xb4b4b4, 0xd4d4d4);
 			
 			super();
 			if (stage) onInit();
@@ -35,13 +36,12 @@ package mutation.ui.screens
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			draw();
-			
 			addChild(menu);
+			menu.addChild(menuBack);
 			menu.addChild(continueButton);
 			menu.addChild(quitButton);
 			
-			menu.x = (stage.stageWidth / 2) - (WIDTH / 2);
+			menu.x = 225;
 			menu.y = 50;
 			
 			continueButton.addEventListener(MouseEvent.CLICK, onContinue);
@@ -64,15 +64,6 @@ package mutation.ui.screens
 			
 			continueButton.kill();
 			quitButton.kill();
-		}
-		
-		//	Draw the basic shapes
-		private function draw():void
-		{
-			menu.graphics.clear();
-			menu.graphics.beginFill(0xFFFFFF, 1);
-			menu.graphics.drawRect(0, 0, 150, 250);
-			menu.graphics.endFill();
 		}
 		
 		//	Unpause the game when the "continue" button is pressed

@@ -23,7 +23,7 @@ package mutation.ui.screens
 		private var group:int = 0;
 		private var options:Vector.<ContractOption> = new Vector.<ContractOption>();
 		
-		
+		//	Simple constructor
 		public function ContractScreen(game:Game) 
 		{	
 			this.game = game;
@@ -33,7 +33,7 @@ package mutation.ui.screens
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
 		}
 		
-		
+		//	Initialisation after the stage
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -50,7 +50,7 @@ package mutation.ui.screens
 			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
 		}
 		
-		
+		//	Safely kills all stage/event references
 		public function kill():void
 		{	
 			if(stage){
@@ -63,14 +63,14 @@ package mutation.ui.screens
 			
 		}
 
-		
+		//	Called when a contract has been selected
 		private function onSelected(e:ContractEvent):void
 		{
 			dispatchEvent(new ContractEvent(ContractEvent.SELECTED, e.contract));
 			this.visible = false;
 		}
 		
-		
+		//	Called when the contracts need updating
 		public function updateContracts(initialised:Boolean):void
 		{
 			var loaded:int = 0;
@@ -115,7 +115,7 @@ package mutation.ui.screens
 			}
 		}
 		
-		
+		//	Called when a contract is complete
 		private function onContractComplete(e:ContractEvent):void
 		{
 			Main.isPaused = true;

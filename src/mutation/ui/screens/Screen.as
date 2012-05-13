@@ -26,7 +26,7 @@ package mutation.ui.screens
 		private function draw():void
 		{
 			graphics.clear();
-			graphics.beginFill(0xFFFFFF, 0.90);
+			graphics.beginFill(0xFFFFFF, 1);
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			graphics.endFill();
 			
