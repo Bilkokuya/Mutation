@@ -1,9 +1,11 @@
 package mutation 
 {
+	import flash.display.GradientType;
 	import flash.display.InteractiveObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Matrix;
 	import flash.ui.Keyboard;
 	import mutation.entity.Bacteria;
 	import mutation.entity.BaseDescriptor;
@@ -87,6 +89,8 @@ package mutation
 			pauseMenu.visible = false;
 			contractSelector.visible = false;
 			popup.visible = false;
+			
+			draw();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown); 
 			stage.addEventListener(ContractEvent.COMPLETED, onContractComplete);
@@ -218,6 +222,24 @@ package mutation
 		public function get money():int
 		{
 			return money_;
+		}
+		
+		private function draw():void
+		{
+			graphics.clear();
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			graphics.endFill();
+			
+			var colours:Array = [0x597DA5, 0x325EB8,  0x87AAEA, 0x6699CC];
+			var alphas:Array  = [0.25, 0.25, 0.25, 0.25];
+			var ratios:Array  = [120 , 140 , 141 , 255];
+			var matrix:Matrix = new Matrix();
+			matrix.createGradientBox(stage.stageWidth, stage.stageHeight, 90 * (Math.PI / 180), 0 , 0);
+			
+			graphics.beginGradientFill(GradientType.LINEAR, colours, alphas, ratios, matrix);
+			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			graphics.endFill();
 		}
 		
 		private function get bacteriaCount():int
