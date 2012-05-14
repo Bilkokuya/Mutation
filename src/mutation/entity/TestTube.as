@@ -39,11 +39,11 @@ package mutation.entity
 		public var bacteriaCount:int = 0;		//	Number of bacteria it contains
 		
 		private var game:Game;
-		private var radius:int;					//	Radius of movement for the testtube
+		private var radius:int;						//	Radius of movement for the testtube
 		
 		private var bacterias:Array;			//	Array of Bacteria
-		private var foods:Array;				//	Array of Food
-		private var items:Array;				//	Array of Item
+		private var foods:Array;					//	Array of Food
+		private var items:Array;					//	Array of Item
 		
 		private var selector:Sprite;			//	Item selector
 		private var closestItem:Item = null;
@@ -54,7 +54,9 @@ package mutation.entity
 		
 		private var visual:Sprite;
 		private var windowVisual:Sprite;
-		private var animation:Number = -1;
+		private var anim:int = 1;
+		private var animHeight:Number = 0;
+		private var baseY:Number;
 		
 		//	Constructor: default
 		public function TestTube(game:Game, x:Number = 200, y:Number = 200, radius:int = 50) {
@@ -62,6 +64,7 @@ package mutation.entity
 			
 			this.x = x;
 			this.y = y;
+			this.baseY = y;
 			this.radius = radius;
 			closestItem = null;
 			
@@ -117,7 +120,7 @@ package mutation.entity
 			windowVisual.visible = true;
 			scaleX = 1.5;
 			scaleY = 1.5;
-			animation /= 100000;
+			y = baseY;
 			parent.addChildAt(this, parent.numChildren - 1);
 			selected = true;
 		}
@@ -125,10 +128,9 @@ package mutation.entity
 		private function onRollOut(e:MouseEvent):void
 		{
 			windowVisual.visible = false;
-			animation *= 100000;
 			scaleX = 0.8;
 			scaleY = 0.8;
-			
+			y = baseY - animHeight;
 			selected = false;
 		}
 		
@@ -139,10 +141,14 @@ package mutation.entity
 			updateBacteria();
 			
 			if ((e.tickCount % 30) == 0) {
-				animation *= -1;
+				anim *= -1;
 			}
-			this.y += ((animation as Number) / 4);
-			shadow.y -= ((animation as Number) / 4);
+			animHeight += (anim / 4);
+			
+			if (!selected){
+				this.y = baseY - animHeight;
+				shadow.y = 150  + animHeight;
+			}
 		}
 		
 		public function kill():void

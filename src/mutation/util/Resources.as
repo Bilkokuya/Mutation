@@ -147,7 +147,7 @@ package mutation.util
 		//////////////////////////////////////////////////
 		//	SOUND EMBEDDING
 		//////////////////////////////////////////////////
-		[Embed(source = "../../../resources/audio/bgFillerMusicOcean.mp3")]
+		[Embed(source = "../../../resources/audio/bgFiller.mp3")]
 		public static const AUDIO_BG_FILLER:Class;
 		
 		[Embed(source = "../../../resources/audio/bgMusic.mp3")]
