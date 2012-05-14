@@ -33,9 +33,9 @@
 		<id> 				0		</id>
 		<name>				SILVER	</name>
 		<graphic>			0 		</graphic>
-		<radius>			3		</radius>
+		<radius>			2		</radius>
 		<life>				4		</life>
-		<money>				200		</money>
+		<money>				25		</money>
 		<unlock>
 			<unlocked> 		true 	</unlocked>
 			<cost>			0		</cost>

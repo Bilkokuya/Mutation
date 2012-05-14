@@ -29,6 +29,9 @@ package mutation.util
 		[Embed(source = "../../../resources/gfx/entity/testtube.png")]
 		public static const GFX_TESTTUBE:Class;
 		
+		[Embed(source = "../../../resources/gfx/entity/testtube_empty.png")]
+		public static const GFX_TESTTUBE_EMPTY:Class;
+		
 		[Embed(source = "../../../resources/gfx/entity/testtube_shadow.png")]
 		public static const GFX_TESTTUBE_SHADOW:Class;
 		

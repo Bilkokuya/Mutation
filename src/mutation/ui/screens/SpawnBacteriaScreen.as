@@ -38,6 +38,8 @@ package mutation.ui.screens
 		{
 			this.game		= game;
 			
+			tubeChoices = new Vector.<Sprite>();
+			
 			confirmButton = new Button(15, 250, "  CONFIRM", 140, 50);
 			selectionBacking = new Shape();
 			menu 				= new Sprite();
@@ -88,6 +90,7 @@ package mutation.ui.screens
 			menu.addChild(hatSelector);
 			menu.addChild(confirmButton);
 			addChild(infoOut);
+			
 			
 			menu.x = (stage.stageWidth - 150)/2;
 			menu.y = 50;

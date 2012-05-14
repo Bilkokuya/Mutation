@@ -188,7 +188,13 @@ package mutation
 		{
 			popup.visible = false;
 			Main.isPaused = false;
-			testTubes[0].spawnBacteria(e.bacteria);
+			
+			var tube:int = 0;
+			do{
+				tube = Math.random() * 3;
+			} while (testTubes[tube].bacteriaCount > 5);
+			
+			testTubes[tube].spawnBacteria(e.bacteria);
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			ui.bacteriaButtonOut.text = "菌" + bacteriaCost;
 		}

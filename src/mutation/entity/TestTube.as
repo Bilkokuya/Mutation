@@ -65,9 +65,8 @@ package mutation.entity
 			this.radius = radius;
 			closestItem = null;
 			
-
 			shadow = new Resources.GFX_TESTTUBE_SHADOW();
-			bitmap = new Resources.GFX_TESTTUBE();
+			bitmap = new Resources.GFX_TESTTUBE_EMPTY();
 			bitmap.x = -bitmap.width / 2;
 			bitmap.y = -bitmap.height / 2 + 20;
 			
@@ -253,6 +252,14 @@ package mutation.entity
 		
 		public function spawnBacteria(bacteria:Bacteria):void
 		{
+			if (bacteriaCount == 0) {
+				removeChild(bitmap);
+				bitmap = new Resources.GFX_TESTTUBE();
+				addChildAt(bitmap, 0);
+				bitmap.x = -bitmap.width / 2;
+				bitmap.y = -bitmap.height / 2 + 20;
+			}
+			
 			if (bacteriaCount > MAX_BACTERIA) return;
 			bacteriaCount++;
 			
@@ -321,6 +328,14 @@ package mutation.entity
 			windowVisual.removeChild(e.bacteria);
 			bacterias.splice(bacterias.indexOf(e.bacteria), 1);
 			bacteriaCount--;
+			
+			if (bacteriaCount == 0) {
+				removeChild(bitmap);
+				bitmap = new Resources.GFX_TESTTUBE_EMPTY();
+				addChildAt(bitmap, 0);
+				bitmap.x = -bitmap.width / 2;
+				bitmap.y = -bitmap.height / 2 + 20;
+			}
 		}
 		
 		//	Called when an item dies and needs removed

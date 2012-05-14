@@ -35,10 +35,10 @@
 		<next>					10		</next>
 		<title>					SPECIAL!</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		100  	</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				5000	</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
+		<collectionNeeded>		5000  	</collectionNeeded>
+		<boxesNeeded>			25		</boxesNeeded>
+		<payPerBox>				2500	</payPerBox>
+		<bonusPay> 				10000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
 		<description> 			Congratulations Scientist! &#10; You've completed the game, but you can keep re-doing this task as many times as you wish!</description>		
@@ -50,9 +50,9 @@
 		<next>					2		</next>
 		<title>					FLOWERS	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
+		<collectionNeeded>		250		</collectionNeeded>
+		<boxesNeeded>			5		</boxesNeeded>
+		<payPerBox>				250		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
