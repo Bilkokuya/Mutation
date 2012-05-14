@@ -258,17 +258,18 @@ package mutation.entity
 		}
 		
 		//	Spawns a new item of food at the specified position
-		private function spawnFood(x:Number, y:Number, cost:int = 10):void
+		private function spawnFood(x:Number, y:Number):void
 		{
-			
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
-				if (game.money >= cost){
-					var food:Food = new Food(game, x, y, game.foods.getAt(game.foodSelection) as FoodDescriptor);
+				
+				var desc:FoodDescriptor =  game.foods.getAt(game.foodSelection) as FoodDescriptor;
+				if (game.money >= desc.cost){
+					var food:Food = new Food(game, x, y, desc);
 					foods.push(food);
 					windowVisual.addChild(food);
-					game.money -= cost;
+					game.money -= desc.cost;
 				}
 			}
 		}

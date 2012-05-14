@@ -26,7 +26,7 @@ package mutation.ui
 		public var moneyOut:TextField;
 		
 		public var collectedOut:TextField;
-		public var collectButton:Button;
+		public var collectButton:GraphicButton;
 		
 		public var bacteriaButton:GraphicButton;
 		public var bacteriaButtonOut:TextField;
@@ -39,9 +39,9 @@ package mutation.ui
 			this.game = game;
 			moneyOut = new TextField();
 			collectedOut = new TextField();
-			collectButton = new Button(275, 20, "COLLECT", 100, 50);
+			collectButton = new GraphicButton(225, 5, new Resources.GFX_UI_BUTTON_CONTRACT);
 			
-			bacteriaButton = new GraphicButton(10, 10, new Resources.GFX_UI_BUTTON_BACTERIA);
+			bacteriaButton = new GraphicButton(10, 5, new Resources.GFX_UI_BUTTON_BACTERIA);
 			bacteriaButtonOut = new TextField();
 			
 			foodSelector = new FoodSelector(game);
@@ -67,9 +67,10 @@ package mutation.ui
 			addChild(unlockablesDisplay);
 			
 			unlockablesDisplay.x = 350;
+			unlockablesDisplay.y = 5;
 			
 			foodSelector.x = 100;
-			foodSelector.y = 25;
+			foodSelector.y = 5;
 			game.foodSelection = 1;
 			
 			initText();
@@ -121,7 +122,14 @@ package mutation.ui
 		
 		private function onContract(e:ContractEvent):void
 		{
-			collectedOut.text = e.contract.collected + "/" + e.contract.type.collectionNeeded;
+			var complete:int =  (100 * e.contract.collected / e.contract.type.collectionNeeded);
+			collectedOut.text = complete +"%";
+			
+			if (e.contract.isFilled()) {
+				collectButton.enable();
+			}else {
+				collectButton.disable();
+			}
 		}
 		
 		private function initText():void
@@ -139,8 +147,9 @@ package mutation.ui
 			moneyOut.defaultTextFormat = format;
 			moneyOut.selectable = false;
 			
-			collectedOut.x = 275;
-			collectedOut.y = 12;
+			collectedOut.defaultTextFormat = new TextFormat("Century Gothic", 24, 0x7C2C00, true);
+			collectedOut.x = 235;
+			collectedOut.y = 50;
 			collectedOut.autoSize = TextFieldAutoSize.LEFT;
 			collectedOut.selectable = false;	
 			
@@ -150,11 +159,12 @@ package mutation.ui
 			format.color = 0x7C2C00;
 			format.align = TextFormatAlign.CENTER;
 			
+			bacteriaButtonOut.defaultTextFormat = new TextFormat("Century Gothic", 24, 0x7C2C00, true);
 			bacteriaButtonOut.x = 0;
-			bacteriaButtonOut.y = 60;
+			bacteriaButtonOut.y = 55;
 			bacteriaButtonOut.autoSize = TextFieldAutoSize.CENTER;
 			bacteriaButtonOut.selectable = false;
-			bacteriaButtonOut.defaultTextFormat = format;
+			
 		}
 	}
 

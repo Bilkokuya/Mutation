@@ -37,7 +37,7 @@ package mutation.ui
 			addChild(levelOut);
 			
 			var format:TextFormat = new TextFormat();
-			format.size = 12;
+			format.size = 9;
 			format.font = "Calibri";
 			
 			nameOut.defaultTextFormat = format;

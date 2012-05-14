@@ -34,6 +34,7 @@ package mutation.ui
 			buttonBacking = new Resources.GFX_UI_BUTTON_BASE;
 			leftArrow = new Arrow(Arrow.LEFT);
 			rightArrow = new Arrow(Arrow.RIGHT);
+			
 			hat = new Hat( game, game.hats.getAt(selectedHat) as HatDescriptor );
 			statsOut = new TextField();
 			statsOut.defaultTextFormat = new TextFormat("Century Gothic", 12, 0xFFFFFF, true);
@@ -58,10 +59,10 @@ package mutation.ui
 			addChild(hat);
 			addChild(statsOut);
 			
-			leftArrow.x = 25;
-			leftArrow.y = 30;
-			rightArrow.x = 105;
-			rightArrow.y = 30;
+			leftArrow.x = 40;
+			leftArrow.y = 0;
+			rightArrow.x = 90;
+			rightArrow.y = 0;
 			
 			backing.x = 0;
 			backing.y = 95;

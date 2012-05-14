@@ -32,6 +32,8 @@ package mutation.util
 		[Embed(source = "../../../resources/gfx/eyesblinked.png")]
 		public static const GFX_EYES_BLINKED:Class;
 		
+		
+		//	HATS
 		[Embed(source="../../../resources/gfx/explorerhat.png")]
 		public static const GFX_HAT_EXPLORER:Class;
 		
@@ -41,15 +43,56 @@ package mutation.util
 		[Embed(source="../../../resources/gfx/prettyhat.png")]
 		public static const GFX_HAT_PRETTY:Class;
 		
-		[Embed(source = "../../../resources/gfx/cookie.jpg")]
-		public static const GFX_FOOD_COOKIE:Class;
+		public static const GRAPHICS_HATS:Vector.<Class> = new <Class>[
+			GFX_HAT_EXPLORER,
+			GFX_HAT_PIRATE,
+			GFX_HAT_PRETTY,
+		];
 		
-		[Embed(source="../../../resources/gfx/grapefruit.jpg")]
-		public static const GFX_FOOD_GRAPEFRUIT:Class;
-		
-		[Embed(source="../../../resources/gfx/nounlocks.jpg")]
+		//	FOODS
+		[Embed(source="../../../resources/gfx/nounlocks.png")]
 		public static const GFX_NO_UNLOCK:Class;
 		
+		[Embed(source = "../../../resources/gfx/fooddebris.png")]
+		public static const GFX_FOOD_DEBRIS:Class;
+		
+		[Embed(source = "../../../resources/gfx/food1.png")]
+		public static const GFX_FOOD_SIMPLE:Class;
+		
+		[Embed(source = "../../../resources/gfx/foodexplosive.png")]
+		public static const GFX_FOOD_EXPLOSIVE:Class;
+		
+		[Embed(source = "../../../resources/gfx/foodpills.png")]
+		public static const GFX_FOOD_BLUEPILLS:Class;
+		
+		[Embed(source = "../../../resources/gfx/foodpillsred.png")]
+		public static const GFX_FOOD_REDPILLS:Class;
+		
+		[Embed(source = "../../../resources/gfx/foodpillsyellow.png")]
+		public static const GFX_FOOD_GOLDPILLS:Class;
+		
+		[Embed(source = "../../../resources/gfx/foodsemerald.png")]
+		public static const GFX_FOOD_EMERALD:Class;
+		
+		[Embed(source = "../../../resources/gfx/foodruby.png")]
+		public static const GFX_FOOD_RUBY:Class;
+		
+		[Embed(source = "../../../resources/gfx/fooddiamond.png")]
+		public static const GFX_FOOD_DIAMOND:Class;
+		
+		public static const GRAPHICS_FOODS:Vector.<Class> = new <Class>[
+			GFX_FOOD_DEBRIS,
+			GFX_FOOD_SIMPLE,
+			GFX_FOOD_EXPLOSIVE,
+			GFX_FOOD_BLUEPILLS,
+			GFX_FOOD_REDPILLS,
+			GFX_FOOD_GOLDPILLS,
+			GFX_FOOD_EMERALD,
+			GFX_FOOD_RUBY,
+			GFX_FOOD_DIAMOND
+		];
+		
+		//	UI
 		[Embed(source = "../../../resources/gfx/arrow.png")]
 		public static const GFX_UI_ARROW:Class;
 		
@@ -65,15 +108,16 @@ package mutation.util
 		[Embed(source = "../../../resources/gfx/button_spawnbacteria.png")]
 		public static const GFX_UI_BUTTON_BACTERIA:Class;
 		
-		public static const GRAPHICS_HATS:Vector.<Class> = new <Class>[
-			GFX_HAT_EXPLORER,
-			GFX_HAT_PIRATE,
-			GFX_HAT_PRETTY,
-		];
-		public static const GRAPHICS_FOODS:Vector.<Class> = new <Class>[
-			GFX_FOOD_GRAPEFRUIT,
-			GFX_FOOD_COOKIE	
-		];
+		[Embed(source = "../../../resources/gfx/button_contract.png")]
+		public static const GFX_UI_BUTTON_CONTRACT:Class;
+		
+		[Embed(source = "../../../resources/gfx/speaker.png")]
+		public static const GFX_UI_SPEAKER:Class;
+		
+		[Embed(source = "../../../resources/gfx/speaker_muted.png")]
+		public static const GFX_UI_SPEAKER_MUTE:Class;
+		
+		
 		public static const GRAPHICS_ITEMS:Vector.<Class> = new <Class>[
 		];
 		public static const GRAPHICS_BACTERIA:Vector.<Class> = new <Class>[

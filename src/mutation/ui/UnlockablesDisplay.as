@@ -6,6 +6,7 @@ package mutation.ui
 	import flash.events.MouseEvent;
 	import mutation.entity.hats.Hat;
 	import mutation.entity.Resource;
+	import mutation.events.ButtonEvent;
 	import mutation.events.UnlockEvent;
 	import mutation.Game;
 	import mutation.util.Resources;
@@ -23,15 +24,17 @@ package mutation.ui
 			this.game = game;
 
 			if (game.hats.hasLocked()){
-				unlockHat = new UnlockableDisplayElement(new Resources.GRAPHICS_HATS[game.hats.getNextLocked().graphic], 0);
+				unlockHat = new UnlockableDisplayElement(new Resources.GRAPHICS_HATS[game.hats.getNextLocked().graphic], 0, game.hats.getNextLocked().unlockCost);
 			}else {
 				unlockHat = new UnlockableDisplayElement(new Resources.GRAPHICS_HATS[0], 0);
+				unlockHat.disable();
 			}
 			
 			if (game.foods.hasLocked()){
-				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS_FOODS[game.foods.getNextLocked().graphic], 0);
+				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS_FOODS[game.foods.getNextLocked().graphic], 0, game.foods.getNextLocked().unlockCost);
 			}else {
-				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS_FOODS[0], 0);	
+				unlockFood = new UnlockableDisplayElement(new Resources.GRAPHICS_FOODS[0], 0);
+				unlockHat.disable();
 			}
 			
 			super();
@@ -42,15 +45,17 @@ package mutation.ui
 		public function update():void
 		{
 			if (game.hats.hasLocked()){
-				unlockHat.setBitmap( new Resources.GRAPHICS_HATS[ game.hats.getNextLocked().graphic ]);
+				unlockHat.setBitmap( new Resources.GRAPHICS_HATS[ game.hats.getNextLocked().graphic ], game.hats.getNextLocked().unlockCost);
 			}else{
 				unlockHat.setBitmap( new Resources.GFX_NO_UNLOCK);
+				unlockHat.disable();
 			}
 				
 			if (game.foods.hasLocked()){
-				unlockFood.setBitmap( new Resources.GRAPHICS_FOODS[ game.foods.getNextLocked().graphic ]);
+				unlockFood.setBitmap( new Resources.GRAPHICS_FOODS[ game.foods.getNextLocked().graphic ], game.foods.getNextLocked().unlockCost);
 			}else{
 				unlockFood.setBitmap( new Resources.GFX_NO_UNLOCK);
+				unlockFood.disable();
 			}
 		}
 		
@@ -62,19 +67,22 @@ package mutation.ui
 			addChild(unlockHat);
 			
 			unlockFood.x = 0;
-			unlockHat.x = 55;
+			unlockHat.x = 95;
 			
-			unlockFood.addEventListener(MouseEvent.CLICK, onFoodClick);
-			unlockHat.addEventListener(MouseEvent.CLICK, onHatClick);
+			unlockFood.addEventListener(ButtonEvent.CLICKED, onFoodClick);
+			unlockHat.addEventListener(ButtonEvent.CLICKED, onHatClick);
 		}
 		
 		public function kill():void
 		{
 			unlockFood.removeEventListener(MouseEvent.CLICK, onFoodClick);
 			unlockHat.removeEventListener(MouseEvent.CLICK, onHatClick);
+			
+			unlockFood.kill();
+			unlockHat.kill();
 		}
 		
-		private function onFoodClick(e:MouseEvent):void
+		private function onFoodClick(e:ButtonEvent):void
 		{
 			if (game.foods.hasLocked()) {
 				var unlockCost:Number = game.foods.getNextLocked().unlockCost;
@@ -86,6 +94,7 @@ package mutation.ui
 					unlockFood.setBitmap( new Resources.GRAPHICS_FOODS[ game.foods.getNextLocked().graphic ]);
 				}else{
 					unlockFood.setBitmap( new Resources.GFX_NO_UNLOCK);
+					unlockFood.disable();
 				}
 				if (stage){
 					stage.dispatchEvent(new UnlockEvent(UnlockEvent.FOOD));
@@ -93,7 +102,7 @@ package mutation.ui
 			}
 		}
 		
-		private function onHatClick(e:MouseEvent):void
+		private function onHatClick(e:ButtonEvent):void
 		{
 			if (game.hats.hasLocked()) {
 				var unlockCost:Number = game.hats.getNextLocked().unlockCost;
@@ -105,6 +114,7 @@ package mutation.ui
 					unlockHat.setBitmap( new Resources.GRAPHICS_HATS[ game.hats.getNextLocked().graphic ]);
 				}else{
 					unlockHat.setBitmap( new Resources.GFX_NO_UNLOCK);
+					unlockHat.disable();
 				}
 			}
 			if (stage){
