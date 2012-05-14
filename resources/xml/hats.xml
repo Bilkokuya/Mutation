@@ -57,10 +57,10 @@
 		<name>				PIRATE	</name>
 		<graphic> 			1 		</graphic>
 		<stats>	
-			<foodRate>		1		</foodRate>	
+			<foodRate>		1.3		</foodRate>	
 			<foodAmount>	1		</foodAmount>
-			<moneyRate>		1.1		</moneyRate>
-			<moneyAmount>	1.2		</moneyAmount>
+			<moneyRate>		1.5		</moneyRate>
+			<moneyAmount>	1.4		</moneyAmount>
 		</stats>
 		<unlock>
 			<unlocked> 		true 	</unlocked>
@@ -75,8 +75,8 @@
 		<graphic> 			2 		</graphic>
 		<stats>	
 			<foodRate>		1		</foodRate>	
-			<foodAmount>	1		</foodAmount>
-			<moneyRate>		0.1		</moneyRate>
+			<foodAmount>	1.65	</foodAmount>
+			<moneyRate>		0.25	</moneyRate>
 			<moneyAmount>	2		</moneyAmount>
 		</stats>
 		<unlock>

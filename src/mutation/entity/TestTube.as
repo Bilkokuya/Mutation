@@ -211,6 +211,7 @@ package mutation.entity
 							if (Util.inRadius(b.x, b.y, (b.radius + f.type.radius), f.x, f.y)) {
 								b.feed(f.type.foodAmount);
 								f.kill();
+								stage.dispatchEvent(new FoodEvent( FoodEvent.EAT, null));
 								b.target = null;
 							}
 					}
@@ -250,6 +251,7 @@ package mutation.entity
 					closestItem.kill();
 				//	Otherwise it was the test-tube, so spawn food
 				}else {
+					stage.dispatchEvent(new FoodEvent(FoodEvent.FEED, null));
 					spawnFood(mouseX, mouseY)
 				}
 			}

@@ -79,6 +79,30 @@ package mutation.util
 		public static const GRAPHICS_BACTERIA:Vector.<Class> = new <Class>[
 		];
 		
+		//////////////////////////////////////////////////
+		//	SOUND EMBEDDING
+		//////////////////////////////////////////////////
+		[Embed(source = "../../../resources/audio/bgFillerMusicOcean.mp3")]
+		public static const AUDIO_BG_FILLER:Class;
+		
+		[Embed(source = "../../../resources/audio/bgMusic.mp3")]
+		public static const AUDIO_BG_MUSIC:Class;
+		
+		[Embed(source = "../../../resources/audio/click.mp3")]
+		public static const AUDIO_CLICK:Class;
+		
+		[Embed(source = "../../../resources/audio/cash.mp3")]
+		public static const AUDIO_CASH:Class;
+		
+		[Embed(source = "../../../resources/audio/collect.mp3")]
+		public static const AUDIO_COLLECT:Class;
+		
+		[Embed(source = "../../../resources/audio/eat.mp3")]
+		public static const AUDIO_EAT:Class;
+				
+		[Embed(source="../../../resources/audio/feed.mp3")]
+		public static const AUDIO_FEED:Class;
+		
 		///////////////////////////////////////////////////
 		//	XML EMBEDDING
 		///////////////////////////////////////////////////

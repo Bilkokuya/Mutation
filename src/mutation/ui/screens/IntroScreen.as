@@ -2,6 +2,7 @@ package mutation.ui.screens
 {
 	import flash.display.Bitmap;
 	import flash.display.GradientType;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -22,6 +23,8 @@ package mutation.ui.screens
 		private var playButton:Button;
 		private var continueButton:Button;
 		private var logoOut:TextField;
+		private var animation:Number = 1;
+		private var bg:Shape;
 		
 		public function IntroScreen() 
 		{
@@ -34,6 +37,7 @@ package mutation.ui.screens
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
+			bg 		=	new Shape();
 			menu = new Sprite();
 			menuBacking = new Resources.GFX_UI_MENU;
 			playButton = new Button(15, 15, "NEW GAME", 140, 50, 0x97b9f3, 0xc0d4f8);
@@ -54,6 +58,7 @@ package mutation.ui.screens
 			logoOut.defaultTextFormat = Resources.FORMAT_H1;
 			logoOut.text = "MUTATI菌N";
 			
+			addChild(bg);
 			addChild(menu);
 			addChild(logoOut);
 			
@@ -70,9 +75,19 @@ package mutation.ui.screens
 			draw();
 			
 			playButton.addEventListener(ButtonEvent.CLICKED, onPlay);
+			stage.addEventListener(MutationEvent.TICK, onTick);
 			stage.addEventListener(MutationEvent.MENU, onMenu);
 			stage.addEventListener(MutationEvent.GAME, onGame);
 			stage.addEventListener(MutationEvent.NEWGAME, onGame);
+		}
+		
+		private function onTick(e:MutationEvent):void
+		{
+			if ((e.tickCount % 30) == 0) {
+				animation *= -1;
+			}
+			
+			bg.scaleY += animation/960;
 		}
 		
 		public function kill():void
@@ -87,16 +102,17 @@ package mutation.ui.screens
 				stage.removeEventListener(MutationEvent.MENU, onMenu);
 				stage.removeEventListener(MutationEvent.GAME, onGame);
 				stage.removeEventListener(MutationEvent.NEWGAME, onGame);
+				stage.removeEventListener(MutationEvent.TICK, onTick);
 			}
 		}
 		
 		private function draw():void
 		{
 			// go faster stripes
-			graphics.beginFill(0x6699CC);
-			graphics.drawRect(0, 180, 250, 5);
-			graphics.drawRect(0, 193, 250, 30);
-			graphics.endFill();
+			bg.graphics.beginFill(0x6699CC);
+			bg.graphics.drawRect(0, 180, 250, 5);
+			bg.graphics.drawRect(0, 193, 250, 30);
+			bg.graphics.endFill();
 		}
 		
 		private function onPlay(e:ButtonEvent):void

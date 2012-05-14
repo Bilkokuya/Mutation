@@ -67,8 +67,8 @@
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
+		<payPerBox>				50		</payPerBox>
+		<bonusPay> 				250	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
 		<description> 			Something about how I'm smart and made a second quest</description>		
@@ -80,12 +80,12 @@
 		<next>					2		</next>
 		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
+		<collectionNeeded>		500		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		true	</hasRequirement>
-		<required>				1		</required>
+		<payPerBox>				90		</payPerBox>
+		<bonusPay> 				200	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
 		<description> 			Making these takes more creativity than I thought. I have as much space as twitter gives. It's not cool.</description>		
 	</contract>
 	
@@ -99,8 +99,8 @@
 		<boxesNeeded>			1		</boxesNeeded>
 		<payPerBox>				333		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				1		</required>
 		<description> 			Who knew - flowers and scientists dont mix. Youve managed to create a swarm of zombies. &#13;Gather some goods to help fund the extermination effort.</description>		
 	</contract>
 	

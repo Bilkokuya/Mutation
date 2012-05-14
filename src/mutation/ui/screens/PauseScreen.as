@@ -41,7 +41,7 @@ package mutation.ui.screens
 			menu.addChild(continueButton);
 			menu.addChild(quitButton);
 			
-			menu.x = 225;
+			menu.x = (stage.stageWidth - 150)/2;
 			menu.y = 50;
 			
 			continueButton.addEventListener(MouseEvent.CLICK, onContinue);

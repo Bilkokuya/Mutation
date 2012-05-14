@@ -9,6 +9,7 @@ package mutation
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.media.SoundMixer;
 	import flash.net.SharedObject;
 	import flash.ui.Keyboard;
 	import mutation.events.MutationEvent;
@@ -23,6 +24,7 @@ package mutation
 		private var tickCount:int = 0;
 		public var game:Game;
 		public var menu:IntroScreen;
+		public var soundManager:SoundManager;
 		
 		//	Do not edit
 		public function Main():void 
@@ -38,6 +40,9 @@ package mutation
 			
 			isPaused = true;
 		
+			soundManager = new SoundManager();
+			addChild(soundManager);
+			
 			menu = new IntroScreen();
 			addChild(menu);
 			
