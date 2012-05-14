@@ -31,7 +31,7 @@ package mutation.entity.hats
 			bitmap.width = 15;
 			bitmap.height = 15;
 			bitmap.x = - bitmap.width / 2;
-			bitmap.y = - bitmap.height / 2;
+			bitmap.y = - bitmap.height / 2 - 5;
 		}
 		
 		//	Accessor for the foodRateScale found in the HatDescriptor - for backwards compatibility

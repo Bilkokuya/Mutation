@@ -58,11 +58,11 @@ package mutation.ui
 
 			addChild(moneyOut);
 			addChild(bacteriaButton);
-			addChild(bacteriaButtonOut);
+			bacteriaButton.addChild(bacteriaButtonOut);
 			bacteriaButton.disable();
 			
 			addChild(collectButton);
-			addChild(collectedOut);
+			collectButton.addChild(collectedOut);
 			addChild(foodSelector);
 			addChild(unlockablesDisplay);
 			
@@ -148,7 +148,7 @@ package mutation.ui
 			moneyOut.selectable = false;
 			
 			collectedOut.defaultTextFormat = new TextFormat("Century Gothic", 24, 0x7C2C00, true);
-			collectedOut.x = 235;
+			collectedOut.x = 5;
 			collectedOut.y = 50;
 			collectedOut.autoSize = TextFieldAutoSize.LEFT;
 			collectedOut.selectable = false;	
@@ -160,9 +160,9 @@ package mutation.ui
 			format.align = TextFormatAlign.CENTER;
 			
 			bacteriaButtonOut.defaultTextFormat = new TextFormat("Century Gothic", 24, 0x7C2C00, true);
-			bacteriaButtonOut.x = 0;
-			bacteriaButtonOut.y = 55;
-			bacteriaButtonOut.autoSize = TextFieldAutoSize.CENTER;
+			bacteriaButtonOut.x = 5;
+			bacteriaButtonOut.y = 50;
+			bacteriaButtonOut.autoSize = TextFieldAutoSize.LEFT;
 			bacteriaButtonOut.selectable = false;
 			
 		}

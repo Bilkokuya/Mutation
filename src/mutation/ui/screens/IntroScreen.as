@@ -23,7 +23,6 @@ package mutation.ui.screens
 		private var playButton:Button;
 		private var continueButton:Button;
 		private var logoOut:TextField;
-		private var animation:Number = 1;
 		private var bg:Shape;
 		
 		public function IntroScreen() 
@@ -75,19 +74,9 @@ package mutation.ui.screens
 			draw();
 			
 			playButton.addEventListener(ButtonEvent.CLICKED, onPlay);
-			stage.addEventListener(MutationEvent.TICK, onTick);
 			stage.addEventListener(MutationEvent.MENU, onMenu);
 			stage.addEventListener(MutationEvent.GAME, onGame);
 			stage.addEventListener(MutationEvent.NEWGAME, onGame);
-		}
-		
-		private function onTick(e:MutationEvent):void
-		{
-			if ((e.tickCount % 30) == 0) {
-				animation *= -1;
-			}
-			
-			bg.scaleY += animation/960;
 		}
 		
 		public function kill():void
@@ -102,7 +91,6 @@ package mutation.ui.screens
 				stage.removeEventListener(MutationEvent.MENU, onMenu);
 				stage.removeEventListener(MutationEvent.GAME, onGame);
 				stage.removeEventListener(MutationEvent.NEWGAME, onGame);
-				stage.removeEventListener(MutationEvent.TICK, onTick);
 			}
 		}
 		

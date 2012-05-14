@@ -91,7 +91,7 @@ package mutation.ui
 				
 				game.foods.unlockNext();
 				if (game.foods.hasLocked()){
-					unlockFood.setBitmap( new Resources.GRAPHICS_FOODS[ game.foods.getNextLocked().graphic ]);
+					unlockFood.setBitmap( new Resources.GRAPHICS_FOODS[ game.foods.getNextLocked().graphic ], game.foods.getNextLocked().unlockCost);
 				}else{
 					unlockFood.setBitmap( new Resources.GFX_NO_UNLOCK);
 					unlockFood.disable();
@@ -111,7 +111,7 @@ package mutation.ui
 				
 				game.hats.unlockNext();
 				if (game.hats.hasLocked()){
-					unlockHat.setBitmap( new Resources.GRAPHICS_HATS[ game.hats.getNextLocked().graphic ]);
+					unlockHat.setBitmap( new Resources.GRAPHICS_HATS[ game.hats.getNextLocked().graphic ], game.hats.getNextLocked().unlockCost);
 				}else{
 					unlockHat.setBitmap( new Resources.GFX_NO_UNLOCK);
 					unlockHat.disable();

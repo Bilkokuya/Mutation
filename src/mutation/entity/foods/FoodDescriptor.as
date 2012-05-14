@@ -9,7 +9,7 @@ package mutation.entity.foods
 		public var foodAmount:int;
 		public var debrisCount:int;
 		public var debrisType:int;
-		public var startingLife:int;
+		public var startingLife:Number;
 		public var cost:int;
 		
 		public function FoodDescriptor(xml:XML) 

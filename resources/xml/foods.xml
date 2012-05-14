@@ -72,7 +72,7 @@
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		0		</debrisType>
-		<cost>				50		</cost>
+		<cost>				100		</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			750		</cost>
@@ -88,7 +88,7 @@
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		1		</debrisType>
-		<cost>				50		</cost>
+		<cost>				250		</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			1250		</cost>
@@ -100,11 +100,11 @@
 		<name>				RPill	</name>
 		<graphic>			4 		</graphic>
 		<radius>			5		</radius>
-		<life>				1		</life>
+		<life>				0.5		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		2		</debrisType>
-		<cost>				50		</cost>
+		<cost>				500		</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			2500		</cost>
@@ -120,7 +120,7 @@
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		4		</debrisType>
-		<cost>				50		</cost>
+		<cost>				2500	</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			7500		</cost>

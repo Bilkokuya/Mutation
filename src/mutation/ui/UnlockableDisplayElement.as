@@ -44,7 +44,7 @@ package mutation.ui
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-		
+			
 			addChild(backing);
 			addChild(bitmap);
 			addChild(overlay);
@@ -64,13 +64,14 @@ package mutation.ui
 			removeChild(this.bitmap);
 			this.bitmap = bitmap;
 			addChild(this.bitmap);
+			addChildAt(costOut, numChildren - 1);
 			
 			bitmap.x = 15;
 			bitmap.y = 15;
 			bitmap.width = 50;
 			bitmap.height = 50;
 			
-			if (cost) {
+			if(cost){
 				costOut.text = "菌" + cost;
 			}else {
 				costOut.text = "";

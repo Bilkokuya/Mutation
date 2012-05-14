@@ -17,67 +17,88 @@ package mutation.util
 		//////////////////////////////////////////////////////
 		//	GRAPHICS EMBEDDING
 		///////////////////////////////////////////////////////
-		[Embed(source = "../../../resources/gfx/bacteria.png")]
+		[Embed(source = "../../../resources/gfx/entity/bacteria.png")]
 		public static const GFX_BACTERIA:Class;
 		
-		[Embed(source = "../../../resources/gfx/bacteriagold.png")]
-		public static const GFX_BACTERIA_GOLD:Class;
-		
-		[Embed(source = "../../../resources/gfx/bacteriahungry.png")]
+		[Embed(source = "../../../resources/gfx/entity/bacteriahungry.png")]
 		public static const GFX_BACTERIA_HUNGRY:Class;
 		
-		[Embed(source = "../../../resources/gfx/eyes.png")]
+		[Embed(source = "../../../resources/gfx/entity/eyes.png")]
 		public static const GFX_EYES_OPEN:Class;
 		
-		[Embed(source = "../../../resources/gfx/eyesblinked.png")]
-		public static const GFX_EYES_BLINKED:Class;
+		[Embed(source = "../../../resources/gfx/entity/testtube.png")]
+		public static const GFX_TESTTUBE:Class;
 		
+		[Embed(source = "../../../resources/gfx/entity/testtube_shadow.png")]
+		public static const GFX_TESTTUBE_SHADOW:Class;
 		
 		//	HATS
-		[Embed(source="../../../resources/gfx/explorerhat.png")]
+		[Embed(source = "../../../resources/gfx/hats/nohat.png")]
+		public static const GFX_HAT_NONE:Class;
+		[Embed(source = "../../../resources/gfx/hats/explorer_normal.png")]
 		public static const GFX_HAT_EXPLORER:Class;
-		
-		[Embed(source="../../../resources/gfx/piratehat.png")]
+		[Embed(source = "../../../resources/gfx/hats/piratehat.png")]
 		public static const GFX_HAT_PIRATE:Class;
-		
-		[Embed(source="../../../resources/gfx/prettyhat.png")]
-		public static const GFX_HAT_PRETTY:Class;
+		[Embed(source = "../../../resources/gfx/hats/tophat_leather.png")]
+		public static const GFX_HAT_TOPHAT_LEATHER:Class;
+		[Embed(source = "../../../resources/gfx/hats/feathercap.png")]
+		public static const GFX_HAT_FEATHER:Class;
+		[Embed(source = "../../../resources/gfx/hats/germanhelm.png")]
+		public static const GFX_HAT_HELM:Class;
+		[Embed(source = "../../../resources/gfx/hats/explorer_flags.png")]
+		public static const GFX_HAT_EXPLORER_FLAGS:Class;
+		[Embed(source = "../../../resources/gfx/hats/tophat_black.png")]
+		public static const GFX_HAT_TOPHAT_BLACK:Class;
+		[Embed(source = "../../../resources/gfx/hats/germanhelm_gold.png")]
+		public static const GFX_HAT_HELM_GOLD:Class;
+		[Embed(source = "../../../resources/gfx/hats/explorer_gold.png")]
+		public static const GFX_HAT_EXPLORER_GOLD:Class;
+		[Embed(source = "../../../resources/gfx/hats/tophat_gold.png")]
+		public static const GFX_HAT_TOPHAT_GOLD:Class;
 		
 		public static const GRAPHICS_HATS:Vector.<Class> = new <Class>[
+			GFX_HAT_NONE,
 			GFX_HAT_EXPLORER,
 			GFX_HAT_PIRATE,
-			GFX_HAT_PRETTY,
+			GFX_HAT_TOPHAT_LEATHER,
+			GFX_HAT_FEATHER,
+			GFX_HAT_HELM,
+			GFX_HAT_EXPLORER_FLAGS,
+			GFX_HAT_TOPHAT_BLACK,
+			GFX_HAT_HELM_GOLD,	
+			GFX_HAT_EXPLORER_GOLD,
+			GFX_HAT_TOPHAT_GOLD
 		];
 		
 		//	FOODS
-		[Embed(source="../../../resources/gfx/nounlocks.png")]
+		[Embed(source="../../../resources/gfx/ui/nounlocks.png")]
 		public static const GFX_NO_UNLOCK:Class;
 		
-		[Embed(source = "../../../resources/gfx/fooddebris.png")]
+		[Embed(source = "../../../resources/gfx/foods/fooddebris.png")]
 		public static const GFX_FOOD_DEBRIS:Class;
 		
-		[Embed(source = "../../../resources/gfx/food1.png")]
+		[Embed(source = "../../../resources/gfx/foods/food1.png")]
 		public static const GFX_FOOD_SIMPLE:Class;
 		
-		[Embed(source = "../../../resources/gfx/foodexplosive.png")]
+		[Embed(source = "../../../resources/gfx/foods/foodexplosive.png")]
 		public static const GFX_FOOD_EXPLOSIVE:Class;
 		
-		[Embed(source = "../../../resources/gfx/foodpills.png")]
+		[Embed(source = "../../../resources/gfx/foods/foodpills.png")]
 		public static const GFX_FOOD_BLUEPILLS:Class;
 		
-		[Embed(source = "../../../resources/gfx/foodpillsred.png")]
+		[Embed(source = "../../../resources/gfx/foods/foodpillsred.png")]
 		public static const GFX_FOOD_REDPILLS:Class;
 		
-		[Embed(source = "../../../resources/gfx/foodpillsyellow.png")]
+		[Embed(source = "../../../resources/gfx/foods/foodpillsyellow.png")]
 		public static const GFX_FOOD_GOLDPILLS:Class;
 		
-		[Embed(source = "../../../resources/gfx/foodsemerald.png")]
+		[Embed(source = "../../../resources/gfx/foods/foodsemerald.png")]
 		public static const GFX_FOOD_EMERALD:Class;
 		
-		[Embed(source = "../../../resources/gfx/foodruby.png")]
+		[Embed(source = "../../../resources/gfx/foods/foodruby.png")]
 		public static const GFX_FOOD_RUBY:Class;
 		
-		[Embed(source = "../../../resources/gfx/fooddiamond.png")]
+		[Embed(source = "../../../resources/gfx/foods/fooddiamond.png")]
 		public static const GFX_FOOD_DIAMOND:Class;
 		
 		public static const GRAPHICS_FOODS:Vector.<Class> = new <Class>[
@@ -93,28 +114,25 @@ package mutation.util
 		];
 		
 		//	UI
-		[Embed(source = "../../../resources/gfx/arrow.png")]
+		[Embed(source = "../../../resources/gfx/ui/arrow.png")]
 		public static const GFX_UI_ARROW:Class;
 		
-		[Embed(source="../../../resources/gfx/contractselectionbox.png")]
-		public static const GFX_UI_CONTRACT_SELECTION:Class;
-		
-		[Embed(source="../../../resources/gfx/introscreenmenu.png")]
+		[Embed(source="../../../resources/gfx/ui/introscreenmenu.png")]
 		public static const GFX_UI_MENU:Class;
 		
-		[Embed(source = "../../../resources/gfx/button_base.png")]
+		[Embed(source = "../../../resources/gfx/ui/button_base.png")]
 		public static const GFX_UI_BUTTON_BASE:Class;
 		
-		[Embed(source = "../../../resources/gfx/button_spawnbacteria.png")]
+		[Embed(source = "../../../resources/gfx/ui/button_spawnbacteria.png")]
 		public static const GFX_UI_BUTTON_BACTERIA:Class;
 		
-		[Embed(source = "../../../resources/gfx/button_contract.png")]
+		[Embed(source = "../../../resources/gfx/ui/button_contract.png")]
 		public static const GFX_UI_BUTTON_CONTRACT:Class;
 		
-		[Embed(source = "../../../resources/gfx/speaker.png")]
+		[Embed(source = "../../../resources/gfx/ui/speaker.png")]
 		public static const GFX_UI_SPEAKER:Class;
 		
-		[Embed(source = "../../../resources/gfx/speaker_muted.png")]
+		[Embed(source = "../../../resources/gfx/ui/speaker_muted.png")]
 		public static const GFX_UI_SPEAKER_MUTE:Class;
 		
 		

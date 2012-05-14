@@ -52,7 +52,7 @@ package mutation
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			bgChan = bgSound.play(3500, 0, new SoundTransform(0.6 * volume) );
+			bgChan = bgSound.play(3500, 0, new SoundTransform(0.3 * volume) );
 			
 			bgChan.addEventListener(Event.SOUND_COMPLETE, onCompleteMusic);
 			
@@ -70,7 +70,7 @@ package mutation
 			if (isMuted) {
 				isMuted = false;
 				volume = 1;
-				bgChan.soundTransform = new SoundTransform(0.5 * volume);
+				bgChan.soundTransform = new SoundTransform(0.3 * volume);
 				speaker.removeChild(speakerBMP);
 				speakerBMP = new Resources.GFX_UI_SPEAKER;
 				speaker.addChild(speakerBMP);
@@ -78,7 +78,7 @@ package mutation
 			}else {
 				isMuted = true;
 				volume = 0;
-				bgChan.soundTransform = new SoundTransform(0.5 * volume);
+				bgChan.soundTransform = new SoundTransform(0.3 * volume);
 				speaker.removeChild(speakerBMP);
 				speakerBMP = new Resources.GFX_UI_SPEAKER_MUTE;
 				speaker.addChild(speakerBMP);
@@ -98,7 +98,7 @@ package mutation
 							
 							if (delayType == DELAY_BG) {
 								bgSound = new Resources.AUDIO_BG_MUSIC;
-								bgChan = bgSound.play(0, 0, new SoundTransform(0.5 * volume) );;
+								bgChan = bgSound.play(0, 0, new SoundTransform(0.3 * volume) );;
 								bgChan.addEventListener(Event.SOUND_COMPLETE, onCompleteMusic);
 								
 							}else if (delayType == DELAY_FILLER) {
