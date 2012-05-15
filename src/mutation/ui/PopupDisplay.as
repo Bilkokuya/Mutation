@@ -52,13 +52,13 @@ package mutation.ui
 		private function draw():void
 		{
 			//	orange surround
-			graphics.beginFill(0xFF6600, 0.7);
-			graphics.drawRoundRect( arrowWidth_ - 2, (-boxHeight_/2) - 2, boxWidth_ + 4, boxHeight_ + 4, 11);
+			graphics.beginFill(0x97b9f3, 0.7);
+			graphics.drawRect( arrowWidth_ - 2, (-boxHeight_/2) - 2, boxWidth_ + 4, boxHeight_ + 4);
 			graphics.endFill();
 			
 			//orange triangle to bacteria
 			graphics.lineStyle();
-			graphics.beginFill(0xFF6600, 0.7);
+			graphics.beginFill(0x97b9f3, 0.7);
 			graphics.moveTo(0, 0);
 			graphics.lineTo((arrowWidth_) - 2, -arrowHeight_/2);
 			graphics.lineTo((arrowWidth_) - 2, arrowHeight_/2);
@@ -68,7 +68,7 @@ package mutation.ui
 			
 			//	white background to make text obvious
 			graphics.beginFill(0xFFFFFF, 0.7);
-			graphics.drawRoundRect(arrowWidth_, -boxHeight_/2, boxWidth_, boxHeight_, 10);
+			graphics.drawRect(arrowWidth_, -boxHeight_/2, boxWidth_, boxHeight_);
 			graphics.endFill();
 		}
 		

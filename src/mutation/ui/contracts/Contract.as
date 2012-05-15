@@ -49,7 +49,8 @@ package mutation.ui.contracts
 		{
 			collected = 0;
 			boxesShipped++;
-			if (boxesShipped > type.boxesNeeded) {
+			stage.dispatchEvent(new ContractEvent(ContractEvent.SHIPPED, this));
+			if (boxesShipped >= type.boxesNeeded) {
 				if (stage){
 					stage.dispatchEvent(new ContractEvent( ContractEvent.COMPLETED, this) );
 				}

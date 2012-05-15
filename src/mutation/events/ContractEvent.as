@@ -5,9 +5,10 @@ package mutation.events
 	
 	public class ContractEvent extends Event
 	{
+		public static const SHIPPED:String			=	"CONTRACT_SHIPPED";
 		public static const CHANGED:String 		= "CONTRACT_CHANGED";	//	Called when a contract has been changed
 		public static const COMPLETED:String 	= "CONTRACT_COMPLETED";
-		public static const SELECTED:String			= "CONTRACT_SELECTED";
+		public static const SELECTED:String		= "CONTRACT_SELECTED";
 		
 		public var contract:Contract;	//	Amount of collected stuff
 		

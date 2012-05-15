@@ -121,6 +121,7 @@ package mutation
 			if ( (money < bacteriaCost) && (bacteriaCount < 1) ) {
 				Main.isPaused = true;
 				popup.display(new Bacteria(this, 0, 0));
+				popup.addEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			}
 		}
 		
@@ -188,7 +189,13 @@ package mutation
 		{
 			popup.visible = false;
 			Main.isPaused = false;
-			testTubes[0].spawnBacteria(e.bacteria);
+			
+			var tube:int = 0;
+			do{
+				tube = Math.random() * 3.99;
+			} while (testTubes[tube].bacteriaCount > 5);
+			
+			testTubes[tube].spawnBacteria(e.bacteria);
 			popup.removeEventListener(BacteriaEvent.COMPLETE, onBacteriaNamed);
 			ui.bacteriaButtonOut.text = "菌" + bacteriaCost;
 		}

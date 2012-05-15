@@ -46,9 +46,7 @@ package mutation.entity.foods
 			life = type.startingLife * 30;
 			flagIsMoving = true;
 			
-			//bitmap = new (Resources.GRAPHICS[type.graphic])();
-
-			draw();
+			bitmap = new (Resources.GRAPHICS_FOODS[type.graphic])();
 			
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -58,16 +56,17 @@ package mutation.entity.foods
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			//addChild(bitmap);
-			//bitmap.width = type.radius;
-			//bitmap.height = type.radius;
+			addChild(bitmap);
+			bitmap.width = type.radius * 2;
+			bitmap.height = type.radius * 2;
 			
 			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
 		}
 		
 		//	OnTick Updates
 		private function onTick(e:MutationEvent):void {
-			if(flagIsMoving){
+			if (flagIsMoving) {
+				rotation++;
 				ySpeed += yAccel;
 				x += xSpeed;
 				y += ySpeed;
@@ -79,7 +78,6 @@ package mutation.entity.foods
 					kill();
 				}
 			}
-			
 		}
 		
 		//	Kills this peice of food from the game
@@ -92,14 +90,6 @@ package mutation.entity.foods
 				dispatchEvent(new FoodEvent(FoodEvent.DEATH, this, true));
 			}
 		}
-		
-		//	Draw the graphics representation
-		private function draw():void {
-		graphics.beginFill(0xFF6600);
-			graphics.drawCircle(0, 0, type.radius);
-			graphics.endFill();
-		}
-	
 		
 	}
 

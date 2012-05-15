@@ -7,6 +7,7 @@
 
 package mutation.entity 
 {
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -38,19 +39,24 @@ package mutation.entity
 		public var bacteriaCount:int = 0;		//	Number of bacteria it contains
 		
 		private var game:Game;
-		private var radius:int;					//	Radius of movement for the testtube
+		private var radius:int;						//	Radius of movement for the testtube
 		
 		private var bacterias:Array;			//	Array of Bacteria
-		private var foods:Array;				//	Array of Food
-		private var items:Array;				//	Array of Item
+		private var foods:Array;					//	Array of Food
+		private var items:Array;					//	Array of Item
 		
 		private var selector:Sprite;			//	Item selector
 		private var closestItem:Item = null;
 		private var closestRange:Number = ITEM_CLICK_RANGE;
 		private var selected:Boolean = false;
+		private var bitmap:Bitmap;
+		private var shadow:Bitmap;
 		
 		private var visual:Sprite;
 		private var windowVisual:Sprite;
+		private var anim:int = 1;
+		private var animHeight:Number = 0;
+		private var baseY:Number;
 		
 		//	Constructor: default
 		public function TestTube(game:Game, x:Number = 200, y:Number = 200, radius:int = 50) {
@@ -58,10 +64,18 @@ package mutation.entity
 			
 			this.x = x;
 			this.y = y;
+			this.baseY = y;
 			this.radius = radius;
 			closestItem = null;
 			
-
+			shadow = new Resources.GFX_TESTTUBE_SHADOW();
+			bitmap = new Resources.GFX_TESTTUBE_EMPTY();
+			bitmap.x = -bitmap.width / 2;
+			bitmap.y = -bitmap.height / 2 + 20;
+			
+			shadow.x = -shadow.width / 2;
+			shadow.y = 150;
+			
 			windowVisual = new Sprite();
 			bacterias = new Array();
 			foods = new Array();
@@ -79,11 +93,15 @@ package mutation.entity
 		private function onInit(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
+			addChild(shadow);
+			addChild(bitmap);
 			addChild(windowVisual);
 			addChild(selector);
 			
 			windowVisual.visible = false;
 			
+			scaleX = 0.8;
+			scaleY = 0.8;
 			
 			stage.addEventListener(MouseEvent.CLICK, onClick);
 			stage.addEventListener(MutationEvent.TICK_MAIN, onTick);
@@ -102,6 +120,7 @@ package mutation.entity
 			windowVisual.visible = true;
 			scaleX = 1.5;
 			scaleY = 1.5;
+			y = baseY;
 			parent.addChildAt(this, parent.numChildren - 1);
 			selected = true;
 		}
@@ -109,9 +128,9 @@ package mutation.entity
 		private function onRollOut(e:MouseEvent):void
 		{
 			windowVisual.visible = false;
-			scaleX = 1;
-			scaleY = 1;
-			
+			scaleX = 0.8;
+			scaleY = 0.8;
+			y = baseY - animHeight;
 			selected = false;
 		}
 		
@@ -120,6 +139,16 @@ package mutation.entity
 			updateItems();
 			updateFood();
 			updateBacteria();
+			
+			if ((e.tickCount % 30) == 0) {
+				anim *= -1;
+			}
+			animHeight += (anim / 4);
+			
+			if (!selected){
+				this.y = baseY - animHeight;
+				shadow.y = 150  + animHeight;
+			}
 		}
 		
 		public function kill():void
@@ -211,6 +240,7 @@ package mutation.entity
 							if (Util.inRadius(b.x, b.y, (b.radius + f.type.radius), f.x, f.y)) {
 								b.feed(f.type.foodAmount);
 								f.kill();
+								stage.dispatchEvent(new FoodEvent( FoodEvent.EAT, null));
 								b.target = null;
 							}
 					}
@@ -228,6 +258,14 @@ package mutation.entity
 		
 		public function spawnBacteria(bacteria:Bacteria):void
 		{
+			if (bacteriaCount == 0) {
+				removeChild(bitmap);
+				bitmap = new Resources.GFX_TESTTUBE();
+				addChildAt(bitmap, 0);
+				bitmap.x = -bitmap.width / 2;
+				bitmap.y = -bitmap.height / 2 + 20;
+			}
+			
 			if (bacteriaCount > MAX_BACTERIA) return;
 			bacteriaCount++;
 			
@@ -256,17 +294,19 @@ package mutation.entity
 		}
 		
 		//	Spawns a new item of food at the specified position
-		private function spawnFood(x:Number, y:Number, cost:int = 10):void
+		private function spawnFood(x:Number, y:Number):void
 		{
-			
 			//	Add a new peice of food
 			// 		Ensure it is in radius of the testTube
 			if (Util.inRadius(x, y, radius)) {
-				if (game.money >= cost){
-					var food:Food = new Food(game, x, y, game.foods.getAt(game.foodSelection) as FoodDescriptor);
+				
+				var desc:FoodDescriptor =  game.foods.getAt(game.foodSelection) as FoodDescriptor;
+				if (game.money >= desc.cost){
+					var food:Food = new Food(game, x, y, desc);
 					foods.push(food);
 					windowVisual.addChild(food);
-					game.money -= cost;
+					game.money -= desc.cost;
+					stage.dispatchEvent(new FoodEvent(FoodEvent.FEED, null));
 				}
 			}
 		}
@@ -294,6 +334,14 @@ package mutation.entity
 			windowVisual.removeChild(e.bacteria);
 			bacterias.splice(bacterias.indexOf(e.bacteria), 1);
 			bacteriaCount--;
+			
+			if (bacteriaCount == 0) {
+				removeChild(bitmap);
+				bitmap = new Resources.GFX_TESTTUBE_EMPTY();
+				addChildAt(bitmap, 0);
+				bitmap.x = -bitmap.width / 2;
+				bitmap.y = -bitmap.height / 2 + 20;
+			}
 		}
 		
 		//	Called when an item dies and needs removed
@@ -306,13 +354,13 @@ package mutation.entity
 		//	Draws the graphics of the testTube
 		private function draw():void {
 			
-			graphics.beginFill(0x7777FF, 1);
-			graphics.drawRect(-25, -110, 50, 220);
-			graphics.endFill();
-			
-			windowVisual.graphics.beginFill(0x777777, 1);
+			windowVisual.graphics.beginFill(0xb0bbbc, 1);
+			windowVisual.graphics.drawCircle(0, 0, radius+14);
+			windowVisual.graphics.endFill();
+			windowVisual.graphics.beginFill(0xa1f3ff, 1);
 			windowVisual.graphics.drawCircle(0, 0, radius+10);
 			windowVisual.graphics.endFill();
+			
 		}
 		
 		public function getToken():Object

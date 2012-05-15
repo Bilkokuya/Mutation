@@ -5,6 +5,8 @@ package mutation.events
 	
 	public class FoodEvent extends Event 
 	{
+		public static const EAT:String = "FOOD_EAT";
+		public static const FEED:String   = "FOOD_FEED";
 		public static const DEATH:String = "FOOD_DEATH";
 		public static const UNLOCK:String = "FOOD_UNLOCK";
 		public var food:Food;
