@@ -36,7 +36,7 @@ package mutation.entity
 	public class Bacteria extends Sprite
 	{
 		private const DIRECTION_RATE:Number = 1 / (2 * 30);	//	Frequency it will change direction
-		private const HUNGER_LEVEL:Number = 80;					//	Level of food before it becomes "hungry"
+		private const HUNGER_LEVEL:Number = 40;					//	Level of food before it becomes "hungry"
 		private const HUNGRY_SPEED:Number = 2.5;					//	Factor of speed it moves at when hungry
 		private const SPEED:Number = 1.5;										//	Base speed for movement
 		
@@ -104,8 +104,8 @@ package mutation.entity
 			addChild(bitmapEyes);
 			addChild(this.hat);
 			
-			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
-			money = new Resource(Math.random() * 50, 1*this.hat.moneyRateScale, 100*this.hat.moneyAmountScale);
+			food = new Resource(100, -0.05*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
+			money = new Resource(Math.random() * 50, 0.1*this.hat.moneyRateScale, 100*this.hat.moneyAmountScale);
 			
 			super();
 			if (stage) onInit();
@@ -162,15 +162,12 @@ package mutation.entity
 			}
 			
 			//	visual change when going a different direction
-			//	includes quick-fix to ensure popOut menu is always on the right hand side
-			if (xSpeed > 0) {
-				scaleX = 1;
-				popOut.scaleX = 1;
-				popOut.x = radius;
-			}else {
-				scaleX = -1;
-				popOut.scaleX = -1;
-				popOut.x = -radius;
+			if (!popOut.visible){
+				if (xSpeed > 0) {
+					scaleX = 1;
+				}else {
+					scaleX = -1;
+				}
 			}
 			
 			//	visul change when moving up or down, alters the eyes
@@ -200,7 +197,7 @@ package mutation.entity
 			
 			if (food.amount < 1) kill();
 			
-			popOut.update(nameString ,money.amount , food.amount);
+			popOut.update(nameString , food.amount, level.level);
 			
 			//	Update position
 			if (canMove){
@@ -215,6 +212,8 @@ package mutation.entity
 			popOut.show();
 			scaleX = 1.2;
 			scaleY = 1.2;
+			popOut.scaleX = 0.8;
+			popOut.scaleY = 0.8;
 			parent.setChildIndex(this, parent.numChildren - 1);
 			addChild(popOut);
 			canMove = false;
@@ -226,6 +225,8 @@ package mutation.entity
 			popOut.hide();
 			scaleX = 1;
 			scaleY = 1;
+			popOut.scaleX = 1;
+			popOut.scaleY = 1;
 			removeChild(popOut);
 			canMove = true;
 		}
@@ -297,8 +298,8 @@ package mutation.entity
 			this.hat.x = 0;
 			addChild(hat);
 			
-			food = new Resource(100, -0.1*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
-			money = new Resource(Math.random() * 50, 1*this.hat.moneyRateScale, 100*this.hat.moneyAmountScale);
+			food = new Resource(100, -0.05*this.hat.foodRateScale, 100*this.hat.foodAmountScale);
+			money = new Resource(0, 0.1*this.hat.moneyRateScale, 25*this.hat.moneyAmountScale);
 		}
 		
 		public function getToken():Object

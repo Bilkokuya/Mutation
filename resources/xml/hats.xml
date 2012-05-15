@@ -34,10 +34,10 @@
 <!-- Start of Actual File Data -->
 <data>
 	
-	<!-- Basic Explorer hat -->
+	<!-- No Hat -->
 	<hat>
 		<id> 				0		</id>
-		<name>				EXPLORE	</name>
+		<name>				NONE	</name>
 		<graphic>			0 		</graphic>
 		<stats>	
 			<foodRate>		1		</foodRate>	
@@ -51,16 +51,16 @@
 		</unlock>
 	</hat>
 	
-	<!-- Pirate hat -->
+	<!-- Explorer hat -->
 	<hat>
 		<id> 				1		</id>
-		<name>				PIRATE	</name>
+		<name>				EXPLORER</name>
 		<graphic> 			1 		</graphic>
 		<stats>	
-			<foodRate>		1		</foodRate>	
-			<foodAmount>	1		</foodAmount>
-			<moneyRate>		1.1		</moneyRate>
-			<moneyAmount>	1.2		</moneyAmount>
+			<foodRate>		0.9		</foodRate>	
+			<foodAmount>	1.2		</foodAmount>
+			<moneyRate>		0.9		</moneyRate>
+			<moneyAmount>	1.1		</moneyAmount>
 		</stats>
 		<unlock>
 			<unlocked> 		true 	</unlocked>
@@ -68,22 +68,149 @@
 		</unlock>
 	</hat>
 	
-	<!-- Pretty Purple Women's hat -->
+	<!-- pirate hat -->
 	<hat>
 		<id> 				2		</id>
-		<name>				PRETTY	</name>
+		<name>				PIRATE	</name>
 		<graphic> 			2 		</graphic>
 		<stats>	
+			<foodRate>		1.1		</foodRate>	
+			<foodAmount>	0.8 	</foodAmount>
+			<moneyRate>		1.2		</moneyRate>
+			<moneyAmount>	1.2		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		true 	</unlocked>
+			<cost>			0		</cost>
+		</unlock>
+	</hat>
+
+	<hat>
+		<id> 				3		</id>
+		<name>				TOPHAT_LEATHER	</name>
+		<graphic> 			3		</graphic>
+		<stats>	
 			<foodRate>		1		</foodRate>	
-			<foodAmount>	1		</foodAmount>
-			<moneyRate>		0.1		</moneyRate>
+			<foodAmount>	0.8 	</foodAmount>
+			<moneyRate>		1.1		</moneyRate>
+			<moneyAmount>	1.3		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			500		</cost>
+		</unlock>
+	</hat>
+	
+	<hat>
+		<id> 				4		</id>
+		<name>				FEATHER	</name>
+		<graphic> 			4		</graphic>
+		<stats>	
+			<foodRate>		0.8		</foodRate>	
+			<foodAmount>	1.3 	</foodAmount>
+			<moneyRate>		0.5		</moneyRate>
+			<moneyAmount>	1.5		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			1500		</cost>
+		</unlock>
+	</hat>
+	
+	<hat>
+		<id> 				5		</id>
+		<name>				HELM	</name>
+		<graphic> 			5		</graphic>
+		<stats>	
+			<foodRate>		0.5		</foodRate>	
+			<foodAmount>	2	 	</foodAmount>
+			<moneyRate>		1.5		</moneyRate>
+			<moneyAmount>	0.5		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			5000		</cost>
+		</unlock>
+	</hat>
+	
+	<hat>
+		<id> 				6		</id>
+		<name>				EXPLORER_FLAGS	</name>
+		<graphic> 			6		</graphic>
+		<stats>	
+			<foodRate>		1		</foodRate>	
+			<foodAmount>	1.5	 	</foodAmount>
+			<moneyRate>		1.3		</moneyRate>
+			<moneyAmount>	1.5		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			7500		</cost>
+		</unlock>
+	</hat>
+	
+	<hat>
+		<id> 				7		</id>
+		<name>				TOPHAT_BLACK	</name>
+		<graphic> 			7		</graphic>
+		<stats>	
+			<foodRate>		1.2		</foodRate>	
+			<foodAmount>	1.2	 	</foodAmount>
+			<moneyRate>		1.3		</moneyRate>
+			<moneyAmount>	3		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			9999	</cost>
+		</unlock>
+	</hat>
+	
+	<hat>
+		<id> 				8		</id>
+		<name>				HELM_GOLD	</name>
+		<graphic> 			8		</graphic>
+		<stats>	
+			<foodRate>		2		</foodRate>	
+			<foodAmount>	2	 	</foodAmount>
+			<moneyRate>		2		</moneyRate>
 			<moneyAmount>	2		</moneyAmount>
 		</stats>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
-			<cost>			650		</cost>
+			<cost>			50000	</cost>
 		</unlock>
 	</hat>
-
+	
+	<hat>
+		<id> 				9		</id>
+		<name>				EXPLORER_GOLD	</name>
+		<graphic> 			9		</graphic>
+		<stats>	
+			<foodRate>		0.5		</foodRate>	
+			<foodAmount>	2	 	</foodAmount>
+			<moneyRate>		1.2		</moneyRate>
+			<moneyAmount>	5		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			75000	</cost>
+		</unlock>
+	</hat>
+	
+	<hat>
+		<id> 				10		</id>
+		<name>				TOPHAT_GOLD	</name>
+		<graphic> 			10		</graphic>
+		<stats>	
+			<foodRate>		1.5		</foodRate>	
+			<foodAmount>	3	 	</foodAmount>
+			<moneyRate>		2		</moneyRate>
+			<moneyAmount>	5		</moneyAmount>
+		</stats>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			99999	</cost>
+		</unlock>
+	</hat>
 	
 </data>

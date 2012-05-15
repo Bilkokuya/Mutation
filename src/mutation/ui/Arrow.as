@@ -27,9 +27,7 @@ package mutation.ui
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
 			addChild(bitmap);
-			bitmap.width = 20;
-			bitmap.height = 20;
-			this.scaleX *= direction;
+			this.scaleX *= -direction;
 		}
 		
 		public function setUnselectable():void

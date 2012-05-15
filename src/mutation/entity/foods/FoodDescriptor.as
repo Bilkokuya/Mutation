@@ -9,20 +9,22 @@ package mutation.entity.foods
 		public var foodAmount:int;
 		public var debrisCount:int;
 		public var debrisType:int;
-		public var startingLife:int;
+		public var startingLife:Number;
+		public var cost:int;
 		
 		public function FoodDescriptor(xml:XML) 
 		{
-			this.graphic 		= xml.graphic;
-			this.radius 		= xml.radius;
+			this.graphic 			= xml.graphic;
+			this.radius 				= xml.radius;
 			this.foodAmount 	= xml.foodAmount;
-			this.debrisType 	= xml.debrisType;
+			this.debrisType 		= xml.debrisType;
 			this.debrisCount 	= xml.debrisCount;
-			this.startingLife 	= xml.life;
-			this.names 			= xml.name;
+			this.startingLife 		= xml.life;
+			this.names 				= xml.name;
+			this.cost 					= xml.cost;
 			
 			(xml.unlock.unlocked == "true") ? isUnlocked = true : isUnlocked = false;
-			unlockCost 			= xml.unlock.cost;
+			unlockCost 				= xml.unlock.cost;
 		}
 		
 	}

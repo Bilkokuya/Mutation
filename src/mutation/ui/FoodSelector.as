@@ -5,6 +5,7 @@ package mutation.ui
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import mutation.entity.foods.FoodDescriptor;
 	import mutation.entity.Resource;
 	import mutation.events.FoodEvent;
@@ -17,18 +18,22 @@ package mutation.ui
 		private var leftArrow:Arrow;
 		private var rightArrow:Arrow;
 		private var foodBMP:Bitmap;
-		private var foodNameOut:TextField;
+		private var foodCostOut:TextField;
+		private var buttonBacking:Bitmap;
 		private var game:Game;
 		
 		public function FoodSelector(game:Game) 
 		{
 			this.game = game;
 			
+			buttonBacking = new Resources.GFX_UI_BUTTON_BASE;
 			leftArrow = new Arrow(Arrow.LEFT);
 			rightArrow = new Arrow(Arrow.RIGHT);
 			foodBMP = new currentFoodGraphic();
-			foodNameOut = new TextField();
-			foodNameOut.selectable = false;
+			
+			foodCostOut = new TextField();
+			foodCostOut.defaultTextFormat = new TextFormat("Century Gothic", 24, 0x7C2C00, true);
+			foodCostOut.selectable = false;
 			
 			super();
 			if (stage) onInit();
@@ -39,22 +44,28 @@ package mutation.ui
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
+			addChild(buttonBacking);
 			addChild(leftArrow);
 			addChild(rightArrow);
 			addChild(foodBMP);
-			addChild(foodNameOut);
+			addChild(foodCostOut);
 			
-			leftArrow.x = 10;
-			rightArrow.x = 100;
+			leftArrow.x = 15;
+			leftArrow.y = 0;
+			rightArrow.x = 65;
+			rightArrow.y = 0;
+			
+			buttonBacking.y = 0;
+			foodBMP.y = 50;
 			
 			foodBMP.x = 50;
 			foodBMP.width = 35;
 			foodBMP.height = 35;
 			foodBMP.y = -foodBMP.height / 2;
 			
-			foodNameOut.text = currentFoodDescriptor.names;
-			foodNameOut.x = 10;
-			foodNameOut.y = 25;
+			foodCostOut.text ="菌" + currentFoodDescriptor.cost;
+			foodCostOut.x = 5;
+			foodCostOut.y = 50;
 			
 			draw();
 			
@@ -95,12 +106,13 @@ package mutation.ui
 		{
 			removeChild(foodBMP);
 			foodBMP = new currentFoodGraphic();
-			foodBMP.x = 50;
+			foodBMP.x = 25;
 			foodBMP.width = 35;
 			foodBMP.height = 35;
-			foodBMP.y = -foodBMP.height / 2;
+			foodBMP.y = 25;
 			addChild(foodBMP);
-			foodNameOut.text = currentFoodDescriptor.names;
+			addChildAt(foodCostOut, numChildren - 1);
+			foodCostOut.text = "菌" + currentFoodDescriptor.cost;
 			
 			if (!game.foods.hasUnlocked(game.foodSelection - 2)) {
 				leftArrow.setUnselectable();

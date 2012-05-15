@@ -7,6 +7,7 @@ package mutation.ui.screens
 	import flash.geom.Matrix;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFormat;
 	import mutation.entity.BaseDescriptor;
 	import mutation.events.ButtonEvent;
 	import mutation.events.ContractEvent;
@@ -19,7 +20,7 @@ package mutation.ui.screens
 	public class ContractScreen extends Screen
 	{
 		private var game:Game;
-		
+		private var title:TextField;
 		private var group:int = 0;
 		private var options:Vector.<ContractOption> = new Vector.<ContractOption>();
 		
@@ -28,6 +29,7 @@ package mutation.ui.screens
 		{	
 			this.game = game;
 
+			title = new TextField();
 			super();
 			if (stage) onInit();
 			else addEventListener(Event.ADDED_TO_STAGE, onInit);
@@ -37,8 +39,23 @@ package mutation.ui.screens
 		private function onInit(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
-			
+
 			updateContracts(false);
+			
+			var format:TextFormat = new TextFormat();
+			format.color = 0x6699CC;
+			format.size = 36;
+			format.bold = true
+			format.font = "Century Gothic";
+			
+			title.defaultTextFormat = format;
+			title.autoSize = TextFieldAutoSize.LEFT;
+			title.text = "Choose a Contract";
+			title.x = 105;
+			title.y = 0;
+			title.selectable = false;
+			
+			addChild(title);
 			
 			for each (var o:ContractOption in options){
 				o.addEventListener(ContractEvent.SELECTED, onSelected);
@@ -77,16 +94,11 @@ package mutation.ui.screens
 			
 			//	Clear the previous list, to ensure "old" elements aren't left accidentally
 			if (initialised) {
-				trace("starting removals: " + options.length);
 					for (var i:int = options.length; i > 0 ; i--) {
 						var o:ContractOption = options.pop();
 						o.removeEventListener(ContractEvent.SELECTED, onSelected);
 						removeChild(o);
-						trace("removed option");
 					}
-					trace("options removed");
-			}else {
-				trace("no removal, not initialised");
 			}
 			
 			//	Gather the next set of valid contracts (3 at most)	
@@ -118,6 +130,7 @@ package mutation.ui.screens
 				options[i].x = (stage.stageWidth / 2 ) - (loaded* 180 / 2) + (i * 180);
 				options[i].y = 50;
 			}
+			addChildAt(title, numChildren - 1);
 		}
 		
 		//	Called when a contract is complete

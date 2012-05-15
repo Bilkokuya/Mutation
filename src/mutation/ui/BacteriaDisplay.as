@@ -9,18 +9,18 @@ package mutation.ui
 	
 	public class BacteriaDisplay extends PopupDisplay
 	{
-		private var nameField:TextField;
-		private var foodField:TextField;
-		private var productionField:TextField;
+		private var nameOut:TextField;
+		private var foodOut:TextField;
+		private var levelOut:TextField;
 		private var game:Game;
 		
 		public function BacteriaDisplay(game:Game, x:Number, y:Number, width:Number, height:Number, length:Number = 10, thickness:Number = 20)
 		{			
 			this.game = game;
 			
-			nameField = new TextField();
-			foodField = new TextField();
-			productionField = new TextField();
+			nameOut = new TextField();
+			foodOut = new TextField();
+			levelOut = new TextField();
 
 			
 			super(game, x, y, width, height, length, thickness);
@@ -32,33 +32,33 @@ package mutation.ui
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			
-			addChild(nameField);
-			addChild(foodField);
-			addChild(productionField);
+			addChild(nameOut);
+			addChild(foodOut);
+			addChild(levelOut);
 			
 			var format:TextFormat = new TextFormat();
-			format.size = 12;
+			format.size = 9;
 			format.font = "Calibri";
 			
-			nameField.defaultTextFormat = format;
-			foodField.defaultTextFormat = format;
-			productionField.defaultTextFormat = format;
+			nameOut.defaultTextFormat = format;
+			foodOut..defaultTextFormat = format;
+			levelOut..defaultTextFormat = format;
 			
-			nameField.x = arrowWidth_;
-			nameField.y = (-boxHeight_/2) + 2;
+			nameOut.x = arrowWidth_;
+			nameOut.y = (-boxHeight_/2) + 2;
 			
-			foodField.x = arrowWidth_;
-			foodField.y = (-boxHeight_/2) + 17;
+			foodOut.x = arrowWidth_;
+			foodOut.y = (-boxHeight_/2) + 17;
 			
-			productionField.x = arrowWidth_;
-			productionField.y = (-boxHeight_/2) + 32;
+			levelOut.x = arrowWidth_;
+			levelOut.y = (-boxHeight_/2) + 32;
 		}
 		
-		public function update(names:String, food:Number, production:Number):void
+		public function update(names:String, food:int, level:int):void
 		{
-			nameField.text = "Name: " + names;
-			foodField.text = "Money: " + food.toFixed(0);
-			productionField.text = "Food: " + production.toFixed(0);
+			nameOut.text = "Name: " + names;
+			foodOut.text = "Hunger: " + food + "%";
+			levelOut.text = "Level: " + level;
 		}
 	}
 

@@ -6,9 +6,11 @@
 
 package mutation
 {	
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.media.SoundMixer;
 	import flash.net.SharedObject;
 	import flash.ui.Keyboard;
 	import mutation.events.MutationEvent;
@@ -23,6 +25,7 @@ package mutation
 		private var tickCount:int = 0;
 		public var game:Game;
 		public var menu:IntroScreen;
+		public var soundManager:SoundManager;
 		
 		//	Do not edit
 		public function Main():void 
@@ -37,9 +40,12 @@ package mutation
 			Resources.load();
 			
 			isPaused = true;
-		
+			
+			soundManager = new SoundManager();
+			
 			menu = new IntroScreen();
 			addChild(menu);
+			addChild(soundManager);
 			
 			removeEventListener(Event.ADDED_TO_STAGE, onInit);
 			stage.addEventListener(Event.ENTER_FRAME, onTick);
@@ -72,6 +78,7 @@ package mutation
 			
 			game = new Game();
 			addChild(game);
+			addChildAt(soundManager, numChildren - 1);
 			game.buildFromToken(save.data.gamedata);
 			game.start();
 		}
@@ -83,6 +90,7 @@ package mutation
 			save.clear();
 			game = new Game();
 			addChild(game);
+			addChildAt(soundManager, numChildren - 1);
 			game.start();
 		}
 		

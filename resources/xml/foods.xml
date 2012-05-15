@@ -33,11 +33,12 @@
 		<id> 				0		</id>
 		<name>				DEBRIS	</name>
 		<graphic>			0 		</graphic>
-		<radius>			1		</radius>
+		<radius>			2		</radius>
 		<life>				2		</life>
 		<foodAmount>		50		</foodAmount>
 		<debrisCount>		0		</debrisCount>
 		<debrisType>		0		</debrisType>
+		<cost>				0		</cost>
 		<unlock>
 			<unlocked> 		true	</unlocked>
 			<cost>			0		</cost>
@@ -48,12 +49,13 @@
 	<food>
 		<id> 				0		</id>
 		<name>				Single	</name>
-		<graphic>			0 		</graphic>
-		<radius>			2		</radius>
+		<graphic>			1 		</graphic>
+		<radius>			3		</radius>
 		<life>				4		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		3		</debrisCount>
 		<debrisType>		0		</debrisType>
+		<cost>				10		</cost>
 		<unlock>
 			<unlocked> 		true 	</unlocked>
 			<cost>			0		</cost>
@@ -64,15 +66,112 @@
 	<food>
 		<id> 				1		</id>
 		<name>				Explodey	</name>
-		<graphic>			1 		</graphic>
-		<radius>			3		</radius>
+		<graphic>			2 		</graphic>
+		<radius>			5		</radius>
 		<life>				1		</life>
 		<foodAmount>		100		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		0		</debrisType>
+		<cost>				100		</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			750		</cost>
+		</unlock>
+	</food>
+	
+	<food>
+		<id> 				2		</id>
+		<name>				Bpill	</name>
+		<graphic>			3 		</graphic>
+		<radius>			5		</radius>
+		<life>				1		</life>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		10		</debrisCount>
+		<debrisType>		1		</debrisType>
+		<cost>				250		</cost>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			1250		</cost>
+		</unlock>
+	</food>
+	
+	<food>
+		<id> 				3		</id>
+		<name>				RPill	</name>
+		<graphic>			4 		</graphic>
+		<radius>			5		</radius>
+		<life>				0.5		</life>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		10		</debrisCount>
+		<debrisType>		2		</debrisType>
+		<cost>				500		</cost>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			2500		</cost>
+		</unlock>
+	</food>
+	
+	<food>
+		<id> 				4		</id>
+		<name>				GoldPill	</name>
+		<graphic>			5 		</graphic>
+		<radius>			5		</radius>
+		<life>				1		</life>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		10		</debrisCount>
+		<debrisType>		4		</debrisType>
+		<cost>				2500	</cost>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			7500		</cost>
+		</unlock>
+	</food>
+	
+	<food>
+		<id> 				5		</id>
+		<name>				Emerald	</name>
+		<graphic>			6 		</graphic>
+		<radius>			5		</radius>
+		<life>				1		</life>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		10		</debrisCount>
+		<debrisType>		0		</debrisType>
+		<cost>				50		</cost>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			15000		</cost>
+		</unlock>
+	</food>
+	
+	<food>
+		<id> 				6		</id>
+		<name>				Ruby	</name>
+		<graphic>			7 		</graphic>
+		<radius>			5		</radius>
+		<life>				1		</life>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		10		</debrisCount>
+		<debrisType>		0		</debrisType>
+		<cost>				50		</cost>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			25000		</cost>
+		</unlock>
+	</food>
+	
+	<food>
+		<id> 				7		</id>
+		<name>				Diamond	</name>
+		<graphic>			8 		</graphic>
+		<radius>			5		</radius>
+		<life>				1		</life>
+		<foodAmount>		100		</foodAmount>
+		<debrisCount>		10		</debrisCount>
+		<debrisType>		0		</debrisType>
+		<cost>				50		</cost>
+		<unlock>
+			<unlocked> 		false 	</unlocked>
+			<cost>			50000		</cost>
 		</unlock>
 	</food>
 	

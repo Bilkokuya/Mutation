@@ -33,12 +33,12 @@
 	<contract>
 		<id> 					0		</id>
 		<next>					10		</next>
-		<title>					BONUS!</title>
+		<title>					SPECIAL!</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		100  	</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				5000	</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
+		<collectionNeeded>		5000  	</collectionNeeded>
+		<boxesNeeded>			25		</boxesNeeded>
+		<payPerBox>				2500	</payPerBox>
+		<bonusPay> 				10000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
 		<description> 			Congratulations Scientist! &#10; You've completed the game, but you can keep re-doing this task as many times as you wish!</description>		
@@ -48,52 +48,52 @@
 	<contract>
 		<id> 					1		</id>
 		<next>					2		</next>
-		<title>					PLAGUE!	</title>
+		<title>					FLOWERS	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
+		<collectionNeeded>		250		</collectionNeeded>
+		<boxesNeeded>			5		</boxesNeeded>
+		<payPerBox>				250		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
-		<description> 			Kill Da Zombees!!</description>		
+		<description> 			Flower for the lady? &#13;&#13;Help grow some pretty pink petunas for the local science center.&#13;&#13;Easy money, and what could go wrong?</description>		
 	</contract>
 	
 	<!-- Help Zombies 1 -->
 	<contract>
 		<id> 					1		</id>
 		<next>					2		</next>
-		<title>					RABBITS	</title>
+		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
+		<payPerBox>				50		</payPerBox>
+		<bonusPay> 				250	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
 		<required>				0		</required>
-		<description> 			Help Da Zumbees!!</description>		
-	</contract>
-	
-	<!-- Research Bananas 1 -->
-	<contract>
-		<id> 					1		</id>
-		<next>					2		</next>
-		<title>					HERPES	</title>
-		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
-		<description> 			BONOONNAAAS!!</description>		
+		<description> 			Something about how I'm smart and made a second quest</description>		
 	</contract>
 	
 	<!-- Kill Zombies 2 -->
 	<contract>
+		<id> 					1		</id>
+		<next>					2		</next>
+		<title>					TESTING	</title>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		500		</collectionNeeded>
+		<boxesNeeded>			1		</boxesNeeded>
+		<payPerBox>				90		</payPerBox>
+		<bonusPay> 				200	</bonusPay>
+		<hasRequirement>		false	</hasRequirement>
+		<required>				0		</required>
+		<description> 			Making these takes more creativity than I thought. I have as much space as twitter gives. It's not cool.</description>		
+	</contract>
+	
+	<!-- FLOWER 2: ACCIDENTALLY ZOMBIES -->
+	<contract>
 		<id> 					2		</id>
 		<next>					3		</next>
-		<title>					HUUMANS	</title>
+		<title>					ZOMBIES	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -101,14 +101,14 @@
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		true	</hasRequirement>
 		<required>				1		</required>
-		<description> 			Kill Da Zombees2!!</description>		
+		<description> 			Who knew - flowers and scientists dont mix. Youve managed to create a swarm of zombies. &#13;Gather some goods to help fund the extermination effort.</description>		
 	</contract>
 	
 	<!-- Help Zombies 2 -->
 	<contract>
 		<id> 					2		</id>
 		<next>					3		</next>
-		<title>					HUUMANS	</title>
+		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -123,7 +123,7 @@
 	<contract>
 		<id> 					2		</id>
 		<next>					3		</next>
-		<title>					HUUMANS	</title>
+		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -137,7 +137,7 @@
 	<contract>
 		<id> 					3		</id>
 		<next>					4		</next>
-		<title>					HUUMANS	</title>
+		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -151,7 +151,7 @@
 	<contract>
 		<id> 					4		</id>
 		<next>					5		</next>
-		<title>					HUUMANS	</title>
+		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -165,7 +165,7 @@
 	<contract>
 		<id> 					5		</id>
 		<next>					6		</next>
-		<title>					HUUMANS	</title>
+		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
