@@ -35,8 +35,8 @@
 		<next>					10		</next>
 		<title>					SPECIAL!</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		5000  	</collectionNeeded>
-		<boxesNeeded>			25		</boxesNeeded>
+		<collectionNeeded>		2000  	</collectionNeeded>
+		<boxesNeeded>			5		</boxesNeeded>
 		<payPerBox>				2500	</payPerBox>
 		<bonusPay> 				10000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
@@ -61,8 +61,8 @@
 	
 	<!-- Help Zombies 1 -->
 	<contract>
-		<id> 					1		</id>
-		<next>					2		</next>
+		<id> 					2		</id>
+		<next>					3		</next>
 		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -76,8 +76,8 @@
 	
 	<!-- Kill Zombies 2 -->
 	<contract>
-		<id> 					1		</id>
-		<next>					2		</next>
+		<id> 					2		</id>
+		<next>					3		</next>
 		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		500		</collectionNeeded>
@@ -91,8 +91,8 @@
 	
 	<!-- FLOWER 2: ACCIDENTALLY ZOMBIES -->
 	<contract>
-		<id> 					2		</id>
-		<next>					3		</next>
+		<id> 					3		</id>
+		<next>					4		</next>
 		<title>					ZOMBIES	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -106,8 +106,8 @@
 	
 	<!-- Help Zombies 2 -->
 	<contract>
-		<id> 					2		</id>
-		<next>					3		</next>
+		<id> 					3		</id>
+		<next>					4		</next>
 		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -121,8 +121,8 @@
 	
 	<!-- Research Bananas 2 -->
 	<contract>
-		<id> 					2		</id>
-		<next>					3		</next>
+		<id> 					3		</id>
+		<next>					4		</next>
 		<title>					TESTING	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
@@ -151,7 +151,7 @@
 	<contract>
 		<id> 					4		</id>
 		<next>					5		</next>
-		<title>					TESTING	</title>
+		<title>					BONUS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
@@ -165,7 +165,7 @@
 	<contract>
 		<id> 					5		</id>
 		<next>					6		</next>
-		<title>					TESTING	</title>
+		<title>					BONUS	</title>
 		<graphic>				0		</graphic>
 		<collectionNeeded>		400		</collectionNeeded>
 		<boxesNeeded>			1		</boxesNeeded>
