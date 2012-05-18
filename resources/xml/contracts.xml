@@ -32,11 +32,11 @@
 	<!-- Is hardcoded to be used when no other valid tasks can be found -->
 	<contract>
 		<id> 					0		</id>
-		<next>					10		</next>
+		<next>					11		</next>
 		<title>					SPECIAL!</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		2000  	</collectionNeeded>
-		<boxesNeeded>			5		</boxesNeeded>
+		<collectionNeeded>		1500  	</collectionNeeded>
+		<boxesNeeded>			10		</boxesNeeded>
 		<payPerBox>				2500	</payPerBox>
 		<bonusPay> 				10000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
@@ -44,14 +44,15 @@
 		<description> 			Congratulations Scientist! &#10; You've completed the game, but you can keep re-doing this task as many times as you wish!</description>		
 	</contract>
 	
-	<!-- Kill Zombies 1 -->
+	<!-- SELECTION 1 HAS 1 OPTION -->
+	<!-- Zombie Flowers 1 -->
 	<contract>
 		<id> 					1		</id>
 		<next>					2		</next>
 		<title>					FLOWERS	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		250		</collectionNeeded>
-		<boxesNeeded>			5		</boxesNeeded>
+		<collectionNeeded>		150		</collectionNeeded>
+		<boxesNeeded>			2		</boxesNeeded>
 		<payPerBox>				250		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
 		<hasRequirement>		false	</hasRequirement>
@@ -59,121 +60,125 @@
 		<description> 			Flower for the lady? &#13;&#13;Help grow some pretty pink petunas for the local science center.&#13;&#13;Easy money, and what could go wrong?</description>		
 	</contract>
 	
-	<!-- Help Zombies 1 -->
+	<!-- SECOND SELECTION HAS 2 OPTIONS -->
+	<!-- FLOWER 2.1: ACCIDENTALLY ZOMBIES -->
 	<contract>
 		<id> 					2		</id>
-		<next>					3		</next>
-		<title>					TESTING	</title>
-		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				50		</payPerBox>
-		<bonusPay> 				250	</bonusPay>
-		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
-		<description> 			Something about how I'm smart and made a second quest</description>		
-	</contract>
-	
-	<!-- Kill Zombies 2 -->
-	<contract>
-		<id> 					2		</id>
-		<next>					3		</next>
-		<title>					TESTING	</title>
-		<graphic>				0		</graphic>
-		<collectionNeeded>		500		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				90		</payPerBox>
-		<bonusPay> 				200	</bonusPay>
-		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
-		<description> 			Making these takes more creativity than I thought. I have as much space as twitter gives. It's not cool.</description>		
-	</contract>
-	
-	<!-- FLOWER 2: ACCIDENTALLY ZOMBIES -->
-	<contract>
-		<id> 					3		</id>
 		<next>					4		</next>
 		<title>					ZOMBIES	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
+		<collectionNeeded>		300		</collectionNeeded>
+		<boxesNeeded>			5		</boxesNeeded>
+		<payPerBox>				500		</payPerBox>
+		<bonusPay> 				1200	</bonusPay>
 		<hasRequirement>		true	</hasRequirement>
 		<required>				1		</required>
 		<description> 			Who knew - flowers and scientists dont mix. Youve managed to create a swarm of zombies. &#13;Gather some goods to help fund the extermination effort.</description>		
 	</contract>
 	
-	<!-- Help Zombies 2 -->
+	<!-- FLOWERS 2.2: HELP THE ZOMBIES -->
 	<contract>
 		<id> 					3		</id>
 		<next>					4		</next>
-		<title>					TESTING	</title>
+		<title>					BRIIAANS	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
+		<collectionNeeded>		250		</collectionNeeded>
+		<boxesNeeded>			7		</boxesNeeded>
+		<payPerBox>				350		</payPerBox>
+		<bonusPay> 				1500	</bonusPay>
 		<hasRequirement>		true	</hasRequirement>
-		<required>				2		</required>
-		<description> 			Help Da Zumbees2!!</description>		
+		<required>				1		</required>
+		<description> 			What's with all this zombie prejudice? Why can't we live together peacfully? &#13; Help the zombies by developing a Soy Based Brain product.</description>		
 	</contract>
 	
-	<!-- Research Bananas 2 -->
-	<contract>
-		<id> 					3		</id>
-		<next>					4		</next>
-		<title>					TESTING	</title>
-		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		true	</hasRequirement>
-		<required>				3		</required>
-		<description> 			BONOONNAAAS2!!</description>		
-	</contract>
-	
-	<contract>
-		<id> 					3		</id>
-		<next>					4		</next>
-		<title>					TESTING	</title>
-		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
-		<description> 			Bonues1!!</description>		
-	</contract>
-	
+	<!-- SELECTION 3-->
+	<!-- If zombies were killed  -->
 	<contract>
 		<id> 					4		</id>
 		<next>					5		</next>
-		<title>					BONUS	</title>
+		<title>					VICTORY	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
-		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
-		<description> 			Bonues2!!</description>		
+		<collectionNeeded>		450		</collectionNeeded>
+		<boxesNeeded>			15		</boxesNeeded>
+		<payPerBox>				750		</payPerBox>
+		<bonusPay> 				2000	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				2		</required>
+		<description> 			Congratulations! Thanks to your scientific effort, the zomies are back in their graves. &#13; Sounds like time for a celebration.</description>		
 	</contract>
 	
+	<!-- If zombies were saved  -->
+	<contract>
+		<id> 					4		</id>
+		<next>					5		</next>
+		<title>					FRIENDS	</title>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		350		</collectionNeeded>
+		<boxesNeeded>			13		</boxesNeeded>
+		<payPerBox>				900		</payPerBox>
+		<bonusPay> 				2500	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				3		</required>
+		<description> 			Congratulations! The world has found common group with the zombies in equal hate of soy substitutes. &#133; Sounds like time for a celebration.</description>		
+	</contract>
+	
+	<!-- SELECTION 3-->
+	<!-- Bonus Missions  -->
 	<contract>
 		<id> 					5		</id>
 		<next>					6		</next>
-		<title>					BONUS	</title>
+		<title>					RABBITS	</title>
 		<graphic>				0		</graphic>
-		<collectionNeeded>		400		</collectionNeeded>
-		<boxesNeeded>			1		</boxesNeeded>
-		<payPerBox>				333		</payPerBox>
+		<collectionNeeded>		450		</collectionNeeded>
+		<boxesNeeded>			3		</boxesNeeded>
+		<payPerBox>				500		</payPerBox>
 		<bonusPay> 				1000	</bonusPay>
-		<hasRequirement>		false	</hasRequirement>
-		<required>				0		</required>
-		<description> 			Bonues3!!</description>		
+		<hasRequirement>		true	</hasRequirement>
+		<required>				4		</required>
+		<description> 			After the zombie problems subsided; it looks like the next menice is unfolding. &#13; Help send carrots to feed the local rabbits.</description>		
+	</contract>
+	<!-- Bonus Missions  -->
+	<contract>
+		<id> 					6		</id>
+		<next>					7		</next>
+		<title>					FLOWERS	</title>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		650		</collectionNeeded>
+		<boxesNeeded>			9		</boxesNeeded>
+		<payPerBox>				800		</payPerBox>
+		<bonusPay> 				2750	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				4		</required>
+		<description> 			Learning from your mistakes, it might be best just to order in the flowers this time. &#13; Get collecting and send off for some delivered flowers.</description>		
+	</contract>
+	<!-- Bonus Missions  -->
+	<contract>
+		<id> 					7		</id>
+		<next>					8		</next>
+		<title>					SCIENCE	</title>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		800		</collectionNeeded>
+		<boxesNeeded>			15		</boxesNeeded>
+		<payPerBox>				400		</payPerBox>
+		<bonusPay> 				9500	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				4		</required>
+		<description> 			Apparently being a scientist means doing work occasionally. &#13; Get working on some science!</description>		
+	</contract>
+	
+	<!-- Bonus Missions  -->
+	<contract>
+		<id> 					9		</id>
+		<next>					10		</next>
+		<title>					MOVIES	</title>
+		<graphic>				0		</graphic>
+		<collectionNeeded>		1000		</collectionNeeded>
+		<boxesNeeded>			17		</boxesNeeded>
+		<payPerBox>				500		</payPerBox>
+		<bonusPay> 				18500	</bonusPay>
+		<hasRequirement>		true	</hasRequirement>
+		<required>				4		</required>
+		<description> 			You might not be the scientist Hollywood deserves, but you're the one it needs. &#13; Go help science up some moviees!</description>		
 	</contract>
 	
 </data>
