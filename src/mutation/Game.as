@@ -108,6 +108,8 @@ package mutation
 			if (!contract) {
 				Main.isPaused = true;
 				contractSelector.visible = true;
+			}else {
+				Main.isPaused = false;
 			}
 			
 			ui.update();
@@ -213,9 +215,11 @@ package mutation
 		//	Adds 1000 money when you hit the space bar
 		private function onKeyDown(e:KeyboardEvent):void
 		{
+			/* Debugging key for getting money fast. Removed for release.
 			if (e.keyCode == Keyboard.SPACE) {
 				money += 1000;
-			}else if ((e.keyCode == Keyboard.ESCAPE)  ||(e.keyCode == Keyboard.END)){
+			}*/
+			if ((e.keyCode == Keyboard.ESCAPE)  ||(e.keyCode == Keyboard.END)){
 				if (Main.isPaused) {
 					stage.dispatchEvent(new MutationEvent(MutationEvent.UNPAUSE));
 				}else {
@@ -255,6 +259,7 @@ package mutation
 			graphics.endFill();
 		}
 		
+		// Accessor for getting the total bacteria currently in game
 		public function get bacteriaCount():int
 		{
 			var count:int = 0;
@@ -264,6 +269,7 @@ package mutation
 			return count;
 		}
 		
+		//	Gets the save-token object for the entire game
 		public function getToken():Object
 		{
 			var testtubesTokens:Array		=	new Array();
@@ -283,6 +289,7 @@ package mutation
 			return token;
 		}
 		
+		//	Rebuilds the game from an existing save token.
 		public function buildFromToken(token:Object):void
 		{
 			this.money = token.money;
