@@ -132,11 +132,11 @@
 		<name>				Emerald	</name>
 		<graphic>			6 		</graphic>
 		<radius>			5		</radius>
-		<life>				1		</life>
+		<life>				20		</life>
 		<foodAmount>		100		</foodAmount>
-		<debrisCount>		10		</debrisCount>
+		<debrisCount>		3		</debrisCount>
 		<debrisType>		0		</debrisType>
-		<cost>				50		</cost>
+		<cost>				250		</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			15000		</cost>
@@ -148,11 +148,11 @@
 		<name>				Ruby	</name>
 		<graphic>			7 		</graphic>
 		<radius>			5		</radius>
-		<life>				1		</life>
-		<foodAmount>		100		</foodAmount>
-		<debrisCount>		10		</debrisCount>
+		<life>				30		</life>
+		<foodAmount>		250		</foodAmount>
+		<debrisCount>		5		</debrisCount>
 		<debrisType>		0		</debrisType>
-		<cost>				50		</cost>
+		<cost>				500		</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			25000		</cost>
@@ -164,11 +164,11 @@
 		<name>				Diamond	</name>
 		<graphic>			8 		</graphic>
 		<radius>			5		</radius>
-		<life>				1		</life>
-		<foodAmount>		100		</foodAmount>
+		<life>				60		</life>
+		<foodAmount>		500		</foodAmount>
 		<debrisCount>		10		</debrisCount>
 		<debrisType>		0		</debrisType>
-		<cost>				50		</cost>
+		<cost>				750		</cost>
 		<unlock>
 			<unlocked> 		false 	</unlocked>
 			<cost>			50000		</cost>
